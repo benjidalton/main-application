@@ -1,14 +1,15 @@
 <script setup>
+
+import Table from '@/components/Table.vue';
 // import TopNavBar from './components/TopNavBar.vue'
+
 </script>
 
 <template>
-	<v-app id="app">
-		<div id="sticky-nav">
-			<!-- <TopNavBar /> -->
-		</div>
-		<router-view />
-	</v-app>
+	<v-toolbar></v-toolbar>
+		<v-sheet>
+			<Table />
+		</v-sheet>
 </template>
 
 

@@ -9,8 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "pinia": "^2.1.7",
-    "vue": "^3.4.29"
+    "vite-plugin-vuetify": "^2.0.4",
+    "vue": "^3.4.29",
+    "vue-router": "^4.4.5",
+    "vuetify": "^3.7.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
