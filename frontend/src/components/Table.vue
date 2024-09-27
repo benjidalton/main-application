@@ -38,7 +38,7 @@ function toggleDialog() {
 	<v-col cols="12" style="max-width: 80%; margin: auto; padding-top: 100px;" >
 		<v-card>
 			<TableToolbar 
-				title="Nibba title" 
+				title="Fake title" 
 			/>
 
 			<v-data-table

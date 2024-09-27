@@ -6,10 +6,9 @@ import Table from '@/components/Table.vue';
 </script>
 
 <template>
-	<v-toolbar></v-toolbar>
-		<v-sheet>
-			<Table />
-		</v-sheet>
+	<v-sheet>
+		<Table />
+	</v-sheet>
 </template>
 
 

@@ -1,11 +1,11 @@
 <script setup>
-// import TopNavBar from './components/TopNavBar.vue'
+import TopNavBar from './components/TopNavBar.vue'
 </script>
 
 <template>
 	<v-app id="app">
 		<div id="sticky-nav">
-			<!-- <TopNavBar /> -->
+			<TopNavBar />
 		</div>
 		<router-view />
 	</v-app>

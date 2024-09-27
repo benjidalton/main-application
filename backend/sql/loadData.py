@@ -1,0 +1,1 @@
+GET_TEAM_NAMES = """ SELECT teamName FROM teams """
