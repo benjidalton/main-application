@@ -1,13 +1,6 @@
 <script setup>
 import { ref, computed, onMounted  } from 'vue';
 
-const active = ref(false);
-const buttonColor = ref("#0c0c0e");
-
-const toggle = () => {
-	active.value = !active.value;
-};
-
 </script>
 
 <template>

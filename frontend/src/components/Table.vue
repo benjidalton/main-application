@@ -1,20 +1,17 @@
 <script setup>
 import { ref, watch } from 'vue';
 import TableToolbar from './TableToolbar.vue';
+import { teams } from '@/api/getData';
+const currentTeam = ref(null);
+const displayTeamNames = ref(null);
+const displayTeamLogos = ref(null);
 
-const props = defineProps({
-	data: {
-		type: Array,
-		required: true
-	},
-	title: {
-		type: String,
-		required: true
-	},
-	maintenanceTypes: {
-		type: Array,
-		required: true
-	}
+onBeforeMount(() => {
+	// console.log('team names: ', teamNames)
+	console.log('teams in default view', teams)
+	displayTeamNames.value = teams.map(team => team.name)
+
+	console.log('display team names: ', displayTeamNames.value)
 });
 
 const isBusy = ref(false);
@@ -22,7 +19,7 @@ const search = ref('');
 const tableData = ref([]);
 const feedbackErrorMessage = ref('');
 const headers = ref([
-	{ key: 'refName', title: 'Value', align: 'center', sortable: false },
+	{ key: 'refName', title: 'Team Name', align: 'center', sortable: false },
 	{ key: 'actions', title: 'Actions', align: 'center', sortable: false }
 ]);
 
@@ -41,9 +38,9 @@ function toggleDialog() {
 				title="Fake title" 
 			/>
 
-			<v-data-table
+			<!-- <v-data-table
 				:headers="headers"
-				:items="tableData"
+				:items="teams"
 				:items-per-page="10"
 				:search="search"
 				class="elevation-1"
@@ -55,7 +52,9 @@ function toggleDialog() {
 					<tr>
 						<td>
 							<v-text-field
-								v-model="item.text"
+								@click="console.log(item)"
+								
+								:value="item.name"
 								type="text"
 								hide-details
 							/>
@@ -66,6 +65,11 @@ function toggleDialog() {
 								error-messages
 								class="mt-2"
 							/>
+						</td>
+						<td>
+							<v-img :src="item.logoPath">
+
+							</v-img>
 						</td>
 						<td style="width: 10%;">
 							<v-chip
@@ -88,7 +92,7 @@ function toggleDialog() {
 						</v-col>
 					</v-row>
 				</template>
-			</v-data-table>
+			</v-data-table> -->
 		</v-card>
 
 		<!-- <v-dialog

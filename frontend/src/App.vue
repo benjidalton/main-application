@@ -1,5 +1,7 @@
 <script setup>
+import { ref } from 'vue';
 import TopNavBar from './components/TopNavBar.vue'
+
 </script>
 
 <template>

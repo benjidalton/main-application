@@ -9,18 +9,14 @@ import sql.loadData as loadData
 import logging
 _logger = logging.getLogger('app')
 
-
-
 routes = Blueprint('routes', __name__, template_folder='templates')
-print('routes: ', routes)
+
 routeMapping = {
-            "getTeamNames": loadData.GET_TEAM_NAMES,
+            "getTeamsData": loadData.GET_TEAM_DATA,
 		}
 
-@routes.route('/getTeamNames', methods=['GET'])
+@routes.route('/getTeamsData', methods=['GET'])
 #@jwt_required
-def getTeamNames():
-	selectSql = loadData.GET_TEAM_NAMES
-
-	
+def getTeamsData():
+	selectSql = loadData.GET_TEAM_DATA
 	return sql_utility.executeSelectSql((), selectSql)

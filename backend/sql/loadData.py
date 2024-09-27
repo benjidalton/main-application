@@ -1,1 +1,1 @@
-GET_TEAM_NAMES = """ SELECT teamName FROM teams """
+GET_TEAM_DATA = """ SELECT name, league, division, logoName FROM teams """
