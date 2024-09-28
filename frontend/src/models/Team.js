@@ -1,5 +1,6 @@
 export class Team {
-	constructor(name, league, division, logoPath) {
+	constructor(id, name, league, division, logoPath) {
+		this.id = id;
 		this.name = name;
 		this.league = league;
 		this.division  = division;

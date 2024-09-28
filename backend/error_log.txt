@@ -1,0 +1,1030 @@
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Carlos Correa. Continuing to next player.
+No 2024 table found for Carlos Correa.
+No 2024 table found for Nestor Cortes. Continuing to next player.
+No 2024 table found for Nestor Cortes.
+No 2024 table found for Tom Cosgrove. Continuing to next player.
+No 2024 table found for Tom Cosgrove.
+No 2024 table found for Danny Coulombe. Continuing to next player.
+No 2024 table found for Danny Coulombe.
+No 2024 table found for Jake Cousins. Continuing to next player.
+No 2024 table found for Jake Cousins.
+No 2024 table found for Dylan Covey. Continuing to next player.
+No 2024 table found for Dylan Covey.
+No 2024 table found for Colton Cowser. Continuing to next player.
+No 2024 table found for Colton Cowser.
+No 2024 table found for Austin Cox. Continuing to next player.
+No 2024 table found for Austin Cox.
+No 2024 table found for Brandon Crawford. Continuing to next player.
+No 2024 table found for Brandon Crawford.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Carlos Correa. Continuing to next player.
+No 2024 table found for Carlos Correa.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Carlos Correa. Continuing to next player.
+No 2024 table found for Carlos Correa.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Carlos Correa. Continuing to next player.
+No 2024 table found for Carlos Correa.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Carlos Correa. Continuing to next player.
+No 2024 table found for Carlos Correa.
+No 2024 table found for Nestor Cortes. Continuing to next player.
+No 2024 table found for Nestor Cortes.
+No 2024 table found for Tom Cosgrove. Continuing to next player.
+No 2024 table found for Tom Cosgrove.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+Error while processing data for Patrick Corbin: 'NoneType' object has no attribute 'find'
+Error while processing data for Carlos Correa: 'NoneType' object has no attribute 'find'
+Error while processing data for Nestor Cortes: 'NoneType' object has no attribute 'find'
+Error initializing driver for Tom Cosgrove: Message: unknown error: cannot determine loading status
+from target frame detached
+  (Session info: chrome=129.0.6668.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6B1CCB125+29573]
+	(No symbol) [0x00007FF6B1C3FF50]
+	(No symbol) [0x00007FF6B1AFB519]
+	(No symbol) [0x00007FF6B1AE3E8B]
+	(No symbol) [0x00007FF6B1AE1D65]
+	(No symbol) [0x00007FF6B1AE25BF]
+	(No symbol) [0x00007FF6B1AF1669]
+	(No symbol) [0x00007FF6B1B09B8D]
+	(No symbol) [0x00007FF6B1B0F71A]
+	(No symbol) [0x00007FF6B1AE2D24]
+	(No symbol) [0x00007FF6B1B096DB]
+	(No symbol) [0x00007FF6B1B98A01]
+	(No symbol) [0x00007FF6B1B770A3]
+	(No symbol) [0x00007FF6B1B412DF]
+	(No symbol) [0x00007FF6B1B42441]
+	GetHandleVerifier [0x00007FF6B1FFC76D+3377613]
+	GetHandleVerifier [0x00007FF6B2047B67+3685831]
+	GetHandleVerifier [0x00007FF6B203CF8B+3641835]
+	GetHandleVerifier [0x00007FF6B1D8B2A6+816390]
+	(No symbol) [0x00007FF6B1C4B25F]
+	(No symbol) [0x00007FF6B1C47084]
+	(No symbol) [0x00007FF6B1C47220]
+	(No symbol) [0x00007FF6B1C3607F]
+	BaseThreadInitThunk [0x00007FF9739E257D+29]
+	RtlUserThreadStart [0x00007FF974C6AF28+40]
+
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Carlos Correa. Continuing to next player.
+No 2024 table found for Carlos Correa.
+No 2024 table found for Nestor Cortes. Continuing to next player.
+No 2024 table found for Nestor Cortes.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Patrick Corbin. Continuing to next player.
+No 2024 table found for Patrick Corbin.
+No 2024 table found for Carlos Correa. Continuing to next player.
+No 2024 table found for Carlos Correa.
+Error while processing data for Patrick Corbin: 'NoneType' object has no attribute 'find'
+Error while processing data for Patrick Corbin: 'NoneType' object has no attribute 'find'
+Error while processing data for Carlos Correa: 'NoneType' object has no attribute 'find'
+Error while processing data for Nestor Cortes: 'NoneType' object has no attribute 'find'
+Error while processing data for Tom Cosgrove: 'NoneType' object has no attribute 'find'
+Error while processing data for Patrick Corbin: 'NavigableString' object has no attribute 'attrs'
+Error while processing data for Patrick Corbin: 'NoneType' object has no attribute 'find'
+Error while processing data for Patrick Corbin: 'NoneType' object has no attribute 'find'
+No valid data found for Patrick Corbin.
+No valid data found for Patrick Corbin.
+Error while processing data for Patrick Corbin: free variable 'ignoreColumns' referenced before assignment in enclosing scope
+No valid data found for Patrick Corbin.
+Error while processing data for Patrick Corbin: 'G'
+Error while processing data for Patrick Corbin: name 'dbData' is not defined
+Error while processing data for Patrick Corbin: 'gamesPlayedPitcher'
+Error initializing driver for Dylan Covey: 'NoneType' object has no attribute 'get'
+No 2024 table found for Dylan Covey. Continuing to next player.
+No 2024 table found for Dylan Covey.
+No 2024 table found for Dylan Covey. Continuing to next player.
+No 2024 table found for Dylan Covey.
+No 2024 table found for Austin Cox. Continuing to next player.
+No 2024 table found for Austin Cox.
+No 2024 table found for Kyle Crick. Continuing to next player.
+No 2024 table found for Kyle Crick.
+Error initializing driver for Declan Cronin: Message: target frame detached
+  (failed to check if window was closed: disconnected: not connected to DevTools)
+  (Session info: chrome=129.0.6668.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6382BB125+29573]
+	(No symbol) [0x00007FF63822FF50]
+	(No symbol) [0x00007FF6380EB519]
+	(No symbol) [0x00007FF6380D3E8B]
+	(No symbol) [0x00007FF6380D2DB5]
+	(No symbol) [0x00007FF6380F96DB]
+	(No symbol) [0x00007FF638188A01]
+	(No symbol) [0x00007FF6381670A3]
+	(No symbol) [0x00007FF6381312DF]
+	(No symbol) [0x00007FF638132441]
+	GetHandleVerifier [0x00007FF6385EC76D+3377613]
+	GetHandleVerifier [0x00007FF638637B67+3685831]
+	GetHandleVerifier [0x00007FF63862CF8B+3641835]
+	GetHandleVerifier [0x00007FF63837B2A6+816390]
+	(No symbol) [0x00007FF63823B25F]
+	(No symbol) [0x00007FF638237084]
+	(No symbol) [0x00007FF638237220]
+	(No symbol) [0x00007FF63822607F]
+	BaseThreadInitThunk [0x00007FF9739E257D+29]
+	RtlUserThreadStart [0x00007FF974C6AF28+40]
+
+Error initializing driver for Declan Cronin: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=129.0.6668.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6382BB125+29573]
+	(No symbol) [0x00007FF63822FF50]
+	(No symbol) [0x00007FF6380EB6EA]
+	(No symbol) [0x00007FF6380BFCD5]
+	(No symbol) [0x00007FF63816EF67]
+	(No symbol) [0x00007FF638187FC1]
+	(No symbol) [0x00007FF6381670A3]
+	(No symbol) [0x00007FF6381312DF]
+	(No symbol) [0x00007FF638132441]
+	GetHandleVerifier [0x00007FF6385EC76D+3377613]
+	GetHandleVerifier [0x00007FF638637B67+3685831]
+	GetHandleVerifier [0x00007FF63862CF8B+3641835]
+	GetHandleVerifier [0x00007FF63837B2A6+816390]
+	(No symbol) [0x00007FF63823B25F]
+	(No symbol) [0x00007FF638237084]
+	(No symbol) [0x00007FF638237220]
+	(No symbol) [0x00007FF63822607F]
+	BaseThreadInitThunk [0x00007FF9739E257D+29]
+	RtlUserThreadStart [0x00007FF974C6AF28+40]
+
+No 2024 table found for Tyler Danish. Continuing to next player.
+No 2024 table found for Tyler Danish.
+No 2024 table found for Hagen Danner. Continuing to next player.
+No 2024 table found for Hagen Danner.
+No 2024 table found for Tucker Davidson. Continuing to next player.
+No 2024 table found for Tucker Davidson.
+No 2024 table found for Zach Davies. Continuing to next player.
+No 2024 table found for Zach Davies.
+No 2024 table found for Brendon Davis. Continuing to next player.
+No 2024 table found for Brendon Davis.
+No 2024 table found for Jonathan Davis. Continuing to next player.
+No 2024 table found for Jonathan Davis.
+No 2024 table found for Alex De Goti. Continuing to next player.
+No 2024 table found for Alex De Goti.
+No 2024 table found for Yerry De Los Santos. Continuing to next player.
+No 2024 table found for Yerry De Los Santos.
+No 2024 table found for Miguel Del Pozo. Continuing to next player.
+No 2024 table found for Miguel Del Pozo.
+No 2024 table found for Anthony DeSclafani. Continuing to next player.
+No 2024 table found for Anthony DeSclafani.
+No 2024 table found for Jordan Diaz. Continuing to next player.
+No 2024 table found for Jordan Diaz.
+No 2024 table found for Yusniel Diaz. Continuing to next player.
+No 2024 table found for Yusniel Diaz.
+No 2024 table found for Wilmer Difo. Continuing to next player.
+No 2024 table found for Wilmer Difo.
+No 2024 table found for Jeter Downs. Continuing to next player.
+No 2024 table found for Jeter Downs.
+No 2024 table found for Tommy Doyle. Continuing to next player.
+No 2024 table found for Tommy Doyle.
+No 2024 table found for Hunter Dozier. Continuing to next player.
+No 2024 table found for Hunter Dozier.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+				                  VALUES (436, '1', '0', '1.000', '2.25', '2', '0', '0', '0', '0', '0', '4.0', '2', '1', '1', '1', '1', '0', '3', '0', '0', '0', '15', '201', '5.67', '0.750', '4.5', '2.3', '2.3', '6.8', '3.00')
+ failed for Daniel Duarte - 436: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+				                  VALUES (439, '1', '0', '1.000', '5.00', '9', '0', '0', '0', '0', '0', '9.0', '7', '5', '5', '0', '8', '0', '10', '1', '0', '0', '42', '88', '3.94', '1.667', '7.0', '0.0', '8.0', '10.0', '1.25')
+ failed for Tyler Duffey - 439: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Danny Duffy. Continuing to next player.
+No 2024 table found for Danny Duffy.
+No 2024 table found for Robert Dugger. Continuing to next player.
+No 2024 table found for Robert Dugger.
+No 2024 table found for Jon Duplantier. Continuing to next player.
+No 2024 table found for Jon Duplantier.
+No 2024 table found for Nate Eaton. Continuing to next player.
+No 2024 table found for Nate Eaton.
+No 2024 table found for Cam Eden. Continuing to next player.
+No 2024 table found for Cam Eden.
+No 2024 table found for Seth Elledge. Continuing to next player.
+No 2024 table found for Seth Elledge.
+No 2024 table found for Chris Ellis. Continuing to next player.
+No 2024 table found for Chris Ellis.
+No 2024 table found for Drew Ellis. Continuing to next player.
+No 2024 table found for Drew Ellis.
+No 2024 table found for Edwin Escobar. Continuing to next player.
+No 2024 table found for Edwin Escobar.
+No 2024 table found for Phillip Evans. Continuing to next player.
+No 2024 table found for Phillip Evans.
+Error initializing driver for Alex Faedo: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=129.0.6668.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6382BB125+29573]
+	(No symbol) [0x00007FF63822FF50]
+	(No symbol) [0x00007FF6380EB6EA]
+	(No symbol) [0x00007FF6380BFCD5]
+	(No symbol) [0x00007FF63816EF67]
+	(No symbol) [0x00007FF638187FC1]
+	(No symbol) [0x00007FF6381670A3]
+	(No symbol) [0x00007FF6381312DF]
+	(No symbol) [0x00007FF638132441]
+	GetHandleVerifier [0x00007FF6385EC76D+3377613]
+	GetHandleVerifier [0x00007FF638637B67+3685831]
+	GetHandleVerifier [0x00007FF63862CF8B+3641835]
+	GetHandleVerifier [0x00007FF63837B2A6+816390]
+	(No symbol) [0x00007FF63823B25F]
+	(No symbol) [0x00007FF638237084]
+	(No symbol) [0x00007FF638237220]
+	(No symbol) [0x00007FF63822607F]
+	BaseThreadInitThunk [0x00007FF9739E257D+29]
+	RtlUserThreadStart [0x00007FF974C6AF28+40]
+
+No 2024 table found for Luke Farrell. Continuing to next player.
+No 2024 table found for Luke Farrell.
+No 2024 table found for Angel Felipe. Continuing to next player.
+No 2024 table found for Angel Felipe.
+No 2024 table found for Wander Franco. Continuing to next player.
+No 2024 table found for Wander Franco.
+No 2024 table found for Paul Fry. Continuing to next player.
+No 2024 table found for Paul Fry.
+No 2024 table found for Shintaro Fujinami. Continuing to next player.
+No 2024 table found for Shintaro Fujinami.
+No 2024 table found for Michael Fulmer. Continuing to next player.
+No 2024 table found for Michael Fulmer.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+				                  VALUES (538, '1', '0', '1.000', '6.49', '27', '0', '6', '0', '0', '1', '34.2', '41', '26', '25', '4', '15', '0', '32', '5', '1', '4', '161', '64', '4.55', '1.615', '10.6', '1.0', '3.9', '8.3', '2.13')
+ failed for Kody Funderburk - 538: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Matt Gage. Continuing to next player.
+No 2024 table found for Matt Gage.
+No 2024 table found for Dérmis García. Continuing to next player.
+No 2024 table found for Dérmis García.
+No 2024 table found for Leury García. Continuing to next player.
+No 2024 table found for Leury García.
+No 2024 table found for Luis Garcia. Continuing to next player.
+No 2024 table found for Luis Garcia.
+No 2024 table found for Rico Garcia. Continuing to next player.
+No 2024 table found for Rico Garcia.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+				                  VALUES (558, '3', '0', '1.000', '3.46', '39', '0', '8', '0', '0', '5', '39.0', '23', '15', '15', '6', '12', '3', '49', '2', '0', '1', '153', '116', '3.73', '0.897', '5.3', '1.4', '2.8', '11.3', '4.08')
+ failed for Yimi García - 558: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Kyle Garlick. Continuing to next player.
+No 2024 table found for Kyle Garlick.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (562, '8', '5', '.615', '3.18', '52', '0', '13', '0', '0', '4', '56.2', '47', '24', '20', '6', '28', '1', '81', '2', '0', '3', '240', '125', '3.27', '1.324', '7.5', '1.0', '4.4', '12.9', '2.89')
+ failed for Reed Garrett - 562: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+Error initializing driver for Stone Garrett: object of type 'NoneType' has no len()
+Error initializing driver for Mitch Garver: Message: unknown error: cannot determine loading status
+from target frame detached
+  (Session info: chrome=129.0.6668.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6382BB125+29573]
+	(No symbol) [0x00007FF63822FF50]
+	(No symbol) [0x00007FF6380EB519]
+	(No symbol) [0x00007FF6380D3E8B]
+	(No symbol) [0x00007FF6380D1D65]
+	(No symbol) [0x00007FF6380D25BF]
+	(No symbol) [0x00007FF6380E1988]
+	(No symbol) [0x00007FF6380F9B8D]
+	(No symbol) [0x00007FF6380FF71A]
+	(No symbol) [0x00007FF6380D2D24]
+	(No symbol) [0x00007FF6380F96DB]
+	(No symbol) [0x00007FF638188A01]
+	(No symbol) [0x00007FF6381670A3]
+	(No symbol) [0x00007FF6381312DF]
+	(No symbol) [0x00007FF638132441]
+	GetHandleVerifier [0x00007FF6385EC76D+3377613]
+	GetHandleVerifier [0x00007FF638637B67+3685831]
+	GetHandleVerifier [0x00007FF63862CF8B+3641835]
+	GetHandleVerifier [0x00007FF63837B2A6+816390]
+	(No symbol) [0x00007FF63823B25F]
+	(No symbol) [0x00007FF638237084]
+	(No symbol) [0x00007FF638237220]
+	(No symbol) [0x00007FF63822607F]
+	BaseThreadInitThunk [0x00007FF9739E257D+29]
+	RtlUserThreadStart [0x00007FF974C6AF28+40]
+
+No 2024 table found for Justin Garza. Continuing to next player.
+Error while processing data for Justin Garza: 'NoneType' object has no attribute 'find_all'
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, gamesPlayedBatter, plateAppearances, atBats, runsAllowed, hits, doubles, triples, homeRuns, runsBattedIn, stolenBases, caughtStealing, walks, strikeOuts, battingAverage, onBasePercentage, sluggingPercentage, obpPlusSlugPercentage, adjustedOpsPlus, totalBases, doublePlays, hitByPitch, sacrificeHits, sacrificeFlies, intentialWalks, position)
+					                  VALUES (564, '113', '430', '367', '37', '63', '17', '0', '15', '51', '0', '0', '53', '133', '.172', '.286', '.341', '.627', '85', '125', '9', '7', '0', '3', '0', 'D2/H')
+ failed for Mitch Garver - 564: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Justin Garza. Continuing to next player.
+Error while processing data for Justin Garza: 'NoneType' object has no attribute 'find_all'
+Error initializing driver for Justin Garza: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+Error initializing driver for Mickey Gasper: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (567, '2', '0', '1.000', '2.57', '5', '5', '0', '0', '0', '0', '28.0', '28', '9', '8', '2', '1', '0', '16', '3', '0', '0', '114', '165', '3.38', '1.036', '9.0', '0.6', '0.3', '5.1', '16.00')
+ failed for Robert Gasser - 567: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (567, '2', '0', '1.000', '2.57', '5', '5', '0', '0', '0', '0', '28.0', '28', '9', '8', '2', '1', '0', '16', '3', '0', '0', '114', '165', '3.38', '1.036', '9.0', '0.6', '0.3', '5.1', '16.00')
+ failed for Robert Gasser - 567: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (567, '2', '0', '1.000', '2.57', '5', '5', '0', '0', '0', '0', '28.0', '28', '9', '8', '2', '1', '0', '16', '3', '0', '0', '114', '165', '3.38', '1.036', '9.0', '0.6', '0.3', '5.1', '16.00')
+ failed for Robert Gasser - 567: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+Error initializing driver for Robert Gasser: Message: Service C:\Users\benja\.cache\selenium\chromedriver\win64\129.0.6668.70\chromedriver.exe unexpectedly exited. Status code was: 3221225786
+
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (568, '14', '11', '.560', '3.83', '31', '31', '0', '2', '1', '0', '181.0', '165', '86', '77', '20', '56', '0', '162', '2', '2', '3', '756', '105', '3.77', '1.221', '8.2', '1.0', '2.8', '8.1', '2.89')
+ failed for Kevin Gausman - 568: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Joey Gerber. Continuing to next player.
+No 2024 table found for Joey Gerber.
+No 2024 table found for Ken Giles. Continuing to next player.
+No 2024 table found for Ken Giles.
+No 2024 table found for Lucas Giolito. Continuing to next player.
+No 2024 table found for Lucas Giolito.
+No 2024 table found for Sawyer Gipson-Long. Continuing to next player.
+No 2024 table found for Sawyer Gipson-Long.
+No 2024 table found for Chris Gittens. Continuing to next player.
+No 2024 table found for Chris Gittens.
+No 2024 table found for Mychal Givens. Continuing to next player.
+No 2024 table found for Mychal Givens.
+No 2024 table found for José Godoy. Continuing to next player.
+No 2024 table found for José Godoy.
+No 2024 table found for Stephen Gonsalves. Continuing to next player.
+No 2024 table found for Stephen Gonsalves.
+No 2024 table found for Tony Gonsolin. Continuing to next player.
+No 2024 table found for Tony Gonsolin.
+No 2024 table found for Erik González. Continuing to next player.
+No 2024 table found for Erik González.
+No 2024 table found for Luis González. Continuing to next player.
+No 2024 table found for Luis González.
+No 2024 table found for Oscar González. Continuing to next player.
+No 2024 table found for Oscar González.
+No 2024 table found for Trevor Gott. Continuing to next player.
+No 2024 table found for Trevor Gott.
+No 2024 table found for Kendall Graveman. Continuing to next player.
+No 2024 table found for Kendall Graveman.
+No 2024 table found for Conner Greene. Continuing to next player.
+No 2024 table found for Conner Greene.
+No 2024 table found for Shane Greene. Continuing to next player.
+No 2024 table found for Shane Greene.
+No 2024 table found for Jordan Groshans. Continuing to next player.
+No 2024 table found for Jordan Groshans.
+No 2024 table found for Robert Gsellman. Continuing to next player.
+No 2024 table found for Robert Gsellman.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (632, '3', '0', '1.000', '0.90', '16', '0', '3', '0', '0', '0', '20.0', '9', '2', '2', '0', '2', '0', '11', '2', '0', '0', '70', '459', '2.67', '0.550', '4.1', '0.0', '0.9', '5.0', '5.50')
+ failed for Sean Guenther - 632: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Tayron Guerrero. Continuing to next player.
+No 2024 table found for Tayron Guerrero.
+No 2024 table found for Dalton Guthrie. Continuing to next player.
+No 2024 table found for Dalton Guthrie.
+No 2024 table found for Ronald Guzmán. Continuing to next player.
+No 2024 table found for Ronald Guzmán.
+No 2024 table found for Jake Hager. Continuing to next player.
+No 2024 table found for Jake Hager.
+No 2024 table found for Jesse Hahn. Continuing to next player.
+No 2024 table found for Jesse Hahn.
+No 2024 table found for Darick Hall. Continuing to next player.
+No 2024 table found for Darick Hall.
+No 2024 table found for Caleb Hamilton. Continuing to next player.
+No 2024 table found for Caleb Hamilton.
+No 2024 table found for Hobie Harris. Continuing to next player.
+No 2024 table found for Hobie Harris.
+No 2024 table found for Heath Hembree. Continuing to next player.
+No 2024 table found for Heath Hembree.
+No 2024 table found for Liam Hendriks. Continuing to next player.
+No 2024 table found for Liam Hendriks.
+No 2024 table found for Payton Henry. Continuing to next player.
+No 2024 table found for Payton Henry.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (693, '2', '0', '1.000', '3.07', '14', '0', '6', '0', '0', '0', '14.2', '10', '6', '5', '0', '9', '1', '19', '0', '0', '1', '62', '139', '2.42', '1.295', '6.1', '0.0', '5.5', '11.7', '2.11')
+ failed for Daysbel Hernández - 693: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Elier Hernandez. Continuing to next player.
+No 2024 table found for Elier Hernandez.
+No 2024 table found for Yonny Hernández. Continuing to next player.
+No 2024 table found for Yonny Hernández.
+Error initializing driver for Tim Herrin: Message: disconnected: not connected to DevTools
+  (failed to check if window was closed: disconnected: not connected to DevTools)
+  (Session info: chrome=129.0.6668.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6382BB125+29573]
+	(No symbol) [0x00007FF63822FF50]
+	(No symbol) [0x00007FF6380EB6EA]
+	(No symbol) [0x00007FF6380D2BAC]
+	(No symbol) [0x00007FF6380D2A70]
+	(No symbol) [0x00007FF6380EE0B1]
+	(No symbol) [0x00007FF638187FE9]
+	(No symbol) [0x00007FF6381670A3]
+	(No symbol) [0x00007FF6381312DF]
+	(No symbol) [0x00007FF638132441]
+	GetHandleVerifier [0x00007FF6385EC76D+3377613]
+	GetHandleVerifier [0x00007FF638637B67+3685831]
+	GetHandleVerifier [0x00007FF63862CF8B+3641835]
+	GetHandleVerifier [0x00007FF63837B2A6+816390]
+	(No symbol) [0x00007FF63823B25F]
+	(No symbol) [0x00007FF638237084]
+	(No symbol) [0x00007FF638237220]
+	(No symbol) [0x00007FF63822607F]
+	BaseThreadInitThunk [0x00007FF9739E257D+29]
+	RtlUserThreadStart [0x00007FF974C6AF28+40]
+
+No 2024 table found for Codi Heuer. Continuing to next player.
+No 2024 table found for Codi Heuer.
+No 2024 table found for P.J. Higgins. Continuing to next player.
+No 2024 table found for P.J. Higgins.
+No 2024 table found for Garrett Hill. Continuing to next player.
+No 2024 table found for Garrett Hill.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (717, '4', '0', '1.000', '3.41', '61', '0', '15', '0', '0', '0', '66.0', '77', '32', '25', '2', '19', '2', '30', '2', '0', '0', '288', '121', '3.60', '1.455', '10.5', '0.3', '2.6', '4.1', '1.58')
+ failed for Tim Hill - 717: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Jordan Holloway. Continuing to next player.
+No 2024 table found for Jordan Holloway.
+No 2024 table found for TJ Hopkins. Continuing to next player.
+No 2024 table found for TJ Hopkins.
+No 2024 table found for Wei-Chieh Huang. Continuing to next player.
+No 2024 table found for Wei-Chieh Huang.
+No 2024 table found for Kolton Ingram. Continuing to next player.
+No 2024 table found for Kolton Ingram.
+No 2024 table found for Zach Jackson. Continuing to next player.
+No 2024 table found for Zach Jackson.
+No 2024 table found for Josh James. Continuing to next player.
+No 2024 table found for Josh James.
+No 2024 table found for Drey Jameson. Continuing to next player.
+No 2024 table found for Drey Jameson.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (795, '2', '0', '1.000', '2.08', '31', '1', '12', '0', '0', '4', '34.2', '26', '8', '8', '1', '14', '0', '33', '4', '0', '4', '142', '203', '3.19', '1.154', '6.8', '0.3', '3.6', '8.6', '2.36')
+ failed for Ben Joyce - 795: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (801, '4', '0', '1.000', '2.69', '24', '6', '4', '0', '0', '1', '67.0', '49', '22', '20', '8', '8', '0', '51', '3', '0', '1', '253', '161', '3.69', '0.851', '6.6', '1.1', '1.1', '6.9', '6.38')
+ failed for Jakob Junis - 801: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Connor Kaiser. Continuing to next player.
+No 2024 table found for Connor Kaiser.
+No 2024 table found for Rob Kaminsky. Continuing to next player.
+No 2024 table found for Rob Kaminsky.
+No 2024 table found for James Kaprielian. Continuing to next player.
+No 2024 table found for James Kaprielian.
+No 2024 table found for Ricky Karcher. Continuing to next player.
+No 2024 table found for Ricky Karcher.
+No 2024 table found for James Karinchak. Continuing to next player.
+No 2024 table found for James Karinchak.
+No 2024 table found for Karl Kauffmann. Continuing to next player.
+No 2024 table found for Karl Kauffmann.
+No 2024 table found for Trevor Kelley. Continuing to next player.
+No 2024 table found for Trevor Kelley.
+No 2024 table found for Brett Kennedy. Continuing to next player.
+No 2024 table found for Brett Kennedy.
+No 2024 table found for Carter Kieboom. Continuing to next player.
+No 2024 table found for Carter Kieboom.
+No 2024 table found for Scott Kingery. Continuing to next player.
+No 2024 table found for Scott Kingery.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (852, '1', '0', '1.000', '11.05', '8', '0', '2', '0', '0', '0', '7.1', '12', '9', '9', '0', '6', '0', '7', '0', '0', '1', '38', '41', '3.71', '2.455', '14.7', '0.0', '7.4', '8.6', '1.17')
+ failed for Will Klein - 852: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Corey Knebel. Continuing to next player.
+No 2024 table found for Corey Knebel.
+No 2024 table found for Reiss Knehr. Continuing to next player.
+No 2024 table found for Reiss Knehr.
+No 2024 table found for Taylor Kohlwey. Continuing to next player.
+No 2024 table found for Taylor Kohlwey.
+No 2024 table found for Adam Kolarek. Continuing to next player.
+No 2024 table found for Adam Kolarek.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (865, '3', '0', '1.000', '5.21', '42', '0', '12', '0', '0', '0', '46.2', '59', '30', '27', '4', '12', '0', '39', '3', '0', '2', '211', '79', '3.57', '1.521', '11.4', '0.8', '2.3', '7.5', '3.25')
+ failed for Stephen Kolek - 865: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Mark Kolozsvary. Continuing to next player.
+No 2024 table found for Mark Kolozsvary.
+No 2024 table found for Jackson Kowar. Continuing to next player.
+No 2024 table found for Jackson Kowar.
+No 2024 table found for Max Kranick. Continuing to next player.
+No 2024 table found for Max Kranick.
+No 2024 table found for Joey Krehbiel. Continuing to next player.
+No 2024 table found for Joey Krehbiel.
+No 2024 table found for Brooks Kriske. Continuing to next player.
+No 2024 table found for Brooks Kriske.
+No 2024 table found for Travis Lakins Sr.. Continuing to next player.
+No 2024 table found for Travis Lakins Sr..
+No 2024 table found for Jake Lamb. Continuing to next player.
+No 2024 table found for Jake Lamb.
+No 2024 table found for Jimmy Lambert. Continuing to next player.
+No 2024 table found for Jimmy Lambert.
+No 2024 table found for Eric Lauer. Continuing to next player.
+No 2024 table found for Eric Lauer.
+No 2024 table found for Bryan Lavastida. Continuing to next player.
+No 2024 table found for Bryan Lavastida.
+No 2024 table found for Jordan Lawlar. Continuing to next player.
+No 2024 table found for Jordan Lawlar.
+No 2024 table found for Casey Lawrence. Continuing to next player.
+No 2024 table found for Casey Lawrence.
+No 2024 table found for Evan Lee. Continuing to next player.
+No 2024 table found for Evan Lee.
+Error initializing driver for Pedro León: Message: unknown error: cannot determine loading status
+from unknown error: cannot determine loading status
+from disconnected: unable to send message to renderer
+  (Session info: chrome=129.0.6668.70)
+Stacktrace:
+	GetHandleVerifier [0x00007FF6382BB125+29573]
+	(No symbol) [0x00007FF63822FF50]
+	(No symbol) [0x00007FF6380EB6EA]
+	(No symbol) [0x00007FF6380D317C]
+	(No symbol) [0x00007FF6380D30EC]
+	(No symbol) [0x00007FF6380D1861]
+	(No symbol) [0x00007FF6380D25BF]
+	(No symbol) [0x00007FF6380FEE19]
+	(No symbol) [0x00007FF6380F4100]
+	(No symbol) [0x00007FF6380F3FA2]
+	(No symbol) [0x00007FF6380E2355]
+	(No symbol) [0x00007FF6380E1D26]
+	(No symbol) [0x00007FF6380F9B8D]
+	(No symbol) [0x00007FF6380FF71A]
+	(No symbol) [0x00007FF6380D2D24]
+	(No symbol) [0x00007FF6380F96DB]
+	(No symbol) [0x00007FF638188A01]
+	(No symbol) [0x00007FF6381670A3]
+	(No symbol) [0x00007FF6381312DF]
+	(No symbol) [0x00007FF638132441]
+	GetHandleVerifier [0x00007FF6385EC76D+3377613]
+	GetHandleVerifier [0x00007FF638637B67+3685831]
+	GetHandleVerifier [0x00007FF63862CF8B+3641835]
+	GetHandleVerifier [0x00007FF63837B2A6+816390]
+	(No symbol) [0x00007FF63823B25F]
+	(No symbol) [0x00007FF638237084]
+	(No symbol) [0x00007FF638237220]
+	(No symbol) [0x00007FF63822607F]
+	BaseThreadInitThunk [0x00007FF9739E257D+29]
+	RtlUserThreadStart [0x00007FF974C6AF28+40]
+
+No 2024 table found for Sandy León. Continuing to next player.
+No 2024 table found for Sandy León.
+No 2024 table found for Josh Lester. Continuing to next player.
+No 2024 table found for Josh Lester.
+No 2024 table found for Luis Liberato. Continuing to next player.
+No 2024 table found for Luis Liberato.
+No 2024 table found for Jeff Lindgren. Continuing to next player.
+No 2024 table found for Jeff Lindgren.
+No 2024 table found for Andre Lipcius. Continuing to next player.
+No 2024 table found for Andre Lipcius.
+No 2024 table found for Mauricio Llovera. Continuing to next player.
+No 2024 table found for Mauricio Llovera.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (929, '1', '0', '1.000', '0.00', '3', '0', '0', '0', '0', '0', '4.0', '7', '0', '0', '0', '1', '0', '3', '0', '0', '0', '20', NULL, '2.42', '2.000', '15.8', '0.0', '2.3', '6.8', '3.00')
+ failed for Jonathan Loáisiga - 929: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Tim Locastro. Continuing to next player.
+No 2024 table found for Tim Locastro.
+No 2024 table found for Alejo López. Continuing to next player.
+No 2024 table found for Alejo López.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (953, '1', '0', '1.000', '10.80', '8', '0', '2', '0', '0', '0', '11.2', '17', '15', '14', '1', '9', '0', '10', '1', '0', '0', '61', '41', '5.14', '2.229', '13.1', '0.8', '6.9', '7.7', '1.11')
+ failed for Easton Lucas - 953: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Lucas Luetge. Continuing to next player.
+No 2024 table found for Lucas Luetge.
+No 2024 table found for Jordan Luplow. Continuing to next player.
+No 2024 table found for Jordan Luplow.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (963, '2', '0', '1.000', '3.48', '15', '3', '3', '0', '0', '1', '41.1', '27', '17', '16', '6', '12', '0', '36', '4', '0', '0', '165', '122', '4.47', '0.944', '5.9', '1.3', '2.6', '7.8', '3.00')
+ failed for Daniel Lynch IV - 963: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Dixon Machado. Continuing to next player.
+No 2024 table found for Dixon Machado.
+No 2024 table found for Drew Maggi. Continuing to next player.
+No 2024 table found for Drew Maggi.
+No 2024 table found for Trey Mancini. Continuing to next player.
+No 2024 table found for Trey Mancini.
+No 2024 table found for Tucupita Marcano. Continuing to next player.
+No 2024 table found for Tucupita Marcano.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (987, '1', '0', '1.000', '3.86', '16', '0', '4', '0', '0', '0', '23.1', '18', '11', '10', '4', '10', '0', '25', '3', '1', '0', '99', '108', '4.92', '1.200', '6.9', '1.5', '3.9', '9.6', '2.50')
+ failed for Ron Marinaccio - 987: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Michael Mariot. Continuing to next player.
+No 2024 table found for Michael Mariot.
+No 2024 table found for Jake Marisnick. Continuing to next player.
+No 2024 table found for Jake Marisnick.
+No 2024 table found for Corbin Martin. Continuing to next player.
+No 2024 table found for Corbin Martin.
+No 2024 table found for Jason Martin. Continuing to next player.
+No 2024 table found for Jason Martin.
+No 2024 table found for Adrián Martinez. Continuing to next player.
+No 2024 table found for Adrián Martinez.
+No 2024 table found for Mark Mathias. Continuing to next player.
+No 2024 table found for Mark Mathias.
+No 2024 table found for Ronny Mauricio. Continuing to next player.
+No 2024 table found for Ronny Mauricio.
+No 2024 table found for Dustin May. Continuing to next player.
+No 2024 table found for Dustin May.
+No 2024 table found for Mike Mayers. Continuing to next player.
+No 2024 table found for Mike Mayers.
+No 2024 table found for Shane McClanahan. Continuing to next player.
+No 2024 table found for Shane McClanahan.
+No 2024 table found for Lance McCullers Jr.. Continuing to next player.
+No 2024 table found for Lance McCullers Jr..
+No 2024 table found for Easton McGee. Continuing to next player.
+No 2024 table found for Easton McGee.
+No 2024 table found for Kyle McGowin. Continuing to next player.
+No 2024 table found for Kyle McGowin.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (1047, '2', '0', '1.000', '2.40', '3', '2', '1', '0', '0', '0', '15.0', '11', '4', '4', '1', '2', '0', '12', '1', '0', '0', '57', '179', '3.03', '0.867', '6.6', '0.6', '1.2', '7.2', '6.00')
+ failed for Michael McGreevy - 1047: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Brendan McKay. Continuing to next player.
+No 2024 table found for Brendan McKay.
+No 2024 table found for Matt McLain. Continuing to next player.
+No 2024 table found for Matt McLain.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (1060, '2', '0', '1.000', '2.61', '4', '4', '0', '0', '0', '0', '20.2', '16', '6', '6', '2', '2', '0', '16', '1', '0', '0', '80', '146', '3.31', '0.871', '7.0', '0.9', '0.9', '7.0', '8.00')
+ failed for John Means - 1060: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Wade Meckler. Continuing to next player.
+No 2024 table found for Wade Meckler.
+No 2024 table found for Adonis Medina. Continuing to next player.
+No 2024 table found for Adonis Medina.
+No 2024 table found for Erick Mejia. Continuing to next player.
+No 2024 table found for Erick Mejia.
+No 2024 table found for Francisco Mejia. Continuing to next player.
+No 2024 table found for Francisco Mejia.
+No 2024 table found for Óscar Mercado. Continuing to next player.
+No 2024 table found for Óscar Mercado.
+No 2024 table found for Keynan Middleton. Continuing to next player.
+No 2024 table found for Keynan Middleton.
+No 2024 table found for Wyatt Mills. Continuing to next player.
+No 2024 table found for Wyatt Mills.
+No 2024 table found for Calvin Mitchell. Continuing to next player.
+No 2024 table found for Calvin Mitchell.
+No 2024 table found for Nate Mondou. Continuing to next player.
+No 2024 table found for Nate Mondou.
+No 2024 table found for Coco Montes. Continuing to next player.
+No 2024 table found for Coco Montes.
+No 2024 table found for Bryce Montes de Oca. Continuing to next player.
+No 2024 table found for Bryce Montes de Oca.
+No 2024 table found for McKinley Moore. Continuing to next player.
+No 2024 table found for McKinley Moore.
+No 2024 table found for Francisco Morales. Continuing to next player.
+No 2024 table found for Francisco Morales.
+No 2024 table found for Brian Moran. Continuing to next player.
+No 2024 table found for Brian Moran.
+No 2024 table found for Jovani Morán. Continuing to next player.
+No 2024 table found for Jovani Morán.
+No 2024 table found for Dauri Moreta. Continuing to next player.
+No 2024 table found for Dauri Moreta.
+SQL query: 
+INSERT INTO stats (playerId, wins, losses, winLossPercent, earnedRunAvg, gamesPlayedPitcher, gamesStarted, gamesFinished, completeGames, shutouts, saves, inningsPitched, hits, runsAllowed, earnedRuns, homeRuns, walks, intentialWalks, strikeOuts, hitByPitch, balks, wildPitches, battersFaced, adjustedEraPlus, fieldingIndPitching, walksHitsPerNine, hitsPerNine, homerunsPerNine, walksPerNine, strikeoutsPerNine, strikeoutsWalkRatio)
+					                  VALUES (1129, '3', '0', '1.000', '1.93', '32', '0', '9', '0', '0', '0', '42.0', '30', '11', '9', '4', '11', '1', '34', '1', '0', '0', '167', '212', '3.64', '0.976', '6.4', '0.9', '2.4', '7.3', '3.09')
+ failed for Eli Morgan - 1129: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+No 2024 table found for Cody Morris. Continuing to next player.
+No 2024 table found for Cody Morris.
+No 2024 table found for Penn Murfee. Continuing to next player.
+No 2024 table found for Penn Murfee.
+No 2024 table found for Chris Murphy. Continuing to next player.
+No 2024 table found for Chris Murphy.
+No 2024 table found for Símon Muzziotti. Continuing to next player.
+No 2024 table found for Símon Muzziotti.

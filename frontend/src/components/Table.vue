@@ -1,17 +1,21 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onBeforeMount } from 'vue';
 import TableToolbar from './TableToolbar.vue';
 import { teams } from '@/api/getData';
 const currentTeam = ref(null);
 const displayTeamNames = ref(null);
 const displayTeamLogos = ref(null);
 
+const props = defineProps({
+	items: {
+		type: Array
+	}
+})
+
 onBeforeMount(() => {
 	// console.log('team names: ', teamNames)
-	console.log('teams in default view', teams)
-	displayTeamNames.value = teams.map(team => team.name)
+	console.log('teams in default view', props.items)
 
-	console.log('display team names: ', displayTeamNames.value)
 });
 
 const isBusy = ref(false);
@@ -38,9 +42,8 @@ function toggleDialog() {
 				title="Fake title" 
 			/>
 
-			<!-- <v-data-table
-				:headers="headers"
-				:items="teams"
+			 <v-data-table
+				:items="items"
 				:items-per-page="10"
 				:search="search"
 				class="elevation-1"
@@ -48,7 +51,7 @@ function toggleDialog() {
 				<template v-slot:loading>
 					<v-skeleton-loader ></v-skeleton-loader>
 				</template>
-				<template v-slot:item="{ item }">
+				<!-- <template v-slot:item="{ item }">
 					<tr>
 						<td>
 							<v-text-field
@@ -83,7 +86,7 @@ function toggleDialog() {
 						</td>
 					</tr>
 
-				</template>
+				</template> -->
 				<template v-slot:footer>
 					<v-row>
 						<v-col class="d-flex justify-end">
@@ -91,8 +94,8 @@ function toggleDialog() {
 							<v-btn color="error" class="ml-2">Back</v-btn>
 						</v-col>
 					</v-row>
-				</template>
-			</v-data-table> -->
+				</template> 
+			</v-data-table>
 		</v-card>
 
 		<!-- <v-dialog

@@ -26,3 +26,9 @@ pnpm-debug.log*
 /backend/alembic/
 /backend/alembic.ini
 .env
+
+**/__init__.py
+
+**/__pycache__/
+
+**/htmlFiles/

@@ -5,7 +5,7 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 import re
-import blueprints.routes as routes
+from blueprints import routes, llmRoutes
 load_dotenv()
 
 url_tokens = {
@@ -29,9 +29,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 cors = CORS(app, resources={r'*': {'origins': '*'}})
-jwt = JWTManager(app)
 
-app.register_blueprint(routes.routes)
+app.register_blueprint(routes.routes, name='routes')
+app.register_blueprint(llmRoutes.llmRoutes, name='llmRoutes')
 
 
 if __name__ == '__main__':
