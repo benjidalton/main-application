@@ -8,7 +8,6 @@ console.log('baseurl ', baseUrl)
 
 export async function getTeamsData() {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_GET_TEAMS_DATA;
-	console.log('app connector url: ', appConnectorUrl)
 	let teams = [];
 	let responseTeams = []
 	await axios
@@ -46,7 +45,6 @@ export async function getPlayersData() {
 			},
 		})
 		.then((response) => {
-			console.log('players response: ', response)
 			responsePlayers = response.data.items;
 			players = responsePlayers.map(player => {
 				const logoFileName = `${player.teamLogoName}.svg`;

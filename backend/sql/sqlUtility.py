@@ -105,12 +105,7 @@ def executeSelectQuery(query, params):
 	if not isinstance(params, list):
 		params = [params]
 	try:
-		connection = mysql.connector.connect(
-		    host=APP_ACCESS_DB_HOST,
-		    user=APP_ACCESS_DB_USERNAME,
-		    password=APP_ACCESS_DB_PASSWORD,
-		    database=APP_ACCESS_DB_DATABASE
-		)
+		connection = createConnection()
 		cursor = connection.cursor(buffered=True)
 
 		cursor.execute(query, params)

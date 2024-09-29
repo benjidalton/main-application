@@ -32,3 +32,4 @@ pnpm-debug.log*
 **/__pycache__/
 
 **/htmlFiles/
+/backend/error_log.txt

@@ -9,6 +9,9 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from sql.sqlUtility import executeQuery, executeSelectQuery
+
+print(executeQuery)
+
 from .scrapingTables import allColumns
 from customLogging import logErrors
 
@@ -30,8 +33,14 @@ class Player:
 		self.baseballReferenceUrl = baseballReferenceUrl
 		self.currentTeam = ''
 
-players: list[Player] = []
+class Team:
+	def __init__(self, id, name, baseballReferenceUrl) -> None:
+		self.id = id
+		self.name = name
+		self.baseballReferenceUrl = baseballReferenceUrl
 
+players: list[Player] = []
+teams: list[Team] = []
 
 
 # helper functions
@@ -67,35 +76,15 @@ def fetchWithBackoff(url, retries=5):
 				break
 	return None
 
-def prettyPrintHtml(htmlContent, fileName):
-	with open('./htmlFiles/' + fileName, 'w', encoding='utf-8') as file:
+def prettyPrintHtml(htmlContent, fileName, mode = 'w'):
+	with open('./htmlFiles/' + fileName + '.html', mode, encoding='utf-8') as file:
 		file.write(str(htmlContent))
 
-def getTable(driver: webdriver.Chrome, soup: BeautifulSoup, playerName):
-	tableId = 'batting_standard'
-	dataTable = soup.find('tr', {'id': tableId + '.2024'})
-	if dataTable is None:
-		try:
-			tableId = 'pitching_standard'
-			dataTable = soup.find('tr', {'id': tableId + '.2024'})
 
-			if dataTable is None:
-				print(f"No standard table found for {playerName}. Skipping to next player.")
-		except Exception as e:
-			failReason = f"Error finding pitching table for {playerName}: {str(e)}"
-			logErrors(failReason)
-			driver.close()
-
-	if dataTable is None or dataTable.get('id') not in ("batting_standard.2024", "pitching_standard.2024"):
-		failReason = f'No 2024 table found for {playerName}. Continuing to next player.'
-		logErrors(failReason)
-		raise ValueError(f'No 2024 table found for {playerName}.')
-
-	return dataTable, tableId
 
 
 def selectAllPlayersNotInStats():
-	selectQuery = """SELECT * FROM players WHERE id > (SELECT MAX(playerId) FROM stats) """
+	selectQuery = """SELECT * FROM players WHERE id > (SELECT MAX(playerId) FROM playerstats) """
 	# selectQuery = """SELECT *
 	# 				FROM players p
 	# 				WHERE NOT EXISTS (
@@ -255,6 +244,43 @@ def getPlayerTeams():
 	
 	print(f'Data import process completed! Success udpated {numPlayers - failed} entries.')
 
+def getAllTeamsFromDb():
+	selectQuery = """ select * from teams """
+	
+	data = executeSelectQuery(selectQuery, [])
+	return [Team(team['id'], team['name'], team['baseballReferenceUrl']) for team in data['items']]
+
+	
+
+def createTableColumnsString(dbColumns, newTable: bool):
+	if newTable == True: 
+		return ", ".join([' '.join([column['columnName'], column['dataType']]) for column in dbColumns if column['dataType']])
+	else: 
+		
+		return ", ".join([column['columnName'] for column in dbColumns if 'dataType' in column])
+
+def createValuesString(dbData):
+	formattedValues = ["NULL" if value == "" or value is None else f"'{value}'" for value in dbData]
+	return ", ".join(formattedValues)
+
+def createInsertQuery(table, id, idSpecifier, columnDefinitionsSring, valueDefinitionsString):
+		return f"""INSERT INTO {table} ({idSpecifier}, {columnDefinitionsSring})
+					VALUES ({id}, {valueDefinitionsString})"""
+
+def createTable(tableName, columnDefinitionsSring, primaryKeyId):
+	dropTableQuery = f"DROP TABLE IF EXISTS {tableName};"
+	executeQuery(dropTableQuery, [])
+
+	createTableQuery = f"""
+		CREATE TABLE {tableName} (
+			{primaryKeyId} INT PRIMARY KEY, {columnDefinitionsSring}
+		);
+	"""
+	print(createTableQuery	)
+	# print(createTableQuery)
+	# print(createTableQuery)
+	executeQuery(createTableQuery, [])
+
 
 
 def getStandardBattingAndPitchingTables():
@@ -309,7 +335,7 @@ def getStandardBattingAndPitchingTables():
 
 					formattedValues = ["NULL" if value == "" or value is None else f"'{value}'" for value in dbData]
 					valuesString = ", ".join(formattedValues)
-					insertQuery = f"""INSERT INTO stats (playerId, {columnsString})
+					insertQuery = f"""INSERT INTO playerstats (playerId, {columnsString})
 					                  VALUES ({player.id}, {valuesString})"""
 					
 					try:
@@ -367,95 +393,138 @@ def createBattingDataBaseTable(dbColumns):
 	executeQuery(createQuery, [])
 
 
-def createPitchingDataBaseTable(dbColumns):
-	decimalDataType = 'DECIMAL(5, 5)'
-	intDataType = 'SMALLINT(10)'
-	# for column in dbColumns:
-	# 	if column['name'] in ['battingAverage', 'onBase', 'slugging', 'onBasePlusSlugging']:
-	# 		column['dataType'] = decimalDataType
-	# 	if column['name'] in ['gamesPlayed', 'plateAppearances', 'atBats', 'runsScored', 
-	# 							'hits', 'doubles', 'triples', 'homeRuns', 'runsBattedIn', 'stolenBases', 
-	# 							'caughtStealing', 'basesOnBalls', 'strikeouts', 'adjustedOPS', 'totalBases', 'doublePlaysGroundedInto', 
-	# 							'hitByPitch', 'sacrificeHits', 'sacrificeFlies', 'intentionalBasesOnBalls']:
-	# 		column['dataType'] = intDataType
-	# 	if column['name'] == 'position':
-	# 		column['dataType'] = 'TEXT(10)'
-	# print('dbColumns: ', dbColumns)
+def getTeamDataTable():
+	items = getAllTeamsFromDb()
+	desiredDataStatValues = [item.name for item in items]
+	definingDataStat = 'team_name'
+	tableIds = [('table', {'id': 'teams_standard_batting'}), ('table', {'id': 'teams_standard_pitching'})]
+	loggingName = 'all-teams'
+	createNewDatabaseTable = False
+	newTableName = 'teamstats'
+	insertTableName = 'teamstats'
+	idSpecifier = 'teamId'
 
-	with open('output.txt', 'w') as file:
-		file.write('dbColumns: ' + str(dbColumns) + '\n')
-	columnDefinitions = []
-	for column in dbColumns:
-		if column['dataType']:  # Check if dataType is not empty
-			columnDefinitions.append(f"{column['name']} {column['dataType']}")
+	driver, soup = None, None
+	driver, soup = getHtmlContent('https://www.baseball-reference.com/leagues/majors/2024.shtml')
 
-		# Join the column definitions into a single string for the CREATE TABLE statement
-	columnsString = ",\n".join(columnDefinitions)
 	
-	# Create the SQL CREATE TABLE query
-	createQuery = f"""
-		CREATE TABLE pitchingStats (
-			playerId INT PRIMARY KEY, {columnsString}
-		);
-	"""
-	print(createQuery)
-
-	# sqlUtility.executeQuery(createQuery, [])
-
-
-def scrapeTableData(statsInfo, tableData):
-	dbColumns = []
-	dbData = []
-	for stat in statsInfo:
-		findStat = stat['abbr']
-
-		statNameSplitBySpace = stat['name'].split(' ')
-		
-		# if first index of list of sub strings for stat contains '-' 
-		# split by '-', get lower case of first index, capitalize the second index and join the two
-		# ex:  ['On-Base', 'Plus', 'Slugging'] => ['onBase', 'Plus', 'Slugging']
-		firstPart = ''.join([statNameSplitBySpace[0].split('-')[0].lower(), statNameSplitBySpace[0].split('-')[1].capitalize()]) if '-' in statNameSplitBySpace[0] else statNameSplitBySpace[0].lower()
-		secondPart = ''.join(statNameSplitBySpace[1:]) if len(statNameSplitBySpace) > 1 else None
-
-		fullStatName = firstPart + secondPart if secondPart != None else firstPart
-
-		if fullStatName == 'pos':
-			fullStatName = 'position'
-		if fullStatName == 'basesonBalls':
-			fullStatName = 'basesOnBalls'
-		if fullStatName == 'intentionalBasesonBalls':
-			fullStatName = 'intentionalBasesOnBalls'
-
-		formattedStatName = re.sub(r'[+%]$', '', fullStatName)
-		dbColumns.append({'name': formattedStatName, 'dataType': ''})
-		data = tableData.find('td', {'data-stat': findStat}).text
-		if '*' in data:
-			data = "'" + data.split('*')[1].split(r'/')[0] + "'" 
-		dbData.append(data)
-		print(f"Stat {formattedStatName} has a value of {data}")
+	try:
+		allTables = stripDataFromTablesById(tableIds, driver, soup, definingDataStat, desiredDataStatValues, loggingName)
+	except Exception() as e:
+		logErrors(str(e).format(loggingName))
 	
-	# formattedDbColumns = ', '.join(stat['name'] for stat in dbColumns)
-	# formattedDbData =  ', '.join(value for value in dbData)
 
-	# return formattedDbColumns, formattedDbData
+	for item in items:
+		dbColumns = []
+		dbData = []
+		for tableIdx, table in enumerate(allTables):
+			matchingItem = None  
+			for object in table:  
+				if item.name in object: 
+					matchingItem = object[item.name]  
+					
+			ignoreColumns = ['team_name', 'G', 'LOB']
+			repeatColumns = ['H', 'R', 'HR', 'BB', 'IBB', 'SO', 'HBP']
 
-	return dbColumns
+			for key, value in matchingItem.items():
+				if key not in ignoreColumns:
+					if key in repeatColumns and tableIdx != 0:
+						key = key + "Allowed"
+					dbColumns.append(allColumns[key])
+					dbData.append(value)
 
-def scrapeStatsInfo(columns):
-	ignoreColumns = ['Year', 'Awards', 'Age', 'Tm', 'Lg']
-	stats = []
-	for column in columns:
-		if column.attrs['aria-label'] in ignoreColumns:
-			continue
+			print('dbData length:', len(dbData))
+			print('values length: ', len(dbData))
+			if not dbColumns or not dbData:
+				failReason = f"No valid data found for {loggingName}."
+				logErrors(failReason)
+				driver.close()
+
+			columnDefinitionsSring = createTableColumnsString(dbColumns, createNewDatabaseTable)
+			valueDefinitionsString = createValuesString(dbData)
+
+			print(' columnDefinitionsSring len', len(columnDefinitionsSring.split(', ')))
+			print(' columnDefinitionsSring', columnDefinitionsSring.split(', '))
+
+			print(' valueDefinitionsString len', len(valueDefinitionsString.split(', ')))
+			print(' valueDefinitionsString', valueDefinitionsString.split(', '))
+
+		if createNewDatabaseTable == True:	
+			createTable(newTableName, columnDefinitionsSring, idSpecifier)
+
+			break
+		insertQuery = createInsertQuery(insertTableName, item.id, idSpecifier, columnDefinitionsSring, valueDefinitionsString) 
+
+		# print(insertQuery)
 
 		try:
-			statName = column.attrs['aria-label']
-		except KeyError: 
-			statName = 'N/A'
-		
-		statAbbr = column.attrs['data-stat']
-		
-		# find all stat info in header of table
-		stats.append({'name': statName, 'abbr': statAbbr})
-	return stats
+			executeQuery(insertQuery, [])
+		except Exception as e:
+			failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
+			logErrors(failReason)
 
+
+
+def stripDataFromTablesById(tableIds, driver, soup, definingDataStat, desiredDataStatValues, loggingName):
+
+	allTablesData = []
+	for tableIdx, tableId in enumerate(tableIds):
+		tableValues = None
+		try: 
+			dataTable, tableId = getTable(tableId, tableIdx, driver, soup, loggingName)
+		except ValueError as ve:
+			logErrors(str(ve).format(loggingName))
+			# prettyPrintHtml(dataTable, f"datatable{tableIdx + 1}")
+		try:
+			tableValues = stripDataFromTableRows(dataTable, definingDataStat, desiredDataStatValues, loggingName)
+		except ValueError as ve:
+			logErrors(str(ve).format(loggingName))
+
+		if tableValues != None:
+			allTablesData.append(tableValues)
+	return allTablesData
+
+def getTable(tableFindParam: tuple, tableIdx, driver: webdriver.Chrome, soup: BeautifulSoup, loggingName):
+	dataTable = None
+	finalTableId = None
+	try:
+		dataTable = soup.find(*tableFindParam)
+	except Exception as e:
+		failReason = f"Error finding {tableFindParam} table for {loggingName}: {str(e)}"
+		logErrors(failReason)
+		driver.close()
+
+	if dataTable is None:
+		failReason = f'No 2024 table found for {loggingName} in any of the given ID. Skipping to next entry.'
+		logErrors(failReason)
+		raise ValueError(f'No 2024 table found for {loggingName}.')
+
+	return dataTable, finalTableId
+
+
+def stripDataFromTableRows(dataTable, definingDataStat, desiredDataStatValues, loggingName):
+	rows = dataTable.find('tbody').find_all('tr')
+	allValues = []
+	definingValue = None
+	# defining value is something like 'team_name' so you're looking for matching keys of team.name 
+	try: 
+		for idx, row in enumerate(rows):
+			rowData = {}
+			row = row.find_all(['td', 'th']) 
+			for cell in row:
+				dataStat = cell.get('data-stat')
+				if dataStat: 
+					if dataStat == definingDataStat:
+						definingValue = cell.text.strip()
+						if definingValue not in desiredDataStatValues:
+							continue
+					if definingValue not in rowData:
+						rowData[definingValue] = {}
+
+					rowData[definingValue][dataStat] = cell.text.strip() 
+			if rowData:  # Add row data if it's not empty
+				allValues.append(rowData)
+	except ValueError as ve:
+		logErrors(str(ve).format(loggingName))
+
+	return allValues

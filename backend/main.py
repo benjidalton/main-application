@@ -1,6 +1,7 @@
 import time
 import threading
-import scripts.webscraper as webscraper
+import scripts.webscraping.webscraper as webscraper
+import scripts.llm.openAIAgent as openAIAgent
 import sql.sqlUtility as sqlUtility
 
 timeoutEvent = threading.Event()
@@ -49,8 +50,8 @@ def watchdog(func, maxTime):
     functionThread.join()
     watchdog(func, maxTime)
 
-if __name__== "__main__":
-	
+# if __name__== "__main__":
+
 	# watchdog(webscraper.getStandardBattingAndPitchingTables, 15)
-     
-	 sqlUtility.getDatabaseSchema()
+
+	#  sqlUtility.getDatabaseSchema()

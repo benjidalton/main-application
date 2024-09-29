@@ -2,14 +2,14 @@ import axios from "axios";
 import { LLMQuery } from "@/models/LLMQuery";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-export async function fetchLLMResponse(prompt) {
+export async function fetchLLMResponse(prompt, promptType) {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_FETCH_LLM_RESPONSE;
-	console.log('url: ', appConnectorUrl)
-	// console.log(prompt)
+	console.log('url for fetching llm: ', appConnectorUrl)
 	return await axios
 		.get(appConnectorUrl, {
 			params: {
 				prompt: prompt,
+				promptType: promptType,
 				maxTimeToWaitSeconds: 30,
 				maxResultsToReturn: 500,
 			},
@@ -18,7 +18,8 @@ export async function fetchLLMResponse(prompt) {
 			let rawSqlQuery = response.data[0];
 			let formattedSqlQuery = response.data[1];
 			let answerWithContext = response.data[2];
-			return new LLMQuery(rawSqlQuery, formattedSqlQuery, answerWithContext) ;
+			let itemUrls = response.data[3];
+			return new LLMQuery(prompt, rawSqlQuery, formattedSqlQuery, answerWithContext, itemUrls) ;
 		})
 		.catch((error) => {
 			console.log(error);

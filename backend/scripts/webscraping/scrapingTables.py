@@ -45,6 +45,16 @@ standardPitchingColumns = {
 		"abbr": "SO",
 		"dataType": "INT(10)"
 	},
+	"SHO_team": {
+		"columnName": "shutoutsOnTeam",
+		"abbr": "SHOteam",
+		"dataType": "INT(10)"
+	},
+	"SHO_cg": {
+		"columnName": "shutoutsCGTeam",
+		"abbr": "",
+		"dataType": "INT(10)"
+	},
 	"SV": {
 		"columnName": "saves",
 		"abbr": "SV",
@@ -60,7 +70,7 @@ standardPitchingColumns = {
 		"abbr": "H",
 		"dataType": "INT(10)"
 	},
-	"R": {
+	"RAllowed": {
 		"columnName": "runsAllowed",
 		"abbr": "RA",
 		"dataType": "INT(10)"
@@ -149,12 +159,27 @@ standardPitchingColumns = {
 		"columnName": "strikeoutsWalkRatio",
 		"abbr": "kBBRatio",
 		"dataType": "DECIMAL(5, 2)"
+	},
+	"pitchers_used": {
+		"columnName": "pitchersUsed",
+		"abbr": "",
+		"dataType": "INT"
+	},
+	"age_pitch": {
+		"columnName": "avgPitcherAge",
+		"abbr": "agePitcher",
+		"dataType": "decimal(5, 3)"
+	},
+	"runs_allowed_per_game": {
+		"columnName": "runsAllowedPerGame",
+		"abbr": "RAG",
+		"dataType": "DECIMAL(5,3)"
 	}
 }
 
 standardBattingColumns = {
-    "gamesPlayedBatter": {
-        "columnName": "gamesPlayedBatter",
+    "G": {
+        "columnName": "gamesPlayed",
         "abbr": "GP",
         "dataType": "INT(10)"
     },
@@ -277,8 +302,30 @@ standardBattingColumns = {
         "columnName": "position",
         "abbr": "pos",
         "dataType": "VARCHAR(10)"
-    }
+    },
+	"LOB": {
+		"columnName": "runnersLeftOnBase",
+		"abbr": "LOB",
+		"dataType": "INT"
+	},
+	"batters_used": {
+		"columnName": "battersUsed",
+		"abbr": "",
+		"dataType": "INT"
+	},
+	"age_bat": {
+		"columnName": "avgBatterAge",
+		"abbr": "ageBat",
+		"dataType": "decimal(5, 3)"
+	},
+	"runs_per_game": {
+		"columnName": "runsPerGame",
+		"abbr": "RG",
+		"dataType": "DECIMAL(5,3)"
+	}
 }
+
+
 # transformed_columns = {}
 
 # for key, value in standardBattingColumns.items():

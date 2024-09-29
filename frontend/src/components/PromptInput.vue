@@ -5,13 +5,19 @@ const userPrompt = ref('');
 const response = ref('');
 const animationTrigger = ref(false);
 
+const promptOptions = ["DB Query", "Normal"]
+const selectedPromptOption = ref("DB Query");
 const emit = defineEmits(['userPrompt', 'aiResponse']);
 
 function handleUserInput(event, source) {
+	if (source == 'btn') {
+		let defaultPrompt = 'Who are the top 5 home run hitters?';
+		triggerSuccessAnimation();	
+		emit('userPrompt', defaultPrompt, selectedPromptOption.value);
+	}
 	if ((source === 'enter'  && userPrompt.value != '') || (source === 'icon' && userPrompt.value != '')) {
 		triggerSuccessAnimation();	
-		console.log('user prompt right before emitting ', userPrompt.value)
-		emit('userPrompt', userPrompt.value);
+		emit('userPrompt', userPrompt.value, selectedPromptOption.value);
 		userPrompt.value = '';
 	}
 }
@@ -33,7 +39,12 @@ watch(response, (newValue) => {
 
 <template>
 	<v-row dense class="prompt-container">
-		<v-col md="11">
+		<v-btn @click="handleUserInput($event, 'btn')"> Default Prompt </v-btn>
+		<v-col md="3">
+			<v-select v-model="selectedPromptOption" :items="promptOptions"/>
+
+		</v-col>
+			<v-col md="7">
 			<v-text-field 
 				class="user-prompt" 
 				label="What would you like to know about the current MLB season?"
@@ -43,19 +54,19 @@ watch(response, (newValue) => {
 				v-model="userPrompt"
 				@keyup.enter="handleUserInput($event, 'enter')"
 				color="aliceblue"
-			/>
-		</v-col>
-		<v-col md="1">
-			<span class="magic" :class="{ 'is-animated': animationTrigger }" style="--r:15px;" @click="handleUserInput($event, 'icon')">
-				<v-icon icon="mdi-send"/>
-			</span>
+			> 
+			<template #append>
+				<span class="magic" :class="{ 'is-animated': animationTrigger }" @click="handleUserInput($event, 'icon')">
+					<v-icon icon="mdi-send" />
+				</span>
+			</template>
+		</v-text-field>
 		</v-col>
 	</v-row>
 </template>
 
 <style scoped>
 .prompt-container {
-	position: absolute;
 	width: 50%;
 	bottom: 5%;
 	left: 50%; 
@@ -77,10 +88,10 @@ watch(response, (newValue) => {
 
 .magic {
 	display: inline-block;
-	margin-top: 15px;
+	/* margin-top: 15px; */
 	position: relative;
 	--r: 45px;
-	transform: scale(150%);
+	transform: scale(100%);
 	animation: var(--animate);
 }
 

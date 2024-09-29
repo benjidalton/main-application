@@ -5,6 +5,7 @@ import { teams, getPlayersOnTeam } from '@/api/getData';
 // import LLMConversation from '@/components/LLMConversation.vue';
 import { fetchLLMResponse } from '@/api/llmAPI';
 import PromptInput from '@/components/PromptInput.vue';
+import QueryContainer from '@/components/QueryContainer.vue';
 
 const displayTeamNames = ref(null);
 const displayTeamLogos = ref(null);
@@ -30,11 +31,30 @@ async function onTeamChosen(team) {
 }
 
 
-async function onUserPrompt(prompt) {
-	console.log('propmpt in handle user prompt:', prompt)
-	llmQueries.value.push(await fetchLLMResponse(prompt))
-	// console.log('llmMessage: ', llmQuery.value.answerWithContext)
+
+async function onUserPrompt(prompt, promptType) {
+	let query = await fetchLLMResponse(prompt, promptType);
+	formatAnswerWithContext(query)
 }
+
+function formatAnswerWithContext(query) {
+	//
+	// console.log('answer with context: ', answerWithContext)
+	let updatedText = query.answerWithContext;
+	query.itemUrls.forEach(item => {
+		const nameRegex = new RegExp(item.name, 'g'); 
+		const itemLink = `<a href="${item.baseballReferenceUrl}" target="_blank">${item.name}</a>`;
+		
+		// Replace player name with anchor tag link
+		updatedText = updatedText.replace(nameRegex, itemLink);
+		console.log('item: ', updatedText)
+		return updatedText;
+	})
+	query.formattedResponse = updatedText;
+	console.log('query after creating formatted response', query)
+	llmQueries.value.push(query);
+}
+
 
 </script>
 
@@ -43,21 +63,7 @@ async function onUserPrompt(prompt) {
 	<v-sheet>
 		<template v-if="llmQueries.length > 0">
 			<v-row v-for="(query, index) in llmQueries" :key="index"  justify="center" align="center" class="mt-4">
-				<v-col cols="12" md="6" class="text-center">
-					<v-textarea 
-						 
-						v-model="query.rawSqlQuery" 
-						full-width
-						label="Raw SQL Query"
-					></v-textarea>
-				</v-col>
-				<v-col cols="12" md="6" class="text-center">
-					<v-textarea 
-						v-model="query.answerWithContext" 
-						full-width
-						label="Answer with Context"
-					></v-textarea>
-				</v-col>
+				<QueryContainer :query="query"/>
 			</v-row>
 
 		</template>
@@ -166,4 +172,5 @@ async function onUserPrompt(prompt) {
 	border: 2px solid gray;
 	background-color: aliceblue;
 }
+
 </style>

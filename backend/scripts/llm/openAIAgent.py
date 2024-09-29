@@ -40,26 +40,42 @@ def provideContextForDatabaseResponse(originalPrompt, dbResponse):
 	prompt = context + answer + "\n\nCan you write a sentence answering the original prompt with the result from my database"
 	return queryAgent(prompt)
 
-def createSqlQuery(userPrompt):
+def createSqlQuery(userPrompt, promptType):
 
+	if promptType != 'DB Query':
+		print('you didnt  have db query chosen')
+		return
 	dataBaseSchema = getDatabaseSchema()
-
+	
 	schemaPrompt = createSchemaPrompt(dataBaseSchema)
 
 	fullPrompt = schemaPrompt + f"""\n\nHow would you write a MariaDB SQL query to answer this:\n
 										{userPrompt}
-									\nPlease don't return any context, just the query you would use"""
+									\nPlease don't return any context, just the query you would use. Please include any url references from the database if applicable."""
+
 
 	response = queryAgent(fullPrompt)
+	print('r', response)
+
 	formmattedResponse = sqlparse.format(response.content, reindent=True, keyword_case='upper')
 	rawSqlQuery = formmattedResponse.replace('```sql', '').replace('```', '').strip()
-
+	print('raw sql', rawSqlQuery)
 	formattedSqlQuery = f"{rawSqlQuery}" 
 	dbResponse = executeSelectQuery(formattedSqlQuery, [])
+	print('db response: ', dbResponse)
+	itemUrls = [{'name': item['name'], 'baseballReferenceUrl': item['baseballReferenceUrl']} for item in dbResponse['items']]
 
 	formmattedDbResponse = ''
-	for key, value in dbResponse['items'][0].items():
-		formmattedDbResponse += f"{key}: {value}\n"
+	for idx, item in enumerate(dbResponse['items']):
+		for key, value in item.items():
+			if key == 'baseballReferenceUrl':
+				# skip the url so it doesnt display on front end
+				continue
+			formmattedDbResponse += f"{key}: {value}\n"
+		formmattedDbResponse += "\n"
+
+	print('formatted db response', formmattedDbResponse)
 
 	answerWithContext = provideContextForDatabaseResponse(userPrompt, formmattedDbResponse)
-	return rawSqlQuery, formattedSqlQuery, answerWithContext.content
+	print('item urls', itemUrls)
+	return rawSqlQuery, formattedSqlQuery, answerWithContext.content, itemUrls
