@@ -10,7 +10,7 @@ backUpDir = "../../baseball_app_backup"
 notifyUrl = f"http://localhost:5111/notify"  # Notification endpoint
 
 def pullUpdates():
-	# os.chdir(repo_dir)
+	os.chdir(repo_dir)
 	result = subprocess.run(["git", "pull"], capture_output=True, text=True)
 	if result.returncode == 0:
 		if "Already up to date." in result.stdout:
