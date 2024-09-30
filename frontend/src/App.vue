@@ -9,7 +9,7 @@ import TopNavBar from './components/TopNavBar.vue'
 		<div id="sticky-nav">
 			<TopNavBar />
 		</div>
-		<!-- <router-view /> -->
+		<router-view />
 	</v-app>
 </template>
 

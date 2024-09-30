@@ -2,7 +2,7 @@ from openai import OpenAI
 import json
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from dotenv import load_dotenv
 load_dotenv()
 import sqlparse
@@ -127,6 +127,9 @@ def createSqlQuery(userPrompt: str, promptType: str):
 										{userPrompt}
 									\nPlease don't return any context, just the query you would use. 
 									It is imperative you provide any url references from the database applicable to the items in the response.
+									\nDon't include qualifiers like 'player' or 'team' when defining values in the query. For example, if I ask you for the name
+									of the team with the most home runs, just use the 'teams' table and the 'name' column. 
+									\nMake sure to select the data that would help with answering the prompt so it can be used to provide more context.
 									\n\n If you don't think you can answer the question with the database schema provided, provide information on what I can add to my 
 										database schedma that would help you. Start your response with {moreInfoString} in all caps so I can handle it. """
 

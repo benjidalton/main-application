@@ -1,19 +1,14 @@
-import requests
-from requests.exceptions import RequestException
-import string
 from bs4 import BeautifulSoup
-
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import time
-import re
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 import sql.sqlUtility as sqlUtility
-# from sql.sqlUtility import executeQuery, executeSelectQuery
-from models.Player import Player
-from models.Team import Team
-from .scrapingTables import allColumns
-from customLogging import logErrors
+from scrapingTables import allColumns
+from services.customLogging import logErrors
 
 chrome_options = Options()
 chrome_options.add_argument('--ignore-certificate-errors')
@@ -76,6 +71,7 @@ def stripDataFromTablesById(tableFindParam, driver: webdriver.Chrome, soup: Beau
 		dataTable = getTable(tableFindParam, driver, soup, loggingName)
 	except ValueError as ve:
 		logErrors(str(ve).format(loggingName))
+
 	
 
 	if dataTable != None:
@@ -167,7 +163,6 @@ def stripDataFromTableRows(dataTable: BeautifulSoup, definingDataStats: list[str
 
 	return allValues
 
-
 def determinePlayerPosition(soup: BeautifulSoup):
 	"""
 		Determine if a player is a Pitcher based on HTML content.
@@ -184,57 +179,56 @@ def determinePlayerPosition(soup: BeautifulSoup):
 	return True if position == 'Pitcher' else False
 
 def getTeamDataTables():
-	items = sqlUtility.selectAllTeamsFromDb()
+	items = sqlUtility.selectAllTeams()
+	
 	desiredDataStatValues = [item.name for item in items]
 	definingDataStats = ['team_name']
-	tableIds = [('table', {'id': 'teams_standard_batting'}), ('table', {'id': 'teams_standard_pitching'})]
+	tableParams = [('table', {'id': 'teams_standard_batting'}), ('table', {'id': 'teams_standard_pitching'})]
 	loggingName = 'all-teams'
 	createNewDatabaseTable = False
 	newTableName = 'teamstats'
 	insertTableName = 'teamstats'
 	idSpecifier = 'teamId'
-
 	driver, soup = None, None
 	driver, soup = getHtmlContent('https://www.baseball-reference.com/leagues/majors/2024.shtml')
-
-	try:
-		allTables = stripDataFromTablesById(tableIds, driver, soup, definingDataStats, desiredDataStatValues, loggingName)
-	except Exception() as e:
-		logErrors(str(e).format(loggingName))
-	
-
-	ignoreColumns = ['team_name', 'G', 'LOB']
-	repeatColumns = ['H', 'R', 'HR', 'BB', 'IBB', 'SO', 'HBP']
-
 	for item in items:
 		dbColumns = []
 		dbData = []
-		matchingItems = [
-			obj[item.name] for table in allTables
-			for obj in table
-			for definingDataStat in definingDataStats
-			if item.name in obj and obj[item.name][definingDataStat] == item.name  
-		]
+		for tableParam in tableParams:
+			
+			try:
+				allTables = stripDataFromTablesById(tableParam, driver, soup, definingDataStats, desiredDataStatValues, loggingName)
+			except Exception() as e:
+				logErrors(str(e).format(loggingName))
 
+			matchingItems = [
+				obj[item.name] for table in allTables
+				for obj in table
+				for definingDataStat in definingDataStats
+				if item.name in obj and obj[item.name][definingDataStat] == item.name  
+			]
 
-		for matchingItem in matchingItems:
-			for key, value in matchingItem.items():
-				if key not in ignoreColumns:
-					if key in repeatColumns and any(item.get(key) for item in dbColumns):
-						key += "Allowed"  # Modify key for repeat columns
+			ignoreColumns = ['team_name', 'G', 'LOB']
+			repeatColumns = ['H', 'R', 'HR', 'BB', 'IBB', 'SO', 'HBP']
+			isPitchingTable = 'pitching' in tableParam[1]['id']
+			for matchingItem in matchingItems:
+				for key, value in matchingItem.items():
+					if key not in ignoreColumns:
+						if key in repeatColumns and isPitchingTable:
+							key += "Allowed"  # Modify key for repeat columns
 
-					# Ensure we get the column data from allColumns
-					columnData = allColumns.get(key)
-					if columnData:  # Only add if the column exists in allColumns
-						dbColumns.append({key: columnData})
-						dbData.append(value)
+						# Ensure we get the column data from allColumns
+						columnData = allColumns.get(key)
+						if columnData:  # Only add if the column exists in allColumns
+							dbColumns.append({key: columnData})
+							dbData.append(value)
 
-		cleanedColumns = [list(column.values())[0] for column in dbColumns]
+			cleanedColumns = [list(column.values())[0] for column in dbColumns]
 
-		if not dbColumns or not dbData:
-			failReason = f"No valid data found for {loggingName}."
-			logErrors(failReason)
-			driver.close()
+			if not dbColumns or not dbData:
+				failReason = f"No valid data found for {loggingName}."
+				logErrors(failReason)
+				driver.close()
 
 		columnDefinitionsSring = sqlUtility.createTableColumnsString(cleanedColumns, createNewDatabaseTable)
 		valueDefinitionsString = sqlUtility.createValuesString(dbData)
@@ -245,8 +239,9 @@ def getTeamDataTables():
 
 		insertQuery = sqlUtility.createInsertQuery(insertTableName, item.id, idSpecifier, columnDefinitionsSring, valueDefinitionsString) 
 
+		print(insertQuery)
 		try:
-			sqlUtility.executeQuery(insertQuery, [])
+			sqlUtility.executeQuery(insertQuery, [],  operationType='INSERT', tableName=insertTableName)
 		except Exception as e:
 			failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
 			logErrors(failReason)

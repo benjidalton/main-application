@@ -45,13 +45,13 @@ def getDatabaseSchema():
 	cursor.execute(dbSchemaQuery)
 	tables = cursor.fetchall()
 	strippedTables = [tableName[0] for tableName in tables]
+	ignoredTables = ['playerstats_old', 'changelog']
 	schema = {}
 	for tableName in strippedTables:
-		if tableName == 'playerstats_old':
+		if tableName in ignoredTables:
 			continue
 
 		tableSchemaQuery = f"SELECT column_name FROM information_schema.columns WHERE table_name = '{tableName}' AND table_schema = '{APP_ACCESS_DB_DATABASE}';"
-		print('tableschema: ', tableSchemaQuery)
 		cursor.execute(tableSchemaQuery)
 		columnNames = cursor.fetchall()
 		strippedColumns = [columnName[0] for columnName in columnNames]
@@ -132,6 +132,16 @@ def createInsertQuery(table: str, id: int, idSpecifier: str, columnDefinitionsSr
 	return f"""INSERT INTO {table} ({idSpecifier}, {columnDefinitionsSring})
 				VALUES ({id}, {valueDefinitionsString})"""
 
+def createUpdateQuery(table: str, id: int, idSpecifier: str, columnDefinitionsSring: str, valueDefinitionsString: str):
+	updateQuery = f"""
+			REPLACE INTO {table} ({idSpecifier}, {columnDefinitionsSring})
+			VALUES ({id}, {valueDefinitionsString});
+		"""
+	
+	executeQuery(updateQuery, [])
+
+
+
 def createTable(tableName: str, columnDefinitionsSring: str, primaryKeyId: str):
 	dropTableQuery = f"DROP TABLE IF EXISTS {tableName};"
 	executeQuery(dropTableQuery, [])
@@ -145,11 +155,41 @@ def createTable(tableName: str, columnDefinitionsSring: str, primaryKeyId: str):
 
 	executeQuery(createTableQuery, [])
 
+# def createLogChangeTable():
+# 	connection = createConnection()
+# 	cursor = connection.cursor()
+	
+	
+# 	dropQuery = "DROP TABLE IF EXISTS change_log;"
+# 	cursor.execute(dropQuery, [])
+# 	connection.commit()
+# 	createQuery = """
+# 		CREATE TABLE change_log (
+# 			id INT AUTO_INCREMENT PRIMARY KEY,
+# 			operationType VARCHAR(10),  -- e.g., 'INSERT', 'UPDATE', 'DELETE'
+# 			tableName VARCHAR(255),
+# 			executedQuery TEXT,
+# 			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+# 			status VARCHAR(10),  -- e.g., 'success', 'failure'
+# 			errorMessage TEXT  -- To store error messages if any
+# 		);"""
+
+# 	cursor.execute(createQuery, [])
+# 	connection.commit()
+	
+
+# def logChange(operationType, tableName, query, status, errorMessage=None):
+# 	"""Log the query execution details into the change_log table."""
+# 	logQuery = """
+# 		INSERT INTO change_log (operationType, tableName, executedQuery, status, errorMessage)
+# 			VALUES (%s, %s, %s, %s, %s)
+# 	"""
+# 	params = [operationType, tableName, query, status, errorMessage]
+# 	executeQuery(logQuery, params)
 
 
 
-
-def executeQuery(query, params):
+def executeQuery(query, params, operationType=None, tableName=None):
 	if not isinstance(params, list):
 		params = [params]
 
@@ -159,11 +199,16 @@ def executeQuery(query, params):
 	try:
 		cursor.execute(query, params)
 		connection.commit()
-		return {'success': True, 'affected_rows': cursor.rowcount} 
+		affectedRows = cursor.rowcount
+		# Log success in the change_log table
+		# logChange(operationType, tableName, query, 'success')
+
+		return {'success': True, 'affectedRows': affectedRows} 
 
 	except mysql.connector.Error as err:
 		print(f"Error: {err}")
 		connection.rollback()  # Rollback in case of error
+		# logChange(operationType, tableName, query, 'failure', str(err))
 		return jsonify({'success': False, 'error': str(err)}), 500
 
 	finally:

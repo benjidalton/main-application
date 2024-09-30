@@ -4,10 +4,15 @@ import time
 import requests
 from datetime import datetime
 import shutil
+from dotenv import load_dotenv
+load_dotenv()
+
+EXTERNAL_HOST = os.getenv('EXTERNAL_HOST')
+EXTERNAL_PORT = os.getenv('EXTERNAL_PORT')
 # Configuration
 repo_dir = "../../baseball_app_copy"  # Directory of your repo
 backUpDir = "../../baseball_app_backup"
-notifyUrl = "http://{HOST}:{PORT}/notify"  # Notification endpoint
+notifyUrl = f"http://{EXTERNAL_HOST}:{EXTERNAL_PORT}/notify"  # Notification endpoint
 
 def pullUpdates():
 	# os.chdir(repo_dir)
@@ -45,7 +50,6 @@ def backupRepo():
 		message = "❌ Failed to create backup."
 		requests.post(notifyUrl, json={"message": message})
 
-
 def getChangeSummary():
 	# Get a summary of the last 5 commits
 	result = subprocess.run(["git", "log", "--oneline", "-5"], capture_output=True, text=True)
@@ -53,7 +57,6 @@ def getChangeSummary():
 		return result.stdout.strip()  # Return the commit summaries
 	else:
 		return "Could not retrieve change summary."
-
 
 def restartApp():
 	# Command to stop and start your Flask app (modify as needed)
