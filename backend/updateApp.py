@@ -3,14 +3,14 @@ import subprocess
 import time
 import requests
 from datetime import datetime
-
+import shutil
 # Configuration
 repo_dir = "../../baseball_app_copy"  # Directory of your repo
 backUpDir = "../../baseball_app_backup"
 notifyUrl = f"http://localhost:5111/notify"  # Notification endpoint
 
 def pullUpdates():
-	os.chdir(repo_dir)
+	# os.chdir(repo_dir)
 	result = subprocess.run(["git", "pull"], capture_output=True, text=True)
 	if result.returncode == 0:
 		if "Already up to date." in result.stdout:
@@ -28,14 +28,31 @@ def pullUpdates():
 		print(f"Error pulling updates: {result.stderr}")
 		return False
 
+def backupRepo():
+	# Check if the backup directory already exists
+	if os.path.exists(backUpDir):
+		# If it exists, remove it
+		shutil.rmtree(backUpDir)
+	
+	# Clone the repository to the backup directory
+	result = subprocess.run(["git", "clone", repo_dir, backUpDir], capture_output=True, text=True)
+	if result.returncode == 0:
+		print("Backup created successfully.")
+		message = "🗂️ Backup created successfully!"
+		requests.post(notifyUrl, json={"message": message})
+	else:
+		print("Failed to create backup.")
+		message = "❌ Failed to create backup."
+		requests.post(notifyUrl, json={"message": message})
+
 
 def getChangeSummary():
-    # Get a summary of the last 5 commits
-    result = subprocess.run(["git", "log", "--oneline", "-5"], capture_output=True, text=True)
-    if result.returncode == 0:
-        return result.stdout.strip()  # Return the commit summaries
-    else:
-        return "Could not retrieve change summary."
+	# Get a summary of the last 5 commits
+	result = subprocess.run(["git", "log", "--oneline", "-5"], capture_output=True, text=True)
+	if result.returncode == 0:
+		return result.stdout.strip()  # Return the commit summaries
+	else:
+		return "Could not retrieve change summary."
 
 
 def restartApp():
@@ -61,9 +78,11 @@ def notifyLaptop(changeSummary):
 	requests.post(notifyUrl, json={"message": message})
 
 if __name__ == "__main__":
-    while True:
-        if pullUpdates():
-            changeSummary = getChangeSummary()
-            notifyLaptop(changeSummary)
-            restartApp()
-        time.sleep(60) 
+	while True:
+			
+		if pullUpdates():
+			backupRepo()
+			changeSummary = getChangeSummary()
+			notifyLaptop(changeSummary)
+			restartApp()
+		time.sleep(60) 
