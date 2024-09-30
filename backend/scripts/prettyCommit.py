@@ -28,7 +28,7 @@ def main():
 				"""
 
 	commitMessage = """- **Backend Updates:**
-			- Created a 'prompt' variable that will be used to prompt LLM agent to create nice commit message."""
+			- Moved prettyCommit to backend/scripts"""
 	print(commitMessage + "\n")
 
 	approval = input("Do you approve this commit message? (yes/no): ")
