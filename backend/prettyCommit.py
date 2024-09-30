@@ -19,30 +19,23 @@ def main():
 		print("No staged changes to commit.")
 		return
 
-	print("Staged changes:")
-	print(stagedChanges)
-
 	changeSummary = getChangeSummary()
-	if changeSummary:
-		print("\nSummary of changes:\n")
-		print(changeSummary)
-	else:
-		print("\nNo changes to summarize.")
+
+	prompt = f"""Here is the summary of the staged changes in my git repository:\n\n
+					{changeSummary}\n\n
+				Can you write me a summary of this to include in my git commit?\n 
+				Please make sure to format it nicely and return your response in a way that I can pass it as a string as my commit message.
+				"""
 
 	commitMessage = """- **Backend Updates:**
-  - Commented out the `print_directory_structure` function in `backend/app.py`.
-  - Minor formatting adjustments in `backend/prettyCommit.py`.
+			- Created a 'prompt' variable that will be used to prompt LLM agent to create nice commit message."""
+	print(commitMessage + "\n")
 
-- **Frontend Changes:**
-  - Renamed `getData.js` to `DatabaseService.js` for clarity.
-  - Renamed `llmAPI.js` to `LLMService.js` for consistency.
-  - Updated import statements across components and views to reflect new file names.
-  - Adjusted the user interface in `PromptInput.vue`, including changes to icon usage and styling.
-  - Improved CSS for better responsiveness and animation in `PromptInput.vue`."""
-	print(commitMessage)
-	
-	createCommit(commitMessage)
-	print("Commit created successfully!")
+	approval = input("Do you approve this commit message? (yes/no): ")
+	if approval.lower() == 'yes':
+		createCommit(commitMessage)
+	else:
+		print("Commit message not approved. Please edit as necessary.")
 
 if __name__ == "__main__":
 	main()
