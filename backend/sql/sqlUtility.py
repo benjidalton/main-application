@@ -4,6 +4,8 @@ import mysql.connector
 from flask import jsonify
 from models.Player import Player
 from models.Team import Team
+from dotenv import load_dotenv
+load_dotenv()
 
 APP_ACCESS_DB_HOST = os.getenv("APP_ACCESS_DB_HOSTNAME")
 APP_ACCESS_DB_USERNAME = os.getenv("APP_ACCESS_DB_USERNAME")
