@@ -2,14 +2,14 @@ import subprocess
 import llm.openAIAgent as openAIAgent
 import re
 def getStagedChanges():
-	result = subprocess.run(['git', 'diff', '--cached', '--name-status'], capture_output=True, text=True)
+	result = subprocess.run(['git', 'diff', '--cached', '--name-status'], capture_output=True, text=True, encoding='utf-8')
 	if result.stdout is None:
 		return None
 
 	return result.stdout.strip()
 
 def getChangeSummary():
-	result = subprocess.run(['git', 'diff', '--cached'], capture_output=True, text=True)
+	result = subprocess.run(['git', 'diff', '--cached'], capture_output=True, text=True, encoding='utf-8')
 	print("result ", result)
 	if result.stdout is None:
 		print("No staged changes detected.")
@@ -33,21 +33,14 @@ def main():
 					{changeSummary}\n\n
 				Can you write me a summary of this to include in my git commit?\n 
 				Please make sure to format it nicely and return your response in a way that I can pass it as a string as my commit message.
+				\nDon't return any context with your response, just return the commit message.
 				"""
 	print('prompt: ', prompt)
 
 	commit = openAIAgent.queryAgent(prompt)
-	match = re.search(r"plaintext(.*?)", commit, re.DOTALL)
-
-	print('commit :', commit)
-	print('match', match)
+	commitMessage = commit.content
+	print('Commit Message:\n', commitMessage)
 	
-	
-	return(commit)
-	commitMessage = """- **Backend Updates:**
-			- Added annotations to many methods in backend"""
-	print(commitMessage + "\n")
-
 	approval = input("Do you approve this commit message? (yes/no): ")
 	if approval.lower() == 'yes':
 		createCommit(commitMessage)
