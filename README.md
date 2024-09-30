@@ -1,11 +1,8 @@
 ## Version considerations
 Python: 3.10 required
 
-# Application-tracker notes
-
-You'll need to setup your own local database for the application_tracker in MariaDB.
-To debug your Flask application you'll need to run this command on the commandline prior to starting the application:
-> set FLASK_DEBUG=1
+# Baseball App Summary
+This application serves as a comprehensive platform for accessing and interacting with data related to the 2024 MLB season. Utilizing a local MariaDB database, the app imports data via web scraping techniques. The backend is built with Python Flask, while the frontend is developed using Vue.js. A notable feature includes integration with OpenAI's chat capabilities, allowing users to submit prompts. The OpenAI agent generates SQL queries based on the provided database schema, executing these queries to retrieve and display results on the frontend.
 
 
 ## .env file settings
@@ -38,15 +35,7 @@ The following values are used from your .env file:
 * APP_ACCESS_DB_DATABASE = database name
 
 You will also need these in the .env file:
-* EXPORT_PATH= Path to "export.csv" file to create
-* APP_ERROR_LOG = Path to "errorLog.txt" to create
-* SECRET_KEY = See step below about creating a secret key
-* FLASK_ENV = development, test, or production
-
-# Generate secret key from the command line
-```
-.\venv\Scripts\python -c "import os; print(os.urandom(24).hex())"
-```
+* APP_ERROR_LOG = Path to "errorLog.txt" to creat
 
 If you've not yet created the database use Alembic to do so with the following commands:
 ```
@@ -67,7 +56,7 @@ alembic upgrade head
 ## Startup commands for Flask
 
 ```
-cd \backend
+cd /backend
 /venv/Scripts/activate
 pip install -r requirements.txt
 venv/Scripts/python.exe app.py
