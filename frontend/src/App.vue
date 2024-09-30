@@ -9,25 +9,26 @@ import TopNavBar from './components/TopNavBar.vue'
 		<div id="sticky-nav">
 			<TopNavBar />
 		</div>
-		<router-view />
+		<!-- <router-view /> -->
 	</v-app>
 </template>
 
 
 <style scoped>
 #app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
 	margin-top: 60px;
+	z-index: 1;
 }
 #sticky-nav {
 	position: fixed;
 	top: 0;
 	z-index: 10;
 	height: auto;
+	overflow: visible;
 	/* background-color: white; */
 }
 </style>
