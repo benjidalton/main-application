@@ -68,13 +68,13 @@ def notify():
 
 
 
-def print_directory_structure(root_dir, indent=""):
-	# List all files and directories in the specified directory
-	for item in os.listdir(root_dir):
-		path = os.path.join(root_dir, item)
-		print(indent + item)  # Print the item with the current indentation level
-		if os.path.isdir(path):  # If the item is a directory, recurse into it
-			print_directory_structure(path, indent + "    ")
+# def print_directory_structure(root_dir, indent=""):
+# 	# List all files and directories in the specified directory
+# 	for item in os.listdir(root_dir):
+# 		path = os.path.join(root_dir, item)
+# 		print(indent + item)  # Print the item with the current indentation level
+# 		if os.path.isdir(path):  # If the item is a directory, recurse into it
+# 			print_directory_structure(path, indent + "    ")
 
 if __name__ == '__main__':
 	

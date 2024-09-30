@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, onBeforeMount } from 'vue';
 import TableToolbar from './TableToolbar.vue';
-import { teams } from '@/api/getData';
+import { teams } from '@/api/DatabaseService';
 const currentTeam = ref(null);
 const displayTeamNames = ref(null);
 const displayTeamLogos = ref(null);

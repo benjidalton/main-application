@@ -58,9 +58,9 @@ watch(response, (newValue) => {
 					@keyup.enter="handleUserInput($event, 'enter')"
 					color="aliceblue"
 				> 
-					<template #append>
+					<template #append-inner>
 						<span class="magic" :class="{ 'is-animated': animationTrigger }" @click="handleUserInput($event, 'icon')">
-							<v-icon icon="mdi-send" />
+							<v-icon icon="mdi-arrow-right-circle-outline" />
 						</span>
 					</template>
 				</v-text-field>
@@ -78,97 +78,16 @@ watch(response, (newValue) => {
 }
 
 .magic {
-	display: inline-block;
-	/* margin-top: 15px; */
-	position: relative;
-	--r: 45px;
-	transform: scale(100%);
-	animation: var(--animate);
+	display: inline-flex;
+	align-items: center;
+	transition: transform 1s ease, opacity 1s ease;
+	padding-right: 20px;
+	cursor: pointer;
 }
 
-.magic i {
-	color: rgb(5, 165, 0);
-	filter: grayscale(100%);
-}
-
-.magic.is-animated i{
-	animation: change 1s forwards;
-}
-
-@keyframes change {
-	50% {
-		transform: scale(0);
-		filter: grayscale(100%);
-	}
-	51% {
-		filter: grayscale(0%);
-	}
-	100% {
-		transform: scale(1);
-		filter: grayscale(0%);
-	}
-}
-
-.magic::before {
-	content: "";
-	position: absolute;
-	top: calc(50% - var(--r));
-	left: calc(50% - var(--r));
-	width: calc(2 * var(--r));
-	height: calc(2 * var(--r));
-	border-radius: 50%;
-	border: solid rgb(5, 165, 0) var(--r);
-	transform: scale(0);
-	box-sizing: border-box;
-}
-
-/* .magic:hover::before, */
-.magic.is-animated::before {
-	border-width: 0;
-	transform: scale(1);
-	transition: transform 0.5s, border-width 0.5s 0.5s;
-}
-
-.magic::after,
-.magic i::after {
-	content: "";
-	position: absolute;
-	width: calc(4 * var(--r));
-	height: calc(4 * var(--r));
-	left: calc(50% - 2 * var(--r));
-	top: calc(50% - 2 * var(--r));
-	--c1: radial-gradient(circle, red 50%, transparent 60%);
-	--c2: radial-gradient(circle, rgb(0, 38, 255) 50%, transparent 60%);
-	background: /*4 reds*/
-	var(--c1), var(--c1), var(--c1), var(--c1), /*4 oranges*/
-	var(--c2), var(--c2), var(--c2), var(--c2);
-	background-size: calc(var(--r) / 3) calc(var(--r) / 3);
-	background-position: calc(50% - var(--r)) calc(50% - var(--r)), calc(50% + var(--r)) calc(50% - var(--r)),
-	calc(50% - var(--r)) calc(50% + var(--r)), calc(50% + var(--r)) calc(50% + var(--r)),
-	calc(50% + 0px) calc(50% + var(--r) * 1.414), calc(50% + var(--r) * 1.414) calc(50% + 0px),
-	calc(50% - var(--r) * 1.414) calc(50% + 0px), calc(50% + 0px) calc(50% - var(--r) * 1.414);
-	background-repeat: no-repeat;
-	transform: scale(0);
-}
-
-.magic i::after {
-	background-size: calc(var(--r) / 5) calc(var(--r) / 5);
-	transform: rotate(55deg) scale(0);
-}
-
-/* .magic:hover:after, */
-.magic.is-animated:after {
-	transform: scale(1);
+.is-animated {
+	transform: translateX(20px);
 	opacity: 0;
-	background-size: 0 0;
-	transition: transform 0.5s 0.5s, opacity 0.4s 0.9s, background-size 0.5s 0.9s;
 }
 
-/* .magic:hover i:after, */
-.magic.is-animated i:after {
-	transform: rotate(55deg) scale(1);
-	opacity: 0;
-	background-size: 0 0;
-	transition: transform 0.5s 0.5s, opacity 0.4s 0.9s, background-size 0.5s 0.9s;
-}
 </style>

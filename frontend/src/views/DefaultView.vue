@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { fetchLLMResponse } from '@/api/llmAPI';
+import { fetchLLMResponse } from '@/api/LLMService';
 import PromptInput from '@/components/PromptInput.vue';
 import QueryContainer from '@/components/QueryContainer.vue';
 
