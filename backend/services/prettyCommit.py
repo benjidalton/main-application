@@ -2,7 +2,6 @@ import subprocess
 
 def getStagedChanges():
 	result = subprocess.run(['git', 'diff', '--cached', '--name-status'], capture_output=True, text=True)
-	# print('result', result.stdout.strip())
 	return result.stdout.strip()
 
 def getChangeSummary():
@@ -28,7 +27,7 @@ def main():
 				"""
 
 	commitMessage = """- **Backend Updates:**
-			- Moved prettyCommit to backend/scripts"""
+			- Added annotations to many methods in backend"""
 	print(commitMessage + "\n")
 
 	approval = input("Do you approve this commit message? (yes/no): ")

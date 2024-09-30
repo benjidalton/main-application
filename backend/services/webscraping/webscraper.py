@@ -28,7 +28,7 @@ def handleEscapeCharaceters(strings):
 		return strings.replace("'", "''")
 	return [substring.replace("'", "''") for substring in strings]
 
-def getHtmlContent(url):
+def getHtmlContent(url: str):
 	driver = webdriver.Chrome(options=chrome_options)
 	driver.get(url)
 	if sleepTime != 0:
@@ -39,13 +39,35 @@ def getHtmlContent(url):
 	soup = BeautifulSoup(htmlContent, 'html.parser')
 	return driver, soup
 
-def prettyPrintHtml(htmlContent, fileName, mode = 'w'):
+def prettyPrintHtml(htmlContent: BeautifulSoup, fileName: str, mode = 'w'):
+	"""
+		Pretty print content to an HTML file for easier investigation if necessary.
+
+		Args:
+			htmlContent (BeautifulSoup): * The HTML content to be written to the file.
+			fileName (str): * The name of the file (without extension) where the content will be saved.
+			mode (str): * The file mode for opening the file. Default is 'w' (write).
+    """
 	with open('./htmlFiles/' + fileName + '.html', mode, encoding='utf-8') as file:
 		file.write(str(htmlContent))
 
 
-def stripDataFromTablesById(tableFindParam, driver: webdriver.Chrome, soup: BeautifulSoup, definingDataStats, desiredDataStatValues, loggingName):
+def stripDataFromTablesById(tableFindParam, driver: webdriver.Chrome, soup: BeautifulSoup, definingDataStats: list[str], desiredDataStatValues: list[str], loggingName: str) -> list:
+	"""
+		Extracts and processes data from HTML tables based on specified parameters.
 
+		Args:
+			tableFindParam: * Parameter to locate the target table.
+			driver: * Selenium WebDriver instance for browser automation.
+			soup: * BeautifulSoup object for parsing HTML content.
+			definingDataStats: * List of statistics to define the data structure.
+			desiredDataStatValues: * List of values to extract from the table.
+			loggingName: * Name used for logging errors or info messages.
+
+		Returns:
+			allTablesData: List containing processed data from the table(s).
+	"""
+	
 	allTablesData = []
 	# for tableIdx, tableId in enumerate(tableIds):
 	tableValues = None
@@ -69,7 +91,19 @@ def stripDataFromTablesById(tableFindParam, driver: webdriver.Chrome, soup: Beau
 
 	return allTablesData
 
-def getTable(tableFindParam: tuple, driver: webdriver.Chrome, soup: BeautifulSoup, loggingName):
+def getTable(tableFindParam: tuple, driver: webdriver.Chrome, soup: BeautifulSoup, loggingName: str):
+	"""
+		Retrieve a specific table from the HTML soup based on given parameters.
+
+		Args:
+			tableFindParam (tuple): * Parameters to locate the table (e.g., (tag, attributes)).
+			driver (webdriver.Chrome): * The Selenium WebDriver instance for potential further actions (not used in this function).
+			soup (BeautifulSoup): * The BeautifulSoup object representing the HTML document.
+			loggingName: * Identifier for logging purposes.
+
+		Returns:
+			BeautifulSoup or None: The found table as a BeautifulSoup object, or None if not found.
+    """
 	dataTable = None
 
 	dataTable = soup.find(*tableFindParam)
@@ -81,7 +115,24 @@ def getTable(tableFindParam: tuple, driver: webdriver.Chrome, soup: BeautifulSou
 
 	return dataTable
 
-def stripDataFromTableRows(dataTable: BeautifulSoup, definingDataStats, desiredDataStatValues, loggingName):
+def stripDataFromTableRows(dataTable: BeautifulSoup, definingDataStats: list[str], desiredDataStatValues: list[str], loggingName: str) -> list:
+	"""
+		Extract relevant data from the rows of an HTML table.
+
+		This function processes the rows of a given HTML table, filtering out unnecessary rows 
+		and extracting specified statistical data. It organizes the data into a structured format 
+		for further processing.
+
+		Args:
+			dataTable (BeautifulSoup): * The HTML table element containing player statistics.
+			definingDataStats (list): * A list of statistics that define the data structure.
+			desiredDataStatValues (list): * The specific values to include in the extraction.
+			loggingName (str): * A name used for logging errors.
+
+		Returns:
+			list: A list of dictionaries containing the extracted data for each relevant row.
+    """
+	
 	rows = dataTable.find('tbody').find_all('tr')
 	allValues = []
 	definingValue = None
@@ -116,7 +167,17 @@ def stripDataFromTableRows(dataTable: BeautifulSoup, definingDataStats, desiredD
 
 	return allValues
 
+
 def determinePlayerPosition(soup: BeautifulSoup):
+	"""
+		Determine if a player is a Pitcher based on HTML content.
+
+		Args:
+			soup (BeautifulSoup): * The BeautifulSoup object representing the parsed HTML document.
+
+		Returns:
+			bool: True if the player is a Pitcher, False otherwise.
+	"""
 	meta = soup.find('div', {'id': 'meta'})
 	positionText = meta.find('p').text.strip()
 	position = positionText.replace('Position:', '').strip()
@@ -191,6 +252,20 @@ def getTeamDataTables():
 			logErrors(failReason)
 
 def getPlayersDataTables():
+	"""
+		Fetch and process player data tables from a website and update the database.
+
+		The function retrieves player statistics from a website, processes the data,
+		and inserts it into a database. It also checks for players' positions and handles
+		cases where players may have been traded during the season.
+
+		Steps:
+			1. Retrieve players not in the statistics database.
+			2. Loop through each player, fetching their data and determining their position.
+			3. Depending on the position, fetch the appropriate data table.
+			4. Extract relevant data, clean it, and prepare for database insertion.
+			5. Handle exceptions and log errors where necessary.
+    """
 	# things to work on:
 	## handle players who were traded during the season 
 	### need to look for row where data-stat: team_ID = 'TOT'
@@ -242,7 +317,7 @@ def getPlayersDataTables():
 
 		dbColumns = []
 		dbData = []
-		
+
 		for matchingItem in matchingItems:
 			for key, value in matchingItem.items():
 				if key not in ignoreColumns:

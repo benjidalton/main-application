@@ -29,6 +29,16 @@ def createConnection():
 		)
 
 def getDatabaseSchema(): 
+	"""
+		Retrieve the database schema, including table names and their corresponding columns.
+
+		This function connects to the database, queries for all tables within the specified 
+		schema, and retrieves the column names for each table, excluding specific tables 
+		as needed.
+
+		Returns:
+			dict: A dictionary where keys are table names and values are lists of column names.
+    """
 	connection = createConnection()
 	cursor = connection.cursor()
 	dbSchemaQuery = f"""SELECT table_name FROM information_schema.tables WHERE table_schema = '{APP_ACCESS_DB_DATABASE}';"""
@@ -52,7 +62,7 @@ def getDatabaseSchema():
 	return schema
 
 # General sql select queries
-def selectAllPlayersNotInStats():
+def selectAllPlayersNotInStats() -> list[Player]:
 	# selectQuery = """SELECT * FROM players WHERE id NOT IN (SELECT playerId FROM playerstats_updated);"""
 
 	selectQuery = """SELECT * 
@@ -62,39 +72,67 @@ def selectAllPlayersNotInStats():
 	data = executeSelectQuery(selectQuery, [])
 	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
 
-def selectAllPlayers():
+def selectAllPlayers() -> list[Player]:
 	selectQuery = """ select * from players """
 	
 	data = executeSelectQuery(selectQuery, [])
 	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
 
-def selectAllTeams():
+def selectAllTeams() -> list[Team]:
 	selectQuery = """ select * from teams """
 	
 	data = executeSelectQuery(selectQuery, [])
 	return [Team(team['id'], team['name'], team['baseballReferenceUrl']) for team in data['items']]
 
-def updatePlayerAsPitcher(playerId):
+def updatePlayerAsPitcher(playerId: int):
 	updateQuery = f"""UPDATE players SET pitcher = 1 WHERE id = {playerId} """
 	executeQuery(updateQuery, [])
 
 # Helper methods for working with data
-def createTableColumnsString(dbColumns, newTable: bool):
+def createTableColumnsString(dbColumns: list, newTable: bool) -> str:
+	"""
+		Generate a string representation of database column definitions.
+
+		This function constructs a formatted string for SQL column definitions 
+		based on the provided list of columns. The format varies depending on 
+		whether a new table is being created or an existing table is being modified.
+
+		Args:
+			dbColumns (list): * A list of dictionaries, each containing 'columnName' and 'dataType'.
+			newTable (bool): * A flag indicating whether the columns are for a new table.
+
+		Returns:
+			str: A comma-separated string of column definitions for SQL statements.
+    """
 	if newTable == True: 
 		return ", ".join([' '.join([column['columnName'], column['dataType']]) for column in dbColumns if column['dataType']])
 	else: 
 		
 		return ", ".join([column['columnName'] for column in dbColumns if 'dataType' in column])
 
-def createValuesString(dbData):
+def createValuesString(dbData: list):
+	"""
+		Generate a formatted string of values for SQL insert statements.
+
+		This function takes a list of data values and formats them for use 
+		in an SQL query. Empty strings and None values are converted to 
+		"NULL", while all other values are enclosed in single quotes.
+
+		Args:
+			dbData (list): * A list of values to be formatted for SQL.
+
+		Returns:
+			str: A comma-separated string of formatted values ready for an SQL query.
+    """
+    
 	formattedValues = ["NULL" if value == "" or value is None else f"'{value}'" for value in dbData]
 	return ", ".join(formattedValues)
 
-def createInsertQuery(table, id, idSpecifier, columnDefinitionsSring, valueDefinitionsString):
-		return f"""INSERT INTO {table} ({idSpecifier}, {columnDefinitionsSring})
-					VALUES ({id}, {valueDefinitionsString})"""
+def createInsertQuery(table: str, id: int, idSpecifier: str, columnDefinitionsSring: str, valueDefinitionsString: str) -> str:
+	return f"""INSERT INTO {table} ({idSpecifier}, {columnDefinitionsSring})
+				VALUES ({id}, {valueDefinitionsString})"""
 
-def createTable(tableName, columnDefinitionsSring, primaryKeyId):
+def createTable(tableName: str, columnDefinitionsSring: str, primaryKeyId: str):
 	dropTableQuery = f"DROP TABLE IF EXISTS {tableName};"
 	executeQuery(dropTableQuery, [])
 
