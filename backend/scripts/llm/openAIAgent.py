@@ -34,34 +34,21 @@ def createSchemaPrompt(schema):
 
 	return prompt
 
-def provideContextForDatabaseResponse(originalPrompt, dbResponse):
+def provideContextForDbResponse(originalPrompt, dbResponse):
 	context = f"I just asked you this:\n\n{originalPrompt}\n\n"
 	answer = f"\nI checked my database and found this answer:\n\n{dbResponse}"
 	prompt = context + answer + "\n\nCan you write a sentence answering the original prompt with the result from my database"
-	return queryAgent(prompt)
-
-def createSqlQuery(userPrompt, promptType):
-
-	if promptType != 'DB Query':
-		print('you didnt  have db query chosen')
-		return
-	dataBaseSchema = getDatabaseSchema()
-	
-	schemaPrompt = createSchemaPrompt(dataBaseSchema)
-
-	fullPrompt = schemaPrompt + f"""\n\nHow would you write a MariaDB SQL query to answer this:\n
-										{userPrompt}
-									\nPlease don't return any context, just the query you would use. Please include any url references from the database if applicable."""
+	return queryAgent(prompt).content
 
 
-	response = queryAgent(fullPrompt)
-	print('r', response)
-
+def getRawSqlQuery(response): 
 	formmattedResponse = sqlparse.format(response.content, reindent=True, keyword_case='upper')
-	rawSqlQuery = formmattedResponse.replace('```sql', '').replace('```', '').strip()
-	print('raw sql', rawSqlQuery)
-	formattedSqlQuery = f"{rawSqlQuery}" 
+	return formmattedResponse.replace('```sql', '').replace('```', '').strip()
+
+
+def getResponseFromDb(formattedSqlQuery):
 	dbResponse = executeSelectQuery(formattedSqlQuery, [])
+
 	print('db response: ', dbResponse)
 	itemUrls = [{'name': item['name'], 'baseballReferenceUrl': item['baseballReferenceUrl']} for item in dbResponse['items']]
 
@@ -74,8 +61,43 @@ def createSqlQuery(userPrompt, promptType):
 			formmattedDbResponse += f"{key}: {value}\n"
 		formmattedDbResponse += "\n"
 
-	print('formatted db response', formmattedDbResponse)
+	return formmattedDbResponse, itemUrls
 
-	answerWithContext = provideContextForDatabaseResponse(userPrompt, formmattedDbResponse)
-	print('item urls', itemUrls)
-	return rawSqlQuery, formattedSqlQuery, answerWithContext.content, itemUrls
+
+def createSqlQuery(userPrompt, promptType):
+	if promptType != 'DB Query':
+		print('you didnt  have db query chosen')
+		return
+	
+	dataBaseSchema = getDatabaseSchema()
+	
+	schemaPrompt = createSchemaPrompt(dataBaseSchema)
+
+	moreInfoString = 'MORE INFORMATION NEEDED'
+	fullPrompt = schemaPrompt + f"""\n\nHow would you write a MariaDB SQL query to answer this:\n
+										{userPrompt}
+									\nPlease don't return any context, just the query you would use. 
+									It is imperative you provide any url references from the database applicable to the items in the response.
+									\n\n If you don't think you can answer the question with the database schema provided, provide information on what I can add to my 
+										database schedma that would help you. Start your response with {moreInfoString} in all caps so I can handle it. """
+
+	response = queryAgent(fullPrompt)
+
+	if moreInfoString in response.content:
+		print('more info needed for response')
+		removedInfo = response.content.replace(f'{moreInfoString}', '').strip()
+		toolTipString = removedInfo
+		answerWithContext = removedInfo
+		print('response with moreInfo removed', removedInfo)
+		formattedSqlQuery = None
+		itemUrls = None
+		return toolTipString, formattedSqlQuery, answerWithContext, itemUrls
+
+	toolTipString = getRawSqlQuery(response)
+
+	formattedSqlQuery = f"{toolTipString}" 
+
+	formmattedDbResponse, itemUrls = getResponseFromDb(formattedSqlQuery)
+
+	answerWithContext = provideContextForDbResponse(userPrompt, formmattedDbResponse)
+	return toolTipString, formattedSqlQuery, answerWithContext, itemUrls

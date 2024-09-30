@@ -19,11 +19,15 @@ onBeforeMount(() => {
 
 function formatAnswerWithContext(query) {
 	let updatedText = query.answerWithContext;
-	query.itemUrls.forEach(item => {
-		const nameRegex = new RegExp(item.name, 'g'); 
-		const itemLink = `<a href="${item.baseballReferenceUrl}" target="_blank">${item.name} </a><i class="mdi mdi-open-in-new"></i>` ;
-		updatedText = updatedText.replace(nameRegex, itemLink);
-		return updatedText;
+	if ( query.itemUrls )
+		// if its a response that actually got data from db, it will hopefully have urls
+		// else it wil be a response thats just explaining that it couldn't create a good 
+		// query with the database schema provided
+		query.itemUrls.forEach(item => {
+			const nameRegex = new RegExp(item.name, 'g'); 
+			const itemLink = `<a href="${item.baseballReferenceUrl}" target="_blank">${item.name} </a><i class="mdi mdi-open-in-new"></i>` ;
+			updatedText = updatedText.replace(nameRegex, itemLink);
+			return updatedText;
 	})
 	query.formattedResponse = updatedText;
 	
@@ -37,10 +41,10 @@ function copyQueryToClipboard(copyText) {
 </script>
 
 <template>
-	<v-col cols="12" md="6" class="text-center">
-		<v-tooltip activator="parent" location="top" class="formatted-sql" :text="formattedQuery.rawSqlQuery">
+	<v-container class="query-container"> 
+		<v-tooltip activator="parent" location="top" class="formatted-sql text-center" :text="formattedQuery.toolTipString">
 			<template v-slot:activator="{ props }">
-				<v-card v-bind="props" class="pa-3 d-flex align-center justify-space-between" outlined>
+				<v-card v-bind="props" class="card" outlined>
 					<v-card-text>
 						<v-row class="message-row" justify="end">
 							{{ formattedQuery.originalPrompt }}
@@ -50,16 +54,27 @@ function copyQueryToClipboard(copyText) {
 						</v-row>
 						 
 					</v-card-text>
-					<v-btn icon @click="copyQueryToClipboard(formattedQuery.rawSqlQuery)" class="ml-2">
+					<v-btn icon @click="copyQueryToClipboard(formattedQuery.toolTipString)" class="ml-2">
 						<v-icon>mdi-content-copy</v-icon>
 					</v-btn>
 					</v-card>
 			</template>
 		</v-tooltip>
-	</v-col>
+	</v-container>
 </template>
 
 <style>
+.query-container {
+	width: 70%;
+}
+
+.query-container .card {
+	padding: 16px; 
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: rgb(179, 182, 189);
+}
 
 .formatted-sql {
 	white-space: pre; /* Preserve the newlines and spaces */
@@ -69,6 +84,7 @@ function copyQueryToClipboard(copyText) {
 .message-row {
 	padding: 10px;
 	color: black;
+	font-size: 20px;
 }
 .formatted-response {
 	color: black;

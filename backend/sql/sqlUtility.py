@@ -2,6 +2,8 @@ import os
 import simplejson as json
 import mysql.connector
 from flask import jsonify
+from models.Player import Player
+from models.Team import Team
 
 APP_ACCESS_DB_HOST = os.getenv("APP_ACCESS_DB_HOSTNAME")
 APP_ACCESS_DB_USERNAME = os.getenv("APP_ACCESS_DB_USERNAME")
@@ -33,15 +35,79 @@ def getDatabaseSchema():
 	strippedTables = [tableName[0] for tableName in tables]
 	schema = {}
 	for tableName in strippedTables:
+		if tableName == 'playerstats_old':
+			continue
+
 		tableSchemaQuery = f"SELECT column_name FROM information_schema.columns WHERE table_name = '{tableName}' AND table_schema = '{APP_ACCESS_DB_DATABASE}';"
+		print('tableschema: ', tableSchemaQuery)
 		cursor.execute(tableSchemaQuery)
 		columnNames = cursor.fetchall()
 		strippedColumns = [columnName[0] for columnName in columnNames]
 		schema[tableName] = [column for column in strippedColumns]
 
 	connection.close()
-
+	print('final table schema:', schema)
 	return schema
+
+# General sql select queries
+def selectAllPlayersNotInStats():
+	# selectQuery = """SELECT * FROM players WHERE id NOT IN (SELECT playerId FROM playerstats_updated);"""
+
+	selectQuery = """SELECT * 
+					FROM players 
+					WHERE id > (SELECT MAX(playerId) FROM playerstats_updated);"""
+
+	data = executeSelectQuery(selectQuery, [])
+	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
+
+def selectAllPlayers():
+	selectQuery = """ select * from players """
+	
+	data = executeSelectQuery(selectQuery, [])
+	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
+
+def selectAllTeams():
+	selectQuery = """ select * from teams """
+	
+	data = executeSelectQuery(selectQuery, [])
+	return [Team(team['id'], team['name'], team['baseballReferenceUrl']) for team in data['items']]
+
+def updatePlayerAsPitcher(playerId):
+	updateQuery = f"""UPDATE players SET pitcher = 1 WHERE id = {playerId} """
+	executeQuery(updateQuery, [])
+
+# Helper methods for working with data
+def createTableColumnsString(dbColumns, newTable: bool):
+	if newTable == True: 
+		return ", ".join([' '.join([column['columnName'], column['dataType']]) for column in dbColumns if column['dataType']])
+	else: 
+		
+		return ", ".join([column['columnName'] for column in dbColumns if 'dataType' in column])
+
+def createValuesString(dbData):
+	formattedValues = ["NULL" if value == "" or value is None else f"'{value}'" for value in dbData]
+	return ", ".join(formattedValues)
+
+def createInsertQuery(table, id, idSpecifier, columnDefinitionsSring, valueDefinitionsString):
+		return f"""INSERT INTO {table} ({idSpecifier}, {columnDefinitionsSring})
+					VALUES ({id}, {valueDefinitionsString})"""
+
+def createTable(tableName, columnDefinitionsSring, primaryKeyId):
+	dropTableQuery = f"DROP TABLE IF EXISTS {tableName};"
+	executeQuery(dropTableQuery, [])
+
+	createTableQuery = f"""
+		CREATE TABLE {tableName} (
+			{primaryKeyId} INT PRIMARY KEY, {columnDefinitionsSring}
+		);
+	"""
+	print(createTableQuery)
+
+	executeQuery(createTableQuery, [])
+
+
+
+
 
 def executeQuery(query, params):
 	if not isinstance(params, list):

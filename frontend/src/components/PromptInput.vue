@@ -39,52 +39,43 @@ watch(response, (newValue) => {
 
 <template>
 	<v-row dense class="prompt-container">
-		<v-btn @click="handleUserInput($event, 'btn')"> Default Prompt </v-btn>
-		<v-col md="3">
+		<!-- <v-col md="2">
+			<v-btn @click="handleUserInput($event, 'btn')"> Default Prompt </v-btn>
+
+		</v-col> -->
+		<v-col md="2">
 			<v-select v-model="selectedPromptOption" :items="promptOptions"/>
 
 		</v-col>
-			<v-col md="7">
-			<v-text-field 
-				class="user-prompt" 
-				label="What would you like to know about the current MLB season?"
-				variant="outlined"
-				clear-icon="mdi-close-circle"
-				clearable
-				v-model="userPrompt"
-				@keyup.enter="handleUserInput($event, 'enter')"
-				color="aliceblue"
-			> 
-			<template #append>
-				<span class="magic" :class="{ 'is-animated': animationTrigger }" @click="handleUserInput($event, 'icon')">
-					<v-icon icon="mdi-send" />
-				</span>
-			</template>
-		</v-text-field>
+			<v-col md="8">
+				<v-text-field 
+					class="user-prompt" 
+					label="What would you like to know about the current MLB season?"
+					variant="outlined"
+					clear-icon="mdi-close-circle"
+					clearable
+					v-model="userPrompt"
+					@keyup.enter="handleUserInput($event, 'enter')"
+					color="aliceblue"
+				> 
+					<template #append>
+						<span class="magic" :class="{ 'is-animated': animationTrigger }" @click="handleUserInput($event, 'icon')">
+							<v-icon icon="mdi-send" />
+						</span>
+					</template>
+				</v-text-field>
 		</v-col>
 	</v-row>
 </template>
 
 <style scoped>
-.prompt-container {
-	width: 50%;
-	bottom: 5%;
-	left: 50%; 
-	transform: translate(-50%, -50%);
-	height: 5vw;
-}
+
 .user-prompt {
-	position: absolute;
-	width: 90%;
 	color: rgb(2, 81, 151);
 }
 .v-text-field {
 	font-size: 20px;
 }
-/* .v-text-field >>> input {
-	font-size: 20px;
-} */
-
 
 .magic {
 	display: inline-block;

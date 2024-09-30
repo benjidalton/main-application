@@ -1,7 +1,7 @@
 export class LLMQuery {
-	constructor(originalPrompt, rawSqlQuery, formattedSqlQuery, answerWithContext, itemUrls) {
+	constructor(originalPrompt, toolTipString, formattedSqlQuery, answerWithContext, itemUrls) {
 		this.originalPrompt = originalPrompt;
-		this.rawSqlQuery = rawSqlQuery;
+		this.toolTipString = toolTipString;
 		this.formattedSqlQuery = formattedSqlQuery;
 		this.answerWithContext = answerWithContext;
 		this.itemUrls = itemUrls;

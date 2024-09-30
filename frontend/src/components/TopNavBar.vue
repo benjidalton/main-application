@@ -7,7 +7,7 @@ import { ref, computed, onMounted  } from 'vue';
 	<v-app-bar id="topNavBar" app  elevated>
 		<v-row align="center" no-gutters>
 			<v-col cols="auto">
-				<v-btn class="ml-2" variant="text" color="red">
+				<v-btn class="ml-2" variant="flat" color="red">
 					Click Me 
 				
 				</v-btn>
@@ -38,7 +38,7 @@ import { ref, computed, onMounted  } from 'vue';
 }
 
 #topNavBar {
-	background-color: aquamarine;
+	background-color: rgb(62, 81, 121);
 }
 
 </style>

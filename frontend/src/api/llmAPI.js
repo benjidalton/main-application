@@ -15,11 +15,11 @@ export async function fetchLLMResponse(prompt, promptType) {
 			},
 		})
 		.then((response) => {
-			let rawSqlQuery = response.data[0];
+			let toolTipString = response.data[0];
 			let formattedSqlQuery = response.data[1];
 			let answerWithContext = response.data[2];
 			let itemUrls = response.data[3];
-			return new LLMQuery(prompt, rawSqlQuery, formattedSqlQuery, answerWithContext, itemUrls) ;
+			return new LLMQuery(prompt, toolTipString, formattedSqlQuery, answerWithContext, itemUrls) ;
 		})
 		.catch((error) => {
 			console.log(error);

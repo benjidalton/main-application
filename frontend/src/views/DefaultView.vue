@@ -1,45 +1,18 @@
 <script setup>
-import { ref, onBeforeMount } from 'vue';
-import { teams, getPlayersOnTeam } from '@/api/getData';
-// import LLMConversation from '@/components/LLMConversation.vue';
-// import LLMConversation from '@/components/LLMConversation.vue';
+import { ref } from 'vue';
 import { fetchLLMResponse } from '@/api/llmAPI';
 import PromptInput from '@/components/PromptInput.vue';
 import QueryContainer from '@/components/QueryContainer.vue';
 
-const displayTeamNames = ref(null);
-const displayTeamLogos = ref(null);
-const playersOnTeam = ref(null)
-const currentTeam = ref(null);
-const playerHeaders = ref([
-	{ title: 'Player Name', key: 'name', width: '100px', align: 'center' },
-	{ title: 'Team Name', key: 'teamName', width: '100px', align: 'center'  },
-	{ title: 'Team Logo', key: 'teamLogoPath', sortable: false, width: '100px', align: 'center'  },
-]);
-
-const llmQueries = ref([])
-const userPrompt = ref(null);
-onBeforeMount(() => {
-	displayTeamNames.value = teams.map(team => team.name);
-	displayTeamLogos.value = teams.map(team => team.logoPath);
-});
-
-async function onTeamChosen(team) {
-	currentTeam.value = team;
-	playersOnTeam.value = await getPlayersOnTeam(currentTeam.value.id);
-	console.log('players on team: ', playersOnTeam.value)
-}
-
-
+const loading = ref(null)
 
 async function onUserPrompt(prompt, promptType) {
+	loading.value = true;
 	let query = await fetchLLMResponse(prompt, promptType);
 	formatAnswerWithContext(query)
 }
 
 function formatAnswerWithContext(query) {
-	//
-	// console.log('answer with context: ', answerWithContext)
 	let updatedText = query.answerWithContext;
 	query.itemUrls.forEach(item => {
 		const nameRegex = new RegExp(item.name, 'g'); 
@@ -63,7 +36,7 @@ function formatAnswerWithContext(query) {
 	<v-sheet>
 		<template v-if="llmQueries.length > 0">
 			<v-row v-for="(query, index) in llmQueries" :key="index"  justify="center" align="center" class="mt-4">
-				<QueryContainer :query="query"/>
+				<QueryContainer :query="query" :loading="loading"/>
 			</v-row>
 
 		</template>

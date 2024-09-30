@@ -50,8 +50,10 @@ def watchdog(func, maxTime):
     functionThread.join()
     watchdog(func, maxTime)
 
-# if __name__== "__main__":
-
-	# watchdog(webscraper.getStandardBattingAndPitchingTables, 15)
+if __name__== "__main__":
+    # webscraper.getPlayersDataTables()
+    # webscraper.getTeamDataTables()
+	watchdog(webscraper.getPlayersDataTables, 15)
 
 	#  sqlUtility.getDatabaseSchema()
+     

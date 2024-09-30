@@ -5,6 +5,7 @@ import PromptInput from '@/components/PromptInput.vue';
 import QueryContainer from '@/components/QueryContainer.vue';
 
 const llmQueries = ref([]);
+const loading = ref(null);
 
 async function onUserPrompt(prompt, promptType) {
 	let query = await fetchLLMResponse(prompt, promptType);
@@ -14,31 +15,50 @@ async function onUserPrompt(prompt, promptType) {
 </script>
 
 <template>
-	<v-container class="container fill-height">
-		<template v-if="llmQueries.length > 0">
-			<v-row v-for="(query, index) in llmQueries" :key="index"  justify="center" align="center" class="mt-4">
+	<v-container class="container">
+		<div class="scrollable-wrapper">
+			<template v-if="llmQueries.length > 0" v-for="(query, index) in llmQueries" :key="index">
 				<QueryContainer :query="query"/>
-			</v-row>
-		</template>
-		<PromptInput @userPrompt="onUserPrompt" /> 
+			</template>
+		</div>
+
+
+		<v-container class="prompt-wrapper">
+			<PromptInput @userPrompt="onUserPrompt" />
+		</v-container>
 	</v-container>
 </template>
 
 
 <style scoped>
 .container {
-	height: 90vh; 
-	width: 100vw;
-	padding: 0;
-	border: 2px solid red;
-	overflow: hidden;
-}
-
-.fill-height {
+	height: 100vh; /* Full viewport height */
+	width: 100vw; /* Full viewport width */
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between; /* To ensure the input stays at the bottom */
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	justify-content: center;
+	align-content: center;
+	transform: translate(5%);
+	overflow-y: hidden;
 }
+
+.scrollable-wrapper {
+	height: 80vh;
+	overflow-y: auto; 
+	padding: 10px; 
+}
+
+.prompt-wrapper {
+	position: relative;
+	width: 100%;
+	justify-content: center;
+	margin-top: 10px;
+	bottom: 5%;
+}
+
 
 #logo-container {
 	border: 2px solid gray;
