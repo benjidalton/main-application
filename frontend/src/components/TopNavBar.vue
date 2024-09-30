@@ -15,6 +15,15 @@ import { ref, computed, onMounted  } from 'vue';
 			<v-spacer></v-spacer>
 	
 			<v-col cols="auto" style="padding-right: 20px;">
+				<v-btn
+					href="https://github.com/kcbdalton" 
+					target="_blank"  
+					icon
+				>
+					<v-icon size="40px">
+						mdi-github  <!-- Material Design Icons GitHub icon -->
+					</v-icon>
+				</v-btn>
 				<!-- <v-btn v-if="!isAuth" :to="{ name: 'login' }" class="mr-2" variant="text" :color="buttonColor">Sign in</v-btn>
 				<v-btn v-if="isAuth" :to="{ name: 'AddApplication' }" class="mr-2" variant="text" :color="buttonColor">Add App</v-btn>
 				<v-btn v-if="isAuth" :to="{ name: 'kcApps' }" class="mr-2" variant="text" :color="buttonColor">Knox County Apps</v-btn> -->

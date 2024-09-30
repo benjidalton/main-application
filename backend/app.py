@@ -10,7 +10,7 @@ import re
 from blueprints import routes, llmRoutes
 load_dotenv()
 
-url_tokens = {
+urlTokens = {
 	"DB_USER": os.getenv("APP_ACCESS_DB_USERNAME"),
 	"DB_PASS": os.getenv("APP_ACCESS_DB_PASSWORD"),
 	"DB_HOST": os.getenv("APP_ACCESS_DB_HOSTNAME"),
@@ -24,7 +24,7 @@ app = Flask(__name__)
 
 # Configure the database URI
 # Replace the connection string with one for your database.
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{url_tokens["DB_USER"]}:{url_tokens["DB_PASS"]}@localhost:{url_tokens["DB_PORT"]}/{url_tokens["DB_NAME"]}'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{urlTokens["DB_USER"]}:{urlTokens["DB_PASS"]}@localhost:{urlTokens["DB_PORT"]}/{urlTokens["DB_NAME"]}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
@@ -90,4 +90,4 @@ if __name__ == '__main__':
 
 	print(message)
 
-	app.run(debug=True, host="localhost", port=5111)
+	app.run(debug=True, host="localhost", port=5000)

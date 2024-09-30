@@ -7,7 +7,7 @@ import shutil
 # Configuration
 repo_dir = "../../baseball_app_copy"  # Directory of your repo
 backUpDir = "../../baseball_app_backup"
-notifyUrl = f"http://localhost:5111/notify"  # Notification endpoint
+notifyUrl = "http://{HOST}:{PORT}/notify"  # Notification endpoint
 
 def pullUpdates():
 	# os.chdir(repo_dir)
