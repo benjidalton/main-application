@@ -91,8 +91,6 @@ def getResponseFromDb(formattedSqlQuery):
 	return formmattedDbResponse, itemUrls
 
 
-
-
 def createSqlQuery(userPrompt: str, promptType: str):
 	"""
 		Generates a MariaDB SQL query based on the user's prompt and the database schema.

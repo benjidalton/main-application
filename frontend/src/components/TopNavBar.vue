@@ -71,7 +71,7 @@ const toggleTechBox = () => {
 #topNavBar {
 	background-color: rgb(62, 81, 121);
 	overflow: visible; 
-	z-index: 100;
+	/* z-index: 100; */
 }
 
 .tech-box {
@@ -82,8 +82,8 @@ const toggleTechBox = () => {
 	border: 1px solid #ccc; 
 	padding: 10px; 
 	z-index: 1000 !important;
-	right: 200px;
-	top: -2px;
+	/* right: 200px;
+	top: -2px; */
 }
 
 </style>

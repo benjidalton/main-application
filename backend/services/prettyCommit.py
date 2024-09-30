@@ -1,6 +1,7 @@
 import subprocess
 import llm.openAIAgent as openAIAgent
 import re
+
 def getStagedChanges():
 	result = subprocess.run(['git', 'diff', '--cached', '--name-status'], capture_output=True, text=True, encoding='utf-8')
 	if result.stdout is None:
@@ -40,7 +41,7 @@ def main():
 	commit = openAIAgent.queryAgent(prompt)
 	commitMessage = commit.content
 	print('Commit Message:\n', commitMessage)
-	
+
 	approval = input("Do you approve this commit message? (yes/no): ")
 	if approval.lower() == 'yes':
 		createCommit(commitMessage)

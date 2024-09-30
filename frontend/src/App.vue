@@ -26,7 +26,7 @@ import TopNavBar from './components/TopNavBar.vue'
 #sticky-nav {
 	position: fixed;
 	top: 0;
-	z-index: 10;
+	/* z-index: 10; */
 	height: auto;
 	overflow: visible;
 	/* background-color: white; */
