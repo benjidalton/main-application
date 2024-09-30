@@ -8,8 +8,8 @@ def getChangeSummary():
 	result = subprocess.run(['git', 'diff', '--cached'], capture_output=True, text=True)
 	return result.stdout.strip()
 
-def createCommit(commit_message):
-	subprocess.run(['git', 'commit', '-m', commit_message])
+def createCommit(commitMessage):
+	subprocess.run(['git', 'commit', '-m', commitMessage])
 
 def main():
 	# Check for staged changes
