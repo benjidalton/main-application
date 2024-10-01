@@ -23,6 +23,25 @@ def handleEscapeCharaceters(strings):
 		return strings.replace("'", "''")
 	return [substring.replace("'", "''") for substring in strings]
 
+def exportToDatabase(tableName: str, id: int, idSpecifier: str, dbColumns: list, dbData: list, createNewDatabaseTable: bool, loggingName: str):
+	# remove the keys of each object and get just the values
+	cleanedColumns = [list(column.values())[0] for column in dbColumns]
+
+	columnDefinitionsSring = sqlUtility.createTableColumnsString(cleanedColumns, createNewDatabaseTable)
+	valueDefinitionsString = sqlUtility.createValuesString(dbData)
+
+	if createNewDatabaseTable == True:	
+		sqlUtility.createTable(tableName, columnDefinitionsSring, idSpecifier)
+
+	insertQuery = sqlUtility.createInsertQuery(tableName, id, idSpecifier, columnDefinitionsSring, valueDefinitionsString) 
+
+	try:
+		sqlUtility.executeQuery(insertQuery, [])
+	except Exception as e:
+		failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
+		logErrors(failReason)
+
+
 def getHtmlContent(url: str):
 	driver = webdriver.Chrome(options=chrome_options)
 	driver.get(url)
@@ -179,19 +198,19 @@ def determinePlayerPosition(soup: BeautifulSoup):
 	return True if position == 'Pitcher' else False
 
 def getTeamDataTables():
-	items = sqlUtility.selectAllTeams()
+	teams = sqlUtility.selectAllTeams()
 	
-	desiredDataStatValues = [item.name for item in items]
+	desiredDataStatValues = [team.name for team in teams]
 	definingDataStats = ['team_name']
 	tableParams = [('table', {'id': 'teams_standard_batting'}), ('table', {'id': 'teams_standard_pitching'})]
 	loggingName = 'all-teams'
 	createNewDatabaseTable = False
-	newTableName = 'teamstats'
-	insertTableName = 'teamstats'
+	tableName = 'teamstats'
 	idSpecifier = 'teamId'
 	driver, soup = None, None
 	driver, soup = getHtmlContent('https://www.baseball-reference.com/leagues/majors/2024.shtml')
-	for item in items:
+	
+	for team in teams:
 		dbColumns = []
 		dbData = []
 		for tableParam in tableParams:
@@ -202,10 +221,10 @@ def getTeamDataTables():
 				logErrors(str(e).format(loggingName))
 
 			matchingItems = [
-				obj[item.name] for table in allTables
+				obj[team.name] for table in allTables
 				for obj in table
 				for definingDataStat in definingDataStats
-				if item.name in obj and obj[item.name][definingDataStat] == item.name  
+				if team.name in obj and obj[team.name][definingDataStat] == team.name  
 			]
 
 			ignoreColumns = ['team_name', 'G', 'LOB']
@@ -223,28 +242,12 @@ def getTeamDataTables():
 							dbColumns.append({key: columnData})
 							dbData.append(value)
 
-			cleanedColumns = [list(column.values())[0] for column in dbColumns]
-
 			if not dbColumns or not dbData:
 				failReason = f"No valid data found for {loggingName}."
 				logErrors(failReason)
 				driver.close()
 
-		columnDefinitionsSring = sqlUtility.createTableColumnsString(cleanedColumns, createNewDatabaseTable)
-		valueDefinitionsString = sqlUtility.createValuesString(dbData)
-
-		if createNewDatabaseTable == True:	
-			sqlUtility.createTable(newTableName, columnDefinitionsSring, idSpecifier)
-			break
-
-		insertQuery = sqlUtility.createInsertQuery(insertTableName, item.id, idSpecifier, columnDefinitionsSring, valueDefinitionsString) 
-
-		print(insertQuery)
-		try:
-			sqlUtility.executeQuery(insertQuery, [],  operationType='INSERT', tableName=insertTableName)
-		except Exception as e:
-			failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
-			logErrors(failReason)
+		exportToDatabase(tableName, team.id, idSpecifier, dbColumns, dbData, createNewDatabaseTable, loggingName)
 
 def getPlayersDataTables():
 	"""
@@ -272,8 +275,7 @@ def getPlayersDataTables():
 	# tableIds = [('table', {'id': 'batting_standard'}), ('table', {'id': 'pitching_standard'})]
 	loggingName = 'all-players'
 	createNewDatabaseTable = False
-	newTableName = 'playerstats_updated'
-	insertTableName = 'playerstats_updated'
+	tableName = 'playerstats_updated'
 	idSpecifier = 'playerId'
 	
 	ignoreColumns = ['year_ID', 'age', 'team_ID', 'lg_ID', 'award_summary', 'G']
@@ -301,8 +303,7 @@ def getPlayersDataTables():
 			obj[val] for table in allTables
 			for obj in table
 			for val in desiredDataStatValues  # Iterate through each value in desiredDataStatValue
-			if val in obj and obj[val]['year_ID'] in val  # Check if the year matches
-			  
+			if val in obj and obj[val]['year_ID'] in val  # Check if the year matches 
 		]
 		
 		if len(matchingItems) == 0: 
@@ -325,19 +326,4 @@ def getPlayersDataTables():
 						dbColumns.append({key: columnData})
 						dbData.append(value)
 
-		cleanedColumns = [list(column.values())[0] for column in dbColumns]
-
-		columnDefinitionsSring = sqlUtility.createTableColumnsString(cleanedColumns, createNewDatabaseTable)
-		valueDefinitionsString = sqlUtility.createValuesString(dbData)
-
-		if createNewDatabaseTable == True:	
-			sqlUtility.createTable(newTableName, columnDefinitionsSring, idSpecifier)
-			break
-
-		insertQuery = sqlUtility.createInsertQuery(insertTableName, player.id, idSpecifier, columnDefinitionsSring, valueDefinitionsString) 
-
-		try:
-			sqlUtility.executeQuery(insertQuery, [])
-		except Exception as e:
-			failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
-			logErrors(failReason)
+		exportToDatabase(tableName, player.id, idSpecifier, dbColumns, dbData, createNewDatabaseTable, loggingName)

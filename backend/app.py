@@ -1,12 +1,8 @@
 from flask import Flask, request
-from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from dotenv import load_dotenv
-import subprocess
 from datetime import datetime
 import os
-import re
 from blueprints import routes, llmRoutes
 load_dotenv()
 
@@ -17,8 +13,6 @@ urlTokens = {
 	"DB_NAME": os.getenv("APP_ACCESS_DB_DATABASE"),
 	"DB_PORT": os.getenv("APP_ACCESS_DB_PORT")
 }
-
-
 
 app = Flask(__name__)
 
@@ -36,7 +30,7 @@ app.register_blueprint(llmRoutes.llmRoutes, name='llmRoutes')
 
 @app.route('/notify', methods=['POST'])
 def notify():
-	## to test:  curl -X POST http://localhost:5111/notify -H "Content-Type: application/json" -d '{"message": "hello"}'
+	## to test:  curl -X POST http://localhost:{PORT}/notify -H "Content-Type: application/json" -d '{"message": "hello"}'
 	data = request.json
 	print(data['message'])  # Print the notification or handle it as needed
 	# Here you could integrate a desktop notification library
