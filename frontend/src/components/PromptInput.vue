@@ -7,7 +7,7 @@ const animationTrigger = ref(false);
 
 const promptOptions = ["DB Query", "Normal"]
 const selectedPromptOption = ref("DB Query");
-const emit = defineEmits(['userPrompt', 'aiResponse']);
+const emit = defineEmits(['userPrompt', 'promptTypeChanged']);
 
 function handleUserInput(event, source) {
 	if (source == 'btn') {
@@ -23,40 +23,35 @@ function handleUserInput(event, source) {
 }
 
 const triggerSuccessAnimation = () => {
-    animationTrigger.value = true;
-    setTimeout(() => {
-        animationTrigger.value = false;
-    }, 1000); // Change this value according to your animation duration
+	animationTrigger.value = true;
+	setTimeout(() => {
+		animationTrigger.value = false;
+	}, 1000); // Change this value according to your animation duration
 };
 
-watch(response, (newValue) => {
-	emit('aiResponse', newValue)
-})
-
-
+watch(selectedPromptOption, (newValue) => {
+	emit('promptTypeChanged', newValue);
+});
 
 </script>
 
 <template>
 	<v-row dense class="prompt-container">
-		<!-- <v-col md="2">
-			<v-btn @click="handleUserInput($event, 'btn')"> Default Prompt </v-btn>
-
-		</v-col> -->
 		<v-col md="2">
-			<v-select v-model="selectedPromptOption" :items="promptOptions"/>
+			<v-select v-model="selectedPromptOption" :items="promptOptions" bg-color="rgb(255 255 255 / 92%)"/>
 
 		</v-col>
 			<v-col md="8">
 				<v-text-field 
 					class="user-prompt" 
-					label="What would you like to know about the current MLB season?"
+					:label="selectedPromptOption === 'DB Query' ? 'What would you like to know about the current MLB season?' : 'How can I help you today?'"
 					variant="outlined"
 					clear-icon="mdi-close-circle"
 					clearable
 					v-model="userPrompt"
+					bg-color="rgb(255 255 255 / 92%)"
+					color="rgb(2, 81, 151)"
 					@keyup.enter="handleUserInput($event, 'enter')"
-					color="aliceblue"
 				> 
 					<template #append-inner>
 						<span class="magic" :class="{ 'is-animated': animationTrigger }" @click="handleUserInput($event, 'icon')">
@@ -73,6 +68,7 @@ watch(response, (newValue) => {
 .user-prompt {
 	color: rgb(2, 81, 151);
 }
+
 .v-text-field {
 	font-size: 20px;
 }

@@ -1,64 +1,103 @@
 <script setup>
 import { ref, computed, onMounted  } from 'vue';
 
-const showTechBox = ref(false); // State to control the visibility of the tech box
-const toggleTechBox = () => {
-	showTechBox.value = !showTechBox.value; // Toggle the visibility
-};
+const frontEndIcons = ['mdi-vuejs', 'mdi-vuetify', 'mdi-nodejs' ]
+const frontEndLabels = ['Vue JS', 'Vuetify', 'Node JS',]
 
+const backEndIcons = ['mdi-language-python', 'mdi-database']
+const backEndLabels = ['Python', 'MariaDB']
+
+const generalIcons = ['mdi-github', 'mdi-microsoft-visual-studio-code']
+const generalLabels = ['Github', 'VS Code']
 </script>
 
 <template>
 	<v-app-bar id="topNavBar" app  elevated>
 		<v-row align="center" no-gutters style="padding-right: 40px; position: relative; overflow: visible;">
-			<!-- <v-col cols="auto">
-				<v-btn class="ml-2" variant="flat" color="red">
-					Click Me 
-				
-				</v-btn>
-			</v-col> -->
+			<v-btn 
+				text="Baseball LLM" 
+				:to="{ name: 'baseball' }" 
+				color="rgb(224, 224, 224)" 
+				style="margin-left: 50px;"
+			/>
+			
 			<v-spacer></v-spacer>
-	
+			
 			<v-col cols="auto" style="padding-right: 40px; position: relative; overflow: visible;">
-				<v-btn
-					href="https://github.com/kcbdalton" 
-					target="_blank"  
-					icon
-				>
-					<v-icon size="40px">
-						mdi-github  <!-- Material Design Icons GitHub icon -->
-					</v-icon>
-				</v-btn>
-				<v-btn icon @click="toggleTechBox">
-					<v-icon size="30px">
-						mdi-information-slab-circle-outline  <!-- Material Design Icons GitHub icon -->
-					</v-icon>
-				</v-btn>
-				<v-expand-transition>
-					<div v-if="showTechBox" class="tech-box" style="">
-						<strong>Technologies used:</strong>
-						<div style="display: flex; gap: 10px; margin-top: 5px;">
-							<v-icon>mdi-vuejs</v-icon>
-							<v-icon>mdi-vuetify</v-icon>
-							<v-icon>mdi-language-python</v-icon>
-							<v-icon>mdi-microsoft-visual-studio-code</v-icon>
-							<v-icon>mdi-nodejs</v-icon>
-						</div>
-					</div>
-				</v-expand-transition>
-				<!-- <v-btn v-if="!isAuth" :to="{ name: 'login' }" class="mr-2" variant="text" :color="buttonColor">Sign in</v-btn>
-				<v-btn v-if="isAuth" :to="{ name: 'AddApplication' }" class="mr-2" variant="text" :color="buttonColor">Add App</v-btn>
-				<v-btn v-if="isAuth" :to="{ name: 'kcApps' }" class="mr-2" variant="text" :color="buttonColor">Knox County Apps</v-btn> -->
-				
-				<!-- <v-btn v-if="isAuth" :to="{ name: 'addApp' }">Add App</v-btn>  -->
+				<v-btn text="About The Dev" :to="{ name: 'about' }" color="rgb(224, 224, 224)"></v-btn>
+				<v-menu transition="scale-transition">
+					<template v-slot:activator="{ props }">
+						<v-btn v-bind="props" text="" color="rgb(224, 224, 224)">
+							Tech Stack
+							<v-icon size="20px" style="padding-left: 5px;">
+								mdi-information-slab-circle-outline  
+							</v-icon>
+						</v-btn>
+					</template>
+					<v-container>
+						<v-row>
+							
+							<v-card style="border-right: 2px solid gray;"> 
+								<v-card-title style="text-align: center;">
+									<span style="border-bottom: 1px solid black;">Back End</span>
+								</v-card-title>
+								<v-card-item>
+									<v-list-item
+										v-for="(icon, index) in backEndIcons"
+										:key="index"
+									>
+									<v-icon :icon="icon" />
+										{{ backEndLabels[index] }}
+									</v-list-item>
+								</v-card-item>
+							</v-card>
 
+							<v-card style="border-right: 2px solid gray;"> 
+								<v-card-title style="text-align: center;">
+									<span style="border-bottom: 1px solid black;">Front End</span>
+								</v-card-title>
+								<v-card-item>
+									<v-list-item
+										v-for="(icon, index) in frontEndIcons"
+										:key="index"
+									>
+									<v-icon :icon="icon" />
+										{{ frontEndLabels[index] }}
+									</v-list-item>
+								</v-card-item>
+							</v-card>
+
+							<v-card> 
+								<v-card-title style="text-align: center;">
+									<span style="border-bottom: 1px solid black;">General</span>
+								</v-card-title>
+								<v-card-item>
+									<v-list-item
+										v-for="(icon, index) in generalIcons"
+										:key="index"
+									>
+									<v-icon :icon="icon" />
+										{{ generalLabels[index] }}
+									</v-list-item>
+								</v-card-item>
+							</v-card>
+
+						</v-row>
+					</v-container>
+				</v-menu>
+
+				<v-btn href="https://github.com/kcbdalton" target="_blank" icon color="rgb(224, 224, 224)">
+					<v-icon size="40px">
+						mdi-github 
+					</v-icon>
+				</v-btn>
 
 			</v-col>
 		</v-row>
 	</v-app-bar>
 </template>
 
-<style>
+<style scoped>
 /* !important means dont overwrite */
 .router-link-active {
 	color: #007bff !important;
@@ -71,19 +110,7 @@ const toggleTechBox = () => {
 #topNavBar {
 	background-color: rgb(62, 81, 121);
 	overflow: visible; 
-	/* z-index: 100; */
-}
-
-.tech-box {
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-	border-radius: 4px;
-	position: absolute; 
-	background: white; 
-	border: 1px solid #ccc; 
-	padding: 10px; 
-	z-index: 1000 !important;
-	/* right: 200px;
-	top: -2px; */
+	z-index: 999;
 }
 
 </style>

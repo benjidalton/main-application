@@ -2,8 +2,8 @@ from flask import Blueprint
 from flask import jsonify, request
 import json
 
-import sql.sqlUtility as sqlUtility
-import sql.loadData as loadData
+import services.sql.sqlUtility as sqlUtility
+import services.sql.loadData as loadData
 
 import logging
 _logger = logging.getLogger('app')

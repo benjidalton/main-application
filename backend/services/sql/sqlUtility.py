@@ -4,6 +4,10 @@ import mysql.connector
 from flask import jsonify
 from models.Player import Player
 from models.Team import Team
+# may need to add in :
+# import sys
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from utils.customLogging import logErrors
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -140,8 +144,6 @@ def createUpdateQuery(table: str, id: int, idSpecifier: str, columnDefinitionsSr
 	
 	executeQuery(updateQuery, [])
 
-
-
 def createTable(tableName: str, columnDefinitionsSring: str, primaryKeyId: str):
 	dropTableQuery = f"DROP TABLE IF EXISTS {tableName};"
 	executeQuery(dropTableQuery, [])
@@ -155,38 +157,23 @@ def createTable(tableName: str, columnDefinitionsSring: str, primaryKeyId: str):
 
 	executeQuery(createTableQuery, [])
 
-# def createLogChangeTable():
-# 	connection = createConnection()
-# 	cursor = connection.cursor()
-	
-	
-# 	dropQuery = "DROP TABLE IF EXISTS change_log;"
-# 	cursor.execute(dropQuery, [])
-# 	connection.commit()
-# 	createQuery = """
-# 		CREATE TABLE change_log (
-# 			id INT AUTO_INCREMENT PRIMARY KEY,
-# 			operationType VARCHAR(10),  -- e.g., 'INSERT', 'UPDATE', 'DELETE'
-# 			tableName VARCHAR(255),
-# 			executedQuery TEXT,
-# 			timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
-# 			status VARCHAR(10),  -- e.g., 'success', 'failure'
-# 			errorMessage TEXT  -- To store error messages if any
-# 		);"""
+def exportToDatabase(tableName: str, id: int, idSpecifier: str, dbColumns: list, dbData: list, createNewDatabaseTable: bool, loggingName: str):
+	# remove the keys of each object and get just the values
+	cleanedColumns = [list(column.values())[0] for column in dbColumns]
 
-# 	cursor.execute(createQuery, [])
-# 	connection.commit()
-	
+	columnDefinitionsSring = createTableColumnsString(cleanedColumns, createNewDatabaseTable)
+	valueDefinitionsString = createValuesString(dbData)
 
-# def logChange(operationType, tableName, query, status, errorMessage=None):
-# 	"""Log the query execution details into the change_log table."""
-# 	logQuery = """
-# 		INSERT INTO change_log (operationType, tableName, executedQuery, status, errorMessage)
-# 			VALUES (%s, %s, %s, %s, %s)
-# 	"""
-# 	params = [operationType, tableName, query, status, errorMessage]
-# 	executeQuery(logQuery, params)
+	if createNewDatabaseTable == True:	
+		createTable(tableName, columnDefinitionsSring, idSpecifier)
 
+	insertQuery = createInsertQuery(tableName, id, idSpecifier, columnDefinitionsSring, valueDefinitionsString) 
+
+	try:
+		executeQuery(insertQuery, [])
+	except Exception as e:
+		failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
+		logErrors(failReason)
 
 
 def executeQuery(query, params, operationType=None, tableName=None):

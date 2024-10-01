@@ -57,7 +57,8 @@ function copyQueryToClipboard(copyText) {
 					<v-btn icon @click="copyQueryToClipboard(formattedQuery.toolTipString)" class="ml-2">
 						<v-icon>mdi-content-copy</v-icon>
 					</v-btn>
-					</v-card>
+					<p class="hover-text">Hover me to see SQL query used</p>
+				</v-card>
 			</template>
 		</v-tooltip>
 	</v-container>
@@ -101,6 +102,13 @@ function copyQueryToClipboard(copyText) {
 
 .formatted-response i.mdi {
   font-size: 16px;
+}
+
+.hover-text {
+	color: rgba(0, 0, 0, 0.5);
+	font-size: 12px;
+	text-align: center;
+	margin-top: 8px;
 }
 
 </style>

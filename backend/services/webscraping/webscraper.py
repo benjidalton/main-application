@@ -7,8 +7,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 import sql.sqlUtility as sqlUtility
-from scrapingTables import allColumns
-from services.customLogging import logErrors
+from backend.utils.columnDefinitions import allColumns
+from backend.utils.customLogging import logErrors
 
 chrome_options = Options()
 chrome_options.add_argument('--ignore-certificate-errors')
@@ -41,7 +41,6 @@ def exportToDatabase(tableName: str, id: int, idSpecifier: str, dbColumns: list,
 		failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
 		logErrors(failReason)
 
-
 def getHtmlContent(url: str):
 	driver = webdriver.Chrome(options=chrome_options)
 	driver.get(url)
@@ -64,7 +63,6 @@ def prettyPrintHtml(htmlContent: BeautifulSoup, fileName: str, mode = 'w'):
     """
 	with open('./htmlFiles/' + fileName + '.html', mode, encoding='utf-8') as file:
 		file.write(str(htmlContent))
-
 
 def stripDataFromTablesById(tableFindParam, driver: webdriver.Chrome, soup: BeautifulSoup, definingDataStats: list[str], desiredDataStatValues: list[str], loggingName: str) -> list:
 	"""
@@ -90,8 +88,6 @@ def stripDataFromTablesById(tableFindParam, driver: webdriver.Chrome, soup: Beau
 		dataTable = getTable(tableFindParam, driver, soup, loggingName)
 	except ValueError as ve:
 		logErrors(str(ve).format(loggingName))
-
-	
 
 	if dataTable != None:
 		# prettyPrintHtml(dataTable, f"datatable{tableIdx + 1}")

@@ -3,8 +3,9 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # from sql.sqlUtility import getDatabaseSchema, executeSelectQuery
-from services.llm.openAIAgent import createSqlQuery
-import sqlparse
+# from services.llm.openAIAgent import createSqlQuery
+# custom imports
+from models.LLMAgent import llmAgent
 
 import logging
 _logger = logging.getLogger('app')
@@ -17,5 +18,5 @@ def fetchLLMResponse():
 	prompt = request.args.get('prompt')
 	promptType = request.args.get('promptType')
 
-	rawSqlQuery, formattedSqlQuery, dbResponse, itemUrls = createSqlQuery(prompt, promptType)
+	rawSqlQuery, formattedSqlQuery, dbResponse, itemUrls = llmAgent.createSqlQuery(prompt, promptType)
 	return [rawSqlQuery, formattedSqlQuery, dbResponse, itemUrls]

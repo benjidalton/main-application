@@ -1,6 +1,6 @@
 import subprocess
-import llm.openAIAgent as openAIAgent
-import re
+# custom imports
+from models.LLMAgent import llmAgent
 
 def getStagedChanges():
 	result = subprocess.run(['git', 'diff', '--cached', '--name-status'], capture_output=True, text=True, encoding='utf-8')
@@ -28,8 +28,10 @@ def main():
 		print("No staged changes to commit.")
 		return
 
+	# Get the summary of changes compared to head
 	changeSummary = getChangeSummary()
 
+	# Prompt for 
 	prompt = f"""Here is the summary of the staged changes in my git repository:\n\n
 					{changeSummary}\n\n
 				Can you write me a summary of this to include in my git commit?\n 
@@ -38,7 +40,7 @@ def main():
 				"""
 	print('prompt: ', prompt)
 
-	commit = openAIAgent.queryAgent(prompt)
+	commit = llmAgent.queryAgent(prompt)
 	commitMessage = commit.content
 	print('Commit Message:\n', commitMessage)
 

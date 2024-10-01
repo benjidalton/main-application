@@ -75,13 +75,5 @@ if __name__ == '__main__':
 	# current_directory = os.getcwd()
 	# print(f"Folder structure of: {current_directory}\n")
 	# print_directory_structure()
-	
-	currentTime = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-	message = f"\n{'*' * 30}\n" \
-			f"🚀 App Updated Successfully!\n" \
-			f"Updated at: {currentTime}\n" \
-			f"{'*' * 30}\n"
-
-	print(message)
 
 	app.run(debug=True, host="localhost", port=5000)

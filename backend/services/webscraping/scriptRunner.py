@@ -1,6 +1,6 @@
 import time
 import threading
-import webscraper as webscraper
+from models.Webscraper import webScraper
 
 timeoutEvent = threading.Event()
 
@@ -15,8 +15,6 @@ def timeFunction(timedFunction):
 		elapsedTimeSeconds = endTime - startTime
 		elapsedTimeMinutes = elapsedTimeSeconds / 60
 		print(f'Ran for: {elapsedTimeMinutes:.1f} minutes.')
-
-
 
 def watchdog(func, maxTime):
     """Watchdog to monitor the function's runtime."""
@@ -51,7 +49,7 @@ def watchdog(func, maxTime):
 if __name__== "__main__":
     # webscraper.getPlayersDataTables()
     # webscraper.getTeamDataTables()
-	watchdog(webscraper.getTeamDataTables, 15)
+	watchdog(webScraper.getTeamDataTables, 15)
 
 	#  sqlUtility.getDatabaseSchema()
      
