@@ -13,7 +13,8 @@ routes = Blueprint('routes', __name__, template_folder='templates')
 routeMapping = {
             "getTeamsData": loadData.GET_TEAMS_DATA,
 			"getPlayersData": loadData.GET_PLAYERS_DATA,
-			"getPlayersOnTeam": loadData.GET_TEAM_PLAYERS
+			"getPlayersOnTeam": loadData.GET_TEAM_PLAYERS,
+			"getAllTeamsPitchingStats": loadData.GET_ALL_TEAMS_PITCHING_STATS
 		}
 
 @routes.route('/getTeamsData', methods=['GET'])
@@ -33,4 +34,10 @@ def getPlayersData():
 def getPlayersOnTeam():
 	params = request.args.get('teamId')
 	selectSql = loadData.GET_TEAM_PLAYERS
+	return sqlUtility.executeSelectQuery(selectSql, params)
+
+@routes.route('/getAllTeamsPitchingStats', methods=['GET'])
+def getAllTeamsPitchingStats():
+	params = []
+	selectSql = loadData.GET_ALL_TEAMS_PITCHING_STATS
 	return sqlUtility.executeSelectQuery(selectSql, params)

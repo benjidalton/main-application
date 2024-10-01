@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-
+import BaseViewContainer from '@/components/BaseComponents/BaseViewContainer.vue';
 const window = ref(null);
 const length = ref(3);
 
@@ -26,7 +26,7 @@ const windowContents = [
 </script>
 
 <template>
-	<v-container class="container" fluid>
+	<BaseViewContainer>
 		<v-card class="card">
 			<v-toolbar>
 				<v-toolbar-title style="text-align: left; padding-left: 40px;">
@@ -91,29 +91,10 @@ const windowContents = [
 			</v-window>
 
 		</v-card>
-
-	</v-container>
-
+	</BaseViewContainer>
 </template>
 
-
 <style scoped>
-.container {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	padding: 0;
-	margin-top: 70px;
-	box-sizing: border-box;
-	justify-content: center;
-	align-content: center;
-	align-items: center;
-	overflow-y: hidden;
-	height: calc(100vh - 70px);
-	background-color: rgb(247, 247, 247);
-	
-}
-
 .card {
 	position: fixed;
 	min-width: 700px;

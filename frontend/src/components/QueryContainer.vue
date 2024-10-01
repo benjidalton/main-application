@@ -6,6 +6,9 @@ const props = defineProps({
 	query: {
 		type: LLMQuery,
 		required: true
+	},
+	loading: {
+		type: Boolean
 	}
 });
 
@@ -57,11 +60,13 @@ function copyQueryToClipboard(copyText) {
 					<v-btn icon @click="copyQueryToClipboard(formattedQuery.toolTipString)" class="ml-2">
 						<v-icon>mdi-content-copy</v-icon>
 					</v-btn>
-					<p class="hover-text">Hover me to see SQL query used</p>
+					
 				</v-card>
 			</template>
 		</v-tooltip>
+		<p class="hover-text">Hover me to see SQL query used</p>
 	</v-container>
+	
 </template>
 
 <style>

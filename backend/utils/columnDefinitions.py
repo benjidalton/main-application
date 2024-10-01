@@ -91,7 +91,7 @@ standardPitchingColumns = {
 		"dataType": "INT(10)"
 	},
 	"IBBAllowed": {
-		"columnName": "intentialWalksAllowed",
+		"columnName": "intentionalWalksAllowed",
 		"abbr": "IBBA",
 		"dataType": "INT(10)"
 	},
@@ -294,7 +294,7 @@ standardBattingColumns = {
         "dataType": "INT(10)"
     },
     "IBB": {
-        "columnName": "intentialWalks",
+        "columnName": "intentonialWalks",
         "abbr": "IBB",
         "dataType": "INT(10)"
     },

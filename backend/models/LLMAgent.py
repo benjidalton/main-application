@@ -161,5 +161,5 @@ class LLMAgent:
 		return toolTipString, formattedSqlQuery, answerWithContext, itemUrls
 
 
-apiKey = os.getenv('OPENAI_SECRET_KEY')
+apiKey = os.getenv('OPEN_AI_SECRET_KEY')
 llmAgent = LLMAgent(apiKey)

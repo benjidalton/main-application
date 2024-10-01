@@ -6,9 +6,15 @@ const routes = [
 		name: '/',
 		component: () => import('../views/LLMView.vue')
 	},
+
 	{
 		path: '/baseball',
 		name: 'baseball',
+		component: () => import('../views/BaseballStatsView.vue')
+	},
+	{
+		path: '/baseball/LLM',
+		name: 'baseball-LLM',
 		component: () => import('../views/LLMView.vue')
 	},
 
