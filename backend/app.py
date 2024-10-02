@@ -10,11 +10,6 @@ import os
 from blueprints import routes, llmRoutes
 load_dotenv()
 
-
-
-
-
-
 DB_USER = os.getenv("APP_ACCESS_DB_USERNAME")
 DB_PASS = os.getenv("APP_ACCESS_DB_PASSWORD")
 DB_HOST = os.getenv("APP_ACCESS_DB_HOSTNAME")
@@ -32,6 +27,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # .\venv\Scripts\python -c "import os; print(os.urandom(24).hex())"
 app.config['SECRET_KEY'] = SECRET_KEY
 db = SQLAlchemy(app)
+print("db: ", db)
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -40,8 +36,6 @@ class User(db.Model):
 
 	def __repr__(self):
 		return f'<User {self.username}>'
-
-
 
 cors = CORS(app, resources={r'*': {'origins': '*'}})
 jwt = JWTManager(app)
@@ -92,7 +86,6 @@ def notify():
 	return '', 204
 
 
-print("db: ", db)
 
 
 if __name__ == '__main__':
