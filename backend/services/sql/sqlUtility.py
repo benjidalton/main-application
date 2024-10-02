@@ -65,33 +65,6 @@ def getDatabaseSchema():
 	print('final table schema:', schema)
 	return schema
 
-# General sql select queries
-def selectAllPlayersNotInStats() -> list[Player]:
-	# selectQuery = """SELECT * FROM players WHERE id NOT IN (SELECT playerId FROM playerstats_updated);"""
-
-	selectQuery = """SELECT * 
-					FROM players 
-					WHERE id > (SELECT MAX(playerId) FROM playerstats_updated);"""
-
-	data = executeSelectQuery(selectQuery, [])
-	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
-
-def selectAllPlayers() -> list[Player]:
-	selectQuery = """ select * from players """
-	
-	data = executeSelectQuery(selectQuery, [])
-	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
-
-def selectAllTeams() -> list[Team]:
-	selectQuery = """ select * from teams """
-	
-	data = executeSelectQuery(selectQuery, [])
-	return [Team(team['id'], team['name'], team['baseballReferenceUrl']) for team in data['items']]
-
-def updatePlayerAsPitcher(playerId: int):
-	updateQuery = f"""UPDATE players SET pitcher = 1 WHERE id = {playerId} """
-	executeQuery(updateQuery, [])
-
 # Helper methods for working with data
 def createTableColumnsString(dbColumns: list, newTable: bool) -> str:
 	"""
@@ -174,6 +147,35 @@ def exportToDatabase(tableName: str, id: int, idSpecifier: str, dbColumns: list,
 	except Exception as e:
 		failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
 		logErrors(failReason)
+
+
+# General sql select queries
+def selectAllPlayersNotInStats() -> list[Player]:
+	# selectQuery = """SELECT * FROM players WHERE id NOT IN (SELECT playerId FROM playerstats_updated);"""
+
+	selectQuery = """SELECT * 
+					FROM players 
+					WHERE id > (SELECT MAX(playerId) FROM playerstats_updated);"""
+
+	data = executeSelectQuery(selectQuery, [])
+	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
+
+def selectAllPlayers() -> list[Player]:
+	selectQuery = """ select * from players """
+	
+	data = executeSelectQuery(selectQuery, [])
+	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
+
+def selectAllTeams() -> list[Team]:
+	selectQuery = """ select * from teams """
+	
+	data = executeSelectQuery(selectQuery, [])
+	return [Team(team['id'], team['name'], team['baseballReferenceUrl']) for team in data['items']]
+
+def updatePlayerAsPitcher(playerId: int):
+	updateQuery = f"""UPDATE players SET pitcher = 1 WHERE id = {playerId} """
+	executeQuery(updateQuery, [])
+
 
 
 def executeQuery(query, params, operationType=None, tableName=None):
