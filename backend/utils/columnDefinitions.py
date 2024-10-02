@@ -1,331 +1,343 @@
+
+# keys for each obj is used to match with the 'data-stat' for the elements being web-scraped
+# useful for matching data with columns for database entry
 standardPitchingColumns = {
 
 	"W": {
 		"columnName": "wins",
-		"abbr": "W",
 		"dataType": "INT(5)"
 	},
 	"L": {
 		"columnName": "losses",
-		"abbr": "L",
 		"dataType": "INT(5)"
 	},
 	"win_loss_perc": {
 		"columnName": "winLossPercent",
-		"abbr": "winLossPerc",
 		"dataType": "DECIMAL(5, 2)"
 	},
 	"earned_run_avg": {
 		"columnName": "earnedRunAvg",
-		"abbr": "ERA",
 		"dataType": "DECIMAL(5, 2)"
 	},
 	"gamesPlayedPitcher": {
 		"columnName": "gamesPlayedPitcher",
-		"abbr": "GP",
 		"dataType": "INT(10)"
 	},
 	"GS": {
 		"columnName": "gamesStarted",
-		"abbr": "GS",
 		"dataType": "INT(10)"
 	},
 	"GF": {
 		"columnName": "gamesFinished",
-		"abbr": "GF",
 		"dataType": "INT(10)"
 	},
 	"CG": {
 		"columnName": "completeGames",
-		"abbr": "CG",
 		"dataType": "INT(10)"
 	},
 	"SHO": {
 		"columnName": "shutouts",
-		"abbr": "SO",
 		"dataType": "INT(10)"
 	},
 	"SHO_team": {
 		"columnName": "shutoutsOnTeam",
-		"abbr": "SHOteam",
 		"dataType": "INT(10)"
 	},
 	"SHO_cg": {
 		"columnName": "shutoutsCGTeam",
-		"abbr": "",
 		"dataType": "INT(10)"
 	},
 	"SV": {
 		"columnName": "saves",
-		"abbr": "SV",
 		"dataType": "INT(10)"
 	},
 	"IP": {
 		"columnName": "inningsPitched",
-		"abbr": "IP",
 		"dataType": "INT(10)"
 	},
 	"HAllowed": {
 		"columnName": "hitsAllowed",
-		"abbr": "H",
 		"dataType": "INT(10)"
 	},
 	"RAllowed": {
 		"columnName": "runsAllowed",
-		"abbr": "RA",
 		"dataType": "INT(10)"
 	},
 	"ER": {
 		"columnName": "earnedRuns",
-		"abbr": "ER",
 		"dataType": "INT(10)"
 	},
 	"HRAllowed": {
 		"columnName": "homeRunsAllowed",
-		"abbr": "HR",
 		"dataType": "INT(10)"
 	},
 	"BBAllowed": {
 		"columnName": "walksAllowed",
-		"abbr": "BBA",
 		"dataType": "INT(10)"
 	},
 	"IBBAllowed": {
 		"columnName": "intentionalWalksAllowed",
-		"abbr": "IBBA",
 		"dataType": "INT(10)"
 	},
 	"SOAllowed": {
 		"columnName": "strikeoutsRecorded",
-		"abbr": "SO",
 		"dataType": "INT(10)"
 	},
 	"HBPAllowed": {
 		"columnName": "hitBatters",
-		"abbr": "HB",
 		"dataType": "INT(10)"
 	},
 	"BK": {
 		"columnName": "balks",
-		"abbr": "BK",
 		"dataType": "INT(10)"
 	},
 	"WP": {
 		"columnName": "wildPitches",
-		"abbr": "WP",
 		"dataType": "INT(10)"
 	},
 	"batters_faced": {
 		"columnName": "battersFaced",
-		"abbr": "BF",
 		"dataType": "INT(10)"
 	},
 	"earned_run_avg_plus": {
 		"columnName": "adjustedEraPlus",
-		"abbr": "aERA",
 		"dataType": "INT(10)"
 	},
 	"fip": {
 		"columnName": "fieldingIndPitching",
-		"abbr": "FIP",
 		"dataType": "DECIMAL(5, 2)"
 	},
 	"whip": {
 		"columnName": "walksHitsPerNine",
-		"abbr": "WHIP",
 		"dataType": "DECIMAL(5, 2)"
 	},
 	"hits_per_nine": {
 		"columnName": "hitsPerNine",
-		"abbr": "HIP",
 		"dataType": "DECIMAL(5, 2)"
 	},
 	"home_runs_per_nine": {
 		"columnName": "homerunsPerNine",
-		"abbr": "HRIP",
 		"dataType": "DECIMAL(5, 2)"
 	},
 	"bases_on_balls_per_nine": {
 		"columnName": "walksPerNine",
-		"abbr": "BBIP",
 		"dataType": "DECIMAL(5, 2)"
 	},
 	"strikeouts_per_nine": {
 		"columnName": "strikeoutsPerNine",
-		"abbr": "SOIP",
 		"dataType": "DECIMAL(5, 2)"
 	}, 
 	"strikeouts_per_base_on_balls": {
 		"columnName": "strikeoutsWalkRatio",
-		"abbr": "kBBRatio",
 		"dataType": "DECIMAL(5, 2)"
 	},
 	"pitchers_used": {
 		"columnName": "pitchersUsed",
-		"abbr": "",
 		"dataType": "INT"
 	},
 	"age_pitch": {
 		"columnName": "avgPitcherAge",
-		"abbr": "agePitcher",
 		"dataType": "decimal(5, 3)"
 	},
 	"runs_allowed_per_game": {
 		"columnName": "runsAllowedPerGame",
-		"abbr": "RAG",
 		"dataType": "DECIMAL(5,3)"
 	}
 }
 
 standardBattingColumns = {
-    "G": {
-        "columnName": "gamesPlayed",
-        "abbr": "GP",
-        "dataType": "INT(10)"
-    },
-    "PA": {
-        "columnName": "plateAppearances",
-        "abbr": "PA",
-        "dataType": "INT(10)"
-    },
-    "AB": {
-        "columnName": "atBats",
-        "abbr": "AB",
-        "dataType": "INT(10)"
-    },
-    "R": {
-        "columnName": "runsScored",
-        "abbr": "RS",
-        "dataType": "INT(10)"
-    },
-    "H": {
-        "columnName": "hits",
-        "abbr": "H",
-        "dataType": "INT(10)"
-    },
-    "2B": {
-        "columnName": "doubles",
-        "abbr": "2B",
-        "dataType": "INT(10)"
-    },
-    "3B": {
-        "columnName": "triples",
-        "abbr": "3B",
-        "dataType": "INT(10)"
-    },
-    "HR": {
-        "columnName": "homeRuns",
-        "abbr": "HR",
-        "dataType": "INT(10)"
-    },
-    "RBI": {
-        "columnName": "runsBattedIn",
-        "abbr": "RBI",
-        "dataType": "INT(10)"
-    },
-    "SB": {
-        "columnName": "stolenBases",
-        "abbr": "SB",
-        "dataType": "INT(10)"
-    },
-    "CS": {
-        "columnName": "caughtStealing",
-        "abbr": "CS",
-        "dataType": "INT(10)"
-    },
-    "BB": {
-        "columnName": "walks",
-        "abbr": "BB",
-        "dataType": "INT(10)"
-    },
-    "SO": {
-        "columnName": "strikeOuts",
-        "abbr": "SO",
-        "dataType": "INT(10)"
-    },
-    "batting_avg": {
-        "columnName": "battingAverage",
-        "abbr": "BA",
-        "dataType": "DECIMAL(5, 2)"
-    },
-    "onbase_perc": {
-        "columnName": "onBasePercentage",
-        "abbr": "OBP",
-        "dataType": "DECIMAL(5, 2)"
-    },
-    "slugging_perc": {
-        "columnName": "sluggingPercentage",
-        "abbr": "SLUG",
-        "dataType": "DECIMAL(5, 2)"
-    },
-    "onbase_plus_slugging": {
-        "columnName": "obpPlusSlugPercentage",
-        "abbr": "OBPS",
-        "dataType": "DECIMAL(5, 2)"
-    },
-    "onbase_plus_slugging_plus": {
-        "columnName": "adjustedOpsPlus",
-        "abbr": "aOBPS",
-        "dataType": "DECIMAL(5, 2)"
-    },
-    "TB": {
-        "columnName": "totalBases",
-        "abbr": "TB",
-        "dataType": "INT(10)"
-    },
-    "GIDP": {
-        "columnName": "doublePlays",
-        "abbr": "GIDP",
-        "dataType": "INT(10)"
-    },
-    "HBP": {
-        "columnName": "hitByPitch",
-        "abbr": "HBP",
-        "dataType": "INT(10)"
-    },
-    "SH": {
-        "columnName": "sacrificeHits",
-        "abbr": "SH",
-        "dataType": "INT(10)"
-    },
-    "SF": {
-        "columnName": "sacrificeFlies",
-        "abbr": "SF",
-        "dataType": "INT(10)"
-    },
-    "IBB": {
-        "columnName": "intentonialWalks",
-        "abbr": "IBB",
-        "dataType": "INT(10)"
-    },
-    "pos_season": {
-        "columnName": "position",
-        "abbr": "pos",
-        "dataType": "VARCHAR(10)"
-    },
+	"G": {
+		"columnName": "gamesPlayed",
+		"dataType": "INT(10)"
+	},
+	"PA": {
+		"columnName": "plateAppearances",
+		"dataType": "INT(10)"
+	},
+	"AB": {
+		"columnName": "atBats",
+		"dataType": "INT(10)"
+	},
+	"R": {
+		"columnName": "runsScored",
+		"dataType": "INT(10)"
+	},
+	"H": {
+		"columnName": "hits",
+		"dataType": "INT(10)"
+	},
+	"2B": {
+		"columnName": "doubles",
+		"dataType": "INT(10)"
+	},
+	"3B": {
+		"columnName": "triples",
+		"dataType": "INT(10)"
+	},
+	"HR": {
+		"columnName": "homeRuns",
+		"dataType": "INT(10)"
+	},
+	"RBI": {
+		"columnName": "runsBattedIn",
+		"dataType": "INT(10)"
+	},
+	"SB": {
+		"columnName": "stolenBases",
+		"dataType": "INT(10)"
+	},
+	"CS": {
+		"columnName": "caughtStealing",
+		"dataType": "INT(10)"
+	},
+	"BB": {
+		"columnName": "walks",
+		"dataType": "INT(10)"
+	},
+	"SO": {
+		"columnName": "strikeOuts",
+		"dataType": "INT(10)"
+	},
+	"batting_avg": {
+		"columnName": "battingAverage",
+		"dataType": "DECIMAL(5, 2)"
+	},
+	"onbase_perc": {
+		"columnName": "onBasePercentage",
+		"dataType": "DECIMAL(5, 2)"
+	},
+	"slugging_perc": {
+		"columnName": "sluggingPercentage",
+		"dataType": "DECIMAL(5, 2)"
+	},
+	"onbase_plus_slugging": {
+		"columnName": "obpPlusSlugPercentage",
+		"dataType": "DECIMAL(5, 2)"
+	},
+	"onbase_plus_slugging_plus": {
+		"columnName": "adjustedOpsPlus",
+		"dataType": "DECIMAL(5, 2)"
+	},
+	"TB": {
+		"columnName": "totalBases",
+		"dataType": "INT(10)"
+	},
+	"GIDP": {
+		"columnName": "doublePlays",
+		"dataType": "INT(10)"
+	},
+	"HBP": {
+		"columnName": "hitByPitch",
+		"dataType": "INT(10)"
+	},
+	"SH": {
+		"columnName": "sacrificeHits",
+		"dataType": "INT(10)"
+	},
+	"SF": {
+		"columnName": "sacrificeFlies",
+		"dataType": "INT(10)"
+	},
+	"IBB": {
+		"columnName": "intentonialWalks",
+		"dataType": "INT(10)"
+	},
+	"pos_season": {
+		"columnName": "position",
+		"dataType": "VARCHAR(10)"
+	},
 	"LOB": {
 		"columnName": "runnersLeftOnBase",
-		"abbr": "LOB",
 		"dataType": "INT"
 	},
 	"batters_used": {
 		"columnName": "battersUsed",
-		"abbr": "",
 		"dataType": "INT"
 	},
 	"age_bat": {
 		"columnName": "avgBatterAge",
-		"abbr": "ageBat",
 		"dataType": "decimal(5, 3)"
 	},
 	"runs_per_game": {
 		"columnName": "runsPerGame",
-		"abbr": "RG",
 		"dataType": "DECIMAL(5,3)"
 	}
 }
 
-
+teamScheduleColumsn = {
+	"team_game": {
+		"columnName": "gameNumber",
+		"dataType": "INT(10)"
+	},
+	"date_game": {
+		"columnName": "gameDate",
+		"dataType": "DATE"
+	},
+	"homeORvis": {
+		"columnName": "homeOrAway",
+		"dataType": "DATE"
+	},
+	"opp_ID": {
+		"columnName": "opponentId",
+		"dataType": "INT(5)"
+	},
+    "win_loss_result": {
+		"columnName": "winLoss",
+		"dataType": "TEXT(1)"
+	},
+    "R": {
+		"columnName": "runsScored",
+		"dataType": "INT(5)"
+	},
+    "RA": {
+		"columnName": "runsAllowed",
+		"dataType": "INT(5)"
+	},
+    "extra_innings": {
+		"columnName": "inningsReq",
+		"dataType": "INT(5)"
+	},
+    "rank": {
+		"columnName": "rank",
+		"dataType": "INT(5)"
+	},
+    "games_back": {
+		"columnName": "gamesBack",
+		"dataType": "DECIMAL(5, 2)"
+	},
+    "opp_ID": {
+		"columnName": "opponentId",
+		"dataType": "INT(5)"
+	},
+    "winning_pitcher": {
+		"columnName": "winningPitcherId",
+		"dataType": "INT(5)"
+	},
+    "losing_pitcher": {
+		"columnName": "losingPitcherId",
+		"dataType": "INT(5)"
+	},
+    "saving_pitcher": {
+		"columnName": "savingPitcherId",
+		"dataType": "INT(5)"
+	},
+    "opp_ID": {
+		"columnName": "opponentId",
+		"dataType": "INT(5)"
+	},
+    "day_or_night": {
+		"columnName": "dayOrNight",
+		"dataType": "TEXT(1)"
+	},
+    "attendance": {
+		"columnName": "attendance",
+		"dataType": "INT(10)"
+	},
+    "opp_ID": {
+		"columnName": "opponentId",
+		"dataType": "INT(5)"
+	},
+}
 # transformed_columns = {}
 
 # for key, value in standardBattingColumns.items():

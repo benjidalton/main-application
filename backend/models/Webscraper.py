@@ -324,5 +324,112 @@ class WebScraper:
 
 		self.closeDriver()
 
+	def getTeamSchedule(self):
+		teamScheduleUrl = "2024-schedule-scores.shtml"
+		# teams = sqlUtility.selectAllTeams()
+
+		tableParam = ('table', {'id': 'teams_schedule'})
+		loggingName = 'team-schedule'
+		createNewDatabaseTable = False
+		tableName = 'teamschedule'
+		idSpecifier = 'teamId'
+
+		definingDataStats = ['team_game']
+
+		self.getHtmlContent('https://www.baseball-reference.com/teams/PHI/2024-schedule-scores.shtml')
+
+		# for team in teams:
+		dbColumns = []
+		dbData = []
+			
+		try:
+			dataTable = self.getTable(tableParam, loggingName)
+		except Exception() as e:
+			logErrors(str(e).format(loggingName))
+
+		print('data table: ', dataTable)
+
+
+		rows = dataTable.find('tbody').find_all('tr')
+		allValues = []
+		definingValue = None
+		filteredRows = [row for row in rows if 'thead' not in row.get('class', [])]
+		try: 
+			for idx, row in enumerate(filteredRows):
+				rowData = {}
+				row = row.find_all(['td', 'th']) 
+				for htmlElement in row:
+					dataStatElement = htmlElement.get('data-stat')
+					if dataStatElement: 
+						if dataStatElement == 'date_game':
+							dataValue = dataStatElement['csk']
+						elif dataStatElement in ['winning_pitcher', 'losing_pitcher', 'opp_ID']:
+							dataValue = dataStatElement.find('a')['href']
+
+						else:
+							dataValue = htmlElement.text.strip() 
+
+						## this correctly finds the team value in the table.
+						## will be used to handle cases where player was traded during season
+						# if dataStat == "team_ID":
+						# 	teamValue = cell.text.strip()
+						# 	if teamValue == 'TOT':
+
+						if dataStatElement in definingDataStats:
+							definingValue = htmlElement.text.strip()
+							# if definingValue not in desiredDataStatValues:
+							# 	continue
+							
+						if definingValue not in rowData:
+							rowData[definingValue] = {}
+
+						rowData[definingValue][dataStatElement] = dataValue
+				if rowData:  # Add row data if it's not empty
+					allValues.append(rowData)
+		except ValueError as ve:
+			logErrors(str(ve).format(loggingName))
+
+
+
+
+
+
+
+
+
+		def extractMatchingItems():
+			"""Extract matching items based on desired data statistics."""
+			return [
+				obj[team.name] for table in allTables
+				for obj in table
+				for definingDataStat in definingDataStats
+				if team.name in obj and obj[team.name][definingDataStat] == team.name  
+			]
+
+		matchingItems = extractMatchingItems()
+
+		def prepareDatabaseEntries():
+			# ignore columns looks for values of 'data-stat' in each element
+			ignoreColumns =  ['time_of_game', 'reschedule', 'win_loss_streak' 'boxscore', 'team_id', 'CLI']
+
+			for matchingItem in matchingItems:
+				for key, value in matchingItem.items():
+					if key not in ignoreColumns:
+						# Ensure we get the column data from allColumns
+						columnData = allColumns.get(key)
+						if columnData:  # Only add if the column exists in allColumns
+							dbColumns.append({key: columnData})
+							dbData.append(value)
+
+		dbColumns, dbData = prepareDatabaseEntries()
+
+		if not dbColumns or not dbData:
+			failReason = f"No valid data found for {loggingName}."
+			logErrors(failReason)
+			self.closeDriver()
+
+	sqlUtility.exportToDatabase(tableName, team.id, idSpecifier, dbColumns, dbData, createNewDatabaseTable, loggingName)
+
+	self.closeDriver()
 
 webScraper = WebScraper()

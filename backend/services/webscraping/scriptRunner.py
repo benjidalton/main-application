@@ -1,5 +1,8 @@
 import time
 import threading
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from models.Webscraper import webScraper
 
 timeoutEvent = threading.Event()
@@ -49,7 +52,7 @@ def watchdog(func, maxTime):
 if __name__== "__main__":
     # webscraper.getPlayersDataTables()
     # webscraper.getTeamDataTables()
-	watchdog(webScraper.getTeamDataTables, 15)
+	watchdog(webScraper.getTeamSchedule, 15)
 
 	#  sqlUtility.getDatabaseSchema()
      
