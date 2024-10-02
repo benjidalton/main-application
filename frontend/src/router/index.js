@@ -17,6 +17,11 @@ const routes = [
 		name: 'baseball-LLM',
 		component: () => import('../views/LLMView.vue')
 	},
+	{
+		path: '/blackjack',
+		name: 'blackjack',
+		component: () => import('../views/Blackjack.vue')
+	},
 
 	{
 		path: '/about',

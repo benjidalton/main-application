@@ -20,6 +20,7 @@ const generalLabels = ['Github', 'VS Code']
 				color="rgb(224, 224, 224)" 
 				style="margin-left: 50px;"
 			/>
+			<v-btn text="Blackjack" :to="{ name: 'blackjack' }" color="rgb(224, 224, 224)"/>
 			
 			<v-spacer></v-spacer>
 			
