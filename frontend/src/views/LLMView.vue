@@ -1,22 +1,41 @@
 <script setup>
 import { ref } from 'vue';
 import { fetchLLMResponse } from '@/services/LLMService';
+import BaseViewContainer from '@/components/BaseComponents/BaseViewContainer.vue';
 import PromptInput from '@/components/PromptInput.vue';
 import QueryContainer from '@/components/QueryContainer.vue';
 import ExamplePromptsPanel from '@/components/ExamplePromptsPanel.vue';
+import TypingIndicator from '@/components/TypingIndicator.vue';
+
+import { LLMQuery } from '@/models/LLMQuery';
+
+const fakeQuery = new LLMQuery('Hello', 'Sup bitch', '', "Don't talk to me please.")
 
 const llmQueries = ref([]);
 const customPromptEntered = ref(false);
 const showExamplePrompts = ref(true);
+const currentPromptType = ref('DB Query');
+const loading = ref(false);
 
-async function onUserPrompt(prompt, promptType) {
-	customPromptEntered.value = true;
-	let query = await fetchLLMResponse(prompt, promptType);
+async function sendPrompt(prompt) {
+	loading.value = true;
+	let query = await fetchLLMResponse(prompt, currentPromptType.value);
 	llmQueries.value.push(query);
+	loading.value = false;
+	
+}
+
+function onUserPrompt(prompt, promptType) {
+	customPromptEntered.value = true;
+	currentPromptType.value = promptType;
+	sendPrompt(prompt);
+	
 }
 
 function onPromptClicked(prompt) {
 	console.log('This prompt was clicked: ', prompt)
+	sendPrompt(prompt);
+
 }
 
 function onPromptTypeChanged(promptType) {
@@ -30,11 +49,15 @@ function onPromptTypeChanged(promptType) {
 </script>
 
 <template>
-	<v-container class="container" fluid>
+	<BaseViewContainer>
 		<ExamplePromptsPanel v-if="showExamplePrompts"  @promptClicked="onPromptClicked" :customPromptEntered="customPromptEntered"/>
 		<div class="scrollable-wrapper">
+			<QueryContainer :query="fakeQuery"/>
 			<template v-if="llmQueries.length > 0" v-for="(query, index) in llmQueries" :key="index">
 				<QueryContainer :query="query"/>
+			</template>
+			<template v-if="loading">
+				<TypingIndicator />
 			</template>
 		</div>
 
@@ -42,28 +65,13 @@ function onPromptTypeChanged(promptType) {
 		<v-container class="prompt-wrapper">
 			<PromptInput @userPrompt="onUserPrompt" @promptTypeChanged="onPromptTypeChanged"/>
 		</v-container>
-	</v-container>
+	</BaseViewContainer>
+	
 </template>
 
 
 <style scoped>
-.container {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	padding: 0;
-	margin-top: 70px;
-	box-sizing: border-box;
-	justify-content: center;
-	align-content: center;
-	align-items: center;
-	overflow-y: hidden;
-	
-	height: calc(100vh - 70px);
 
-	background-color: rgb(247, 247, 247);
-	
-}
 
 .scrollable-wrapper {
 	position: relative;
@@ -73,12 +81,13 @@ function onPromptTypeChanged(promptType) {
 	overflow-x: hidden;
 	padding: 10px; 
 	width: 80vw;
-	border: 5px solid blue;
+	/* border: 5px solid blue; */
 	margin-bottom: 40px;
 	margin-top: 20px;
-	justify-content: center;
+	flex-direction: column
+	/* justify-content: center;
 	align-content: center;
-	align-items: center;
+	align-items: center; */
 }
 
 .prompt-wrapper {
@@ -93,5 +102,7 @@ function onPromptTypeChanged(promptType) {
 	border: 2px solid gray;
 	background-color: aliceblue;
 }
+
+
 
 </style>

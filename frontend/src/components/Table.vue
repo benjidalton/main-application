@@ -1,10 +1,7 @@
 <script setup>
 import { ref, watch, onBeforeMount } from 'vue';
 import TableToolbar from './TableToolbar.vue';
-import { teams } from '@/api/DatabaseService';
-const currentTeam = ref(null);
-const displayTeamNames = ref(null);
-const displayTeamLogos = ref(null);
+import { teamsPitchingStats } from '@/services/DatabaseService';
 
 const props = defineProps({
 	items: {
@@ -14,7 +11,7 @@ const props = defineProps({
 
 onBeforeMount(() => {
 	// console.log('team names: ', teamNames)
-	console.log('teams in default view', props.items)
+	console.log('teams pitching stasts in table', teamsPitchingStats)
 
 });
 
@@ -35,10 +32,8 @@ function toggleDialog() {
 </script>
 
 <template>
-<v-row>
-	<v-col cols="12" style="max-width: 80%; margin: auto; padding-top: 100px;" >
-		<v-card>
-			<TableToolbar 
+	<v-container>
+		<TableToolbar 
 				title="Fake title" 
 			/>
 
@@ -96,9 +91,11 @@ function toggleDialog() {
 					</v-row>
 				</template> 
 			</v-data-table>
-		</v-card>
+	</v-container>
+			
 
-		<!-- <v-dialog
+
+	<!-- <v-dialog
 			v-model="dialog"
 			max-width="500px"
 			persistent
@@ -129,9 +126,9 @@ function toggleDialog() {
 					</v-btn>
 				</v-card-actions>
 			</v-card>
-		</v-dialog> -->
+		</v-dialog> 
 	</v-col>
-</v-row>
+</v-row> -->
 
 
 </template>

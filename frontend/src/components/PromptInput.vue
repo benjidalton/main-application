@@ -37,11 +37,11 @@ watch(selectedPromptOption, (newValue) => {
 
 <template>
 	<v-row dense class="prompt-container">
-		<v-col md="2">
+		<v-col md="1">
 			<v-select v-model="selectedPromptOption" :items="promptOptions" bg-color="rgb(255 255 255 / 92%)"/>
 
 		</v-col>
-			<v-col md="8">
+			<v-col md="9">
 				<v-text-field 
 					class="user-prompt" 
 					:label="selectedPromptOption === 'DB Query' ? 'What would you like to know about the current MLB season?' : 'How can I help you today?'"
