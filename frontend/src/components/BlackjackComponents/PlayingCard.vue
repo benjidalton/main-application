@@ -45,8 +45,8 @@ function allowDrop(event) {
 
 <style scoped>
 .draggable-card {
-  width: 200px; /* Set width as needed */
-  user-select: none; /* Prevent text selection */
-  position: absolute; /* Important for positioning */
+  width: 200px; 
+  user-select: none;
+  position: absolute;
 }
 </style>
