@@ -1,6 +1,6 @@
 <script setup>
 import { PlayingCard } from '@/models/PlayingCard';
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 
 const props = defineProps({
 	card: {
@@ -10,14 +10,6 @@ const props = defineProps({
 	startingX: {
 		type: Number
 	}
-
-})
-
-onMounted(() => {
-	console.log('card: ', props.card)
-	image.value = `/Users/benji/Programming/baseball-app/frontend/src/assets/card-images/${props.card.imagePath}`
-
-	console.log(image.value)
 
 })
 
@@ -59,19 +51,6 @@ function stopDrag() {
 </script>
 
 <template>
-	<!-- <v-card
-		@dragstart="onDragStart"
-		@dragend="onDragEnd"
-		@drag="onDrag"
-		draggable="true"
-		:style="{ transform: `translate(${posX}px, ${posY}px)`, cursor: isDragging ? 'grabbing' : 'grab' }"
-		class="draggable-card"
-	>
-		<v-card-title>Draggable Card</v-card-title>
-		<v-card-text>
-			You can drag this card around.
-		</v-card-text>
-	</v-card> -->
 
 	<div 
 		class="draggable-card" 

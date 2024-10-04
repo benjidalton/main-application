@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import PlayingCard from '@/components/BlackjackComponents/PlayingCard.vue'
 import BaseViewContainer from '@/components/BaseComponents/BaseViewContainer.vue';
 import { deck, dealCard, initialDeal } from '@/services/BlackjackService';
@@ -15,15 +15,34 @@ const dealerHand = ref(new Hand());
 
 const bet = ref(0);
 const money = ref(1000);
+const bust = ref(false);
+const playerWin = ref(false);
+
+const split = computed(() => {
+	if (playerHand.value.length === 2) { 
+    	const [firstCard, secondCard] = playerHand.value;
+    	return firstCard.value === secondCard.value;
+	}
+	return false;
+})
 
 function startGame() {
 	initialDeal(playerHand.value, dealerHand.value);
-	console.log('player hand: ', playerHand.value)
+	if (playerHand.value.getTotalValue() == 21) {
+		console.log('you win!')
+		playerWin.value = true;
+	}
 	gameStarted.value = true;
 }
 
 function hit() {
 	playerHand.value.push(dealCard())
+
+	if (playerHand.value.getTotalValue() > 21) {
+		bust.value = true;
+
+
+	}
 
 }
 
@@ -50,9 +69,12 @@ function drawCard() {
 
 
 		</v-card>
+		<spand>{{ playerHand.getTotalValue() }}</spand>
+		<span v-if="bust">BUST!</span>
 		<v-btn class="custom_btn" v-if="!gameStarted" @click="startGame">Deal</v-btn>
 		<v-btn class="custom_btn" v-if="gameStarted" @click="hit">Hit</v-btn>
 		<v-btn class="custom_btn" v-if="gameStarted" @click="drawCard">Stand</v-btn>
+		<v-btn class="custom_btn" v-if="gameStarted && split" @click="drawCard">Split</v-btn>
 		<v-container class="hands">
 			<v-container class="player-hand">
 				<template v-for="(card, index) in playerHand" :key="index">

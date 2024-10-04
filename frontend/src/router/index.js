@@ -4,18 +4,18 @@ const routes = [
 	{
 		path: '/',
 		name: '/',
-		component: () => import('../views/LoginView.vue')
+		component: () => import('../views/Login.vue')
 	},
 
 	{
 		path: '/baseball',
 		name: 'baseball',
-		component: () => import('../views/BaseballStatsView.vue')
+		component: () => import('../views/BaseballStats.vue')
 	},
 	{
 		path: '/baseball/LLM',
 		name: 'baseball-LLM',
-		component: () => import('../views/LLMView.vue')
+		component: () => import('../views/LLM.vue')
 	},
 	{
 		path: '/blackjack',
@@ -26,7 +26,7 @@ const routes = [
 	{
 		path: '/about',
 		name: 'about',
-		component: () => import('../views/AboutView.vue')
+		component: () => import('../views/About.vue')
 	}
 ]
 
