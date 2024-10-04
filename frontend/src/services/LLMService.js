@@ -27,5 +27,3 @@ export async function fetchLLMResponse(prompt, promptType) {
 
 	
 	}
-
-// await submitUserPrompt('hello from inside the api file')

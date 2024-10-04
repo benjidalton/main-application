@@ -9,8 +9,6 @@ import TypingIndicator from '@/components/TypingIndicator.vue';
 
 import { LLMQuery } from '@/models/LLMQuery';
 
-const fakeQuery = new LLMQuery('Hello', 'Sup bitch', '', "Don't talk to me please.")
-
 const llmQueries = ref([]);
 const customPromptEntered = ref(false);
 const showExamplePrompts = ref(true);
@@ -52,7 +50,6 @@ function onPromptTypeChanged(promptType) {
 	<BaseViewContainer>
 		<ExamplePromptsPanel v-if="showExamplePrompts"  @promptClicked="onPromptClicked" :customPromptEntered="customPromptEntered"/>
 		<div class="scrollable-wrapper">
-			<QueryContainer :query="fakeQuery"/>
 			<template v-if="llmQueries.length > 0" v-for="(query, index) in llmQueries" :key="index">
 				<QueryContainer :query="query"/>
 			</template>
