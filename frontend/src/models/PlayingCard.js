@@ -1,6 +1,5 @@
 export class PlayingCard {
-	constructor(id, suit, value, imagePath) {
-		this.id = id;
+	constructor(suit, value, imagePath) {
 		this.suit = suit;
 		this.value = value;
 		this.imagePath = imagePath;

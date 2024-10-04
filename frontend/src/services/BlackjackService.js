@@ -17,7 +17,6 @@ class Hand extends Array {
 	}
 
 	toString() {
-		console.log('this', this)
 		return this.map(card => `${card.value} of ${card.suit}`).join(', ');
 	}
 }
@@ -53,32 +52,25 @@ function createDeck() {
 	const faceCards = [ "Jack", "Queen", "King" ];
 	const deck = [];
   
-	let id = 1;
 	for (const suit of suits) {
 		for (const value of values) {
-			deck.push(new PlayingCard(id, suit, value, ''));
+			deck.push(new PlayingCard(suit, value, ''));
 		}
 	}
   
 	for (const suit of suits) {
 		for (const faceCard of faceCards) {
-			deck.push(new PlayingCard(id, suit, faceCard, ''));
+			deck.push(new PlayingCard(suit, faceCard, ''));
 		}
 	}
 
 	for (const suit of suits) {
-		deck.push(new PlayingCard(id, suit, "Ace", ''));
+		deck.push(new PlayingCard(suit, "Ace", ''));
 	}
-	console.log('id', id)
-  
 	return deck;
 }
 
-
-
 let deck = createDeck();
-console.log('deck: ', deck)
-
 /**
  * Randomly chooses a card from the deck and then removes it from the deck.
  * @returns {PlayingCard} A random card
@@ -106,23 +98,36 @@ function initialDeal() {
 
 initialDeal();
 
+function checkPlayerHandValue() {
+	if (playerHand.getTotalValue() > 21) {
+		console.log("Busted! Your total exceeds 21.");
+		return true; 
+	} else if (playerHand.getTotalValue() === 21) {
+		console.log("Blackjack! You hit 21.");
+		return true;
+	}
+	return false;
+}
+
 async function playGame() {
     while (true) {
         console.log("Your hand:", playerHand.toString());
         console.log("Total value:", playerHand.getTotalValue());
 
-        if (playerHand.getTotalValue() > 21) {
-            console.log("Busted! Your total exceeds 21.");
-            break; 
-        } else if (playerHand.getTotalValue() === 21) {
-            console.log("Blackjack! You hit 21.");
-            break;
-        }
-
+		if (checkPlayerHandValue()) {
+			break
+		}
+        
         const choice = await promptUser("Do you want to 'hit' or 'stand'? ");
         
         if (choice === 'hit') {
-			playerHand.push(dealCard());
+			let dealtCard = dealCard();
+			console.log(`You drew a ${dealtCard.value} of ${dealtCard.suit}`)
+			playerHand.push(dealtCard);
+
+			if (checkPlayerHandValue()) {
+				break
+			}
         } else if (choice === 'stand') {
             console.log("You chose to stand.");
             break;

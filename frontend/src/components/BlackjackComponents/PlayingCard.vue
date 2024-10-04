@@ -1,32 +1,44 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
+
+const startX = ref(0);
+const startY = ref(0);
 
 const posX = ref(0);
 const posY = ref(0);
 const isDragging = ref(false);
+const cardStyle = computed(() => {
+	return {
+        transform: `translate(${posX.value}px, ${posY.value}px)`,
+        cursor: isDragging.value ? 'grabbing' : 'grab',
+      };
+})
 
-function onDragStart(event) {
+function startDrag(event) {
 	isDragging.value = true;
-  	event.dataTransfer.setData('text/plain', ''); // You can set your data here
-};
+	startX.value = event.clientX - posX.value;
+	startY.value = event.clientY - posY.value;
+	window.addEventListener('mousemove', drag);
+	window.addEventListener('mouseup', stopDrag);
+}
 
-function onDragEnd() {
+function drag(event) {
+	if (isDragging.value) {
+		posX.value = event.clientX - startX.value;
+		posY.value = event.clientY - startY.value;
+	}
+}
+function stopDrag() {
 	isDragging.value = false;
-};
+	window.removeEventListener('mousemove', drag);
+	window.removeEventListener('mouseup', stopDrag);
+}
 
-function onDrag(event) {
-	posX.value += event.movementX;
-  	posY.value += event.movementY;
-};
-
-function allowDrop(event) {
-	event.preventDefault();
-};
 </script>
 
 <template>
-	<v-card
+	<!-- <v-card
 		@dragstart="onDragStart"
 		@dragend="onDragEnd"
 		@drag="onDrag"
@@ -38,7 +50,20 @@ function allowDrop(event) {
 		<v-card-text>
 			You can drag this card around.
 		</v-card-text>
-	</v-card>
+	</v-card> -->
+
+	<div 
+		class="draggable-card" 
+		@mousedown="startDrag" 
+		:style="cardStyle"
+	>
+		<v-card>
+		<v-card-title>Drag Me!</v-card-title>
+		<v-card-text>
+			You can drag this card around the screen.
+		</v-card-text>
+		</v-card>
+	</div>
 
 	
 </template>
