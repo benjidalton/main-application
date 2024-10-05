@@ -24,6 +24,7 @@
 	height: calc(100vh - 70px);
 	/* border: 5px solid red;	 */
 	background-color: rgb(247, 247, 247);
+	overflow: hidden;
 	
 }
 </style>

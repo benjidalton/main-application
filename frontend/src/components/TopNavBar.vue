@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted  } from 'vue';
-
+import { useRouter } from 'vue-router';
 const frontEndIcons = ['mdi-vuejs', 'mdi-vuetify', 'mdi-nodejs' ]
 const frontEndLabels = ['Vue JS', 'Vuetify', 'Node JS',]
 
@@ -9,10 +9,37 @@ const backEndLabels = ['Python', 'MariaDB']
 
 const generalIcons = ['mdi-github', 'mdi-microsoft-visual-studio-code']
 const generalLabels = ['Github', 'VS Code']
+const router = useRouter();
+
+onMounted(()=> {
+	console.log('router', router.currentRoute.value.fullPath)
+})
+const navBarStyle = computed(() => {
+	let backgroundColor;
+	switch(router.currentRoute.value.fullPath) {
+		case '/blackjack':
+			console.log('11')
+			backgroundColor = 'black'
+			break;
+		default:
+			backgroundColor = 'rgb(62, 81, 121)'
+	}
+	return { backgroundColor};
+
+})
+
+const elevationClass = computed(() => {
+    switch(router.currentRoute.value.fullPath) {
+        case '/blackjack':
+            return 'custom-elevation'; // Apply custom elevation for this route
+        default:
+            return ''; // Default to no custom elevation
+    }
+});
 </script>
 
 <template>
-	<v-app-bar id="topNavBar" app  elevated>
+	<v-app-bar id="topNavBar" app  elevated :style="navBarStyle">
 		<v-row align="center" no-gutters style="padding-right: 40px; position: relative; overflow: visible;">
 			<v-btn 
 				text="Baseball LLM" 
@@ -38,9 +65,9 @@ const generalLabels = ['Github', 'VS Code']
 					<v-container>
 						<v-row>
 							
-							<v-card style="border-right: 2px solid gray;"> 
+							<v-card style="border-right: 2px solid gray;" v-if="router.currentRoute.value.fullPath != '/blackjack'"> 
 								<v-card-title style="text-align: center;">
-									<span style="border-bottom: 1px solid black;">Back End</span>
+									<span style="border-bottom: 1px solid black;" >Back End</span>
 								</v-card-title>
 								<v-card-item>
 									<v-list-item
@@ -53,7 +80,7 @@ const generalLabels = ['Github', 'VS Code']
 								</v-card-item>
 							</v-card>
 
-							<v-card style="border-right: 2px solid gray;"> 
+							<v-card style="border-right: 2px solid gray;" > 
 								<v-card-title style="text-align: center;">
 									<span style="border-bottom: 1px solid black;">Front End</span>
 								</v-card-title>

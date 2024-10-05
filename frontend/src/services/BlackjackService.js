@@ -1,8 +1,5 @@
 import { PlayingCard } from "../models/PlayingCard.js";
-
-
-const playerHand = [];
-const dealerHand = [];
+import { Hand } from "@/models/Hand.js";
 /**
  * Creates a deck of 52 cards, with number cards, face cards (Jack, Queen, King), and aces.
  * @returns {PlayingCard[]} A shuffled deck of cards
@@ -36,39 +33,31 @@ export function createDeck() {
  * Randomly chooses a card from the deck and then removes it from the deck.
  * @returns {PlayingCard} A random card
  */
-export function dealCard() {
-	if (deck.length === 0) {
+export function dealCard(currentDeck) {
+	if (currentDeck.length === 0) {
 		throw new Error("The deck is empty! Cannot deal more cards.");
 	}
-	const randomIndex = Math.floor(Math.random() * deck.length);
+	const randomIndex = Math.floor(Math.random() * currentDeck.length);
 
 	// Remove the card at the random index from the deck and add it to dealt cards
-	const dealtCard = deck.splice(randomIndex, 1)[0];
+	const dealtCard = currentDeck.splice(randomIndex, 1)[0];
 	return dealtCard;
 }
 
-export function initialDeal(hand1, hand2) {
+export function initialDeal(currentDeck) {
+	let playerHand = new Hand();
+	let dealerHand = new Hand();
 	for (let i = 0; i < 4; i++) {
 		if (i % 2 === 0) {
-			hand1.push(dealCard())
+			playerHand.push(dealCard(currentDeck))
 		} else {
-			hand2.push(dealCard())
+			dealerHand.push(dealCard(currentDeck))
 		}
 	}
 
-	return
+	return [playerHand, dealerHand]
 }
 
-export function checkPlayerHandValue() {
-	if (playerHand.getTotalValue() > 21) {
-		console.log("Busted! Your total exceeds 21.");
-		return true; 
-	} else if (playerHand.getTotalValue() === 21) {
-		console.log("Blackjack! You hit 21.");
-		return true;
-	}
-	return false;
-}
 
 
 export const deck = createDeck();

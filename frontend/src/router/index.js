@@ -10,6 +10,9 @@ const routes = [
 	{
 		path: '/baseball',
 		name: 'baseball',
+		redirect: {
+			name: 'baseball-LLM'
+		},
 		component: () => import('../views/BaseballStats.vue')
 	},
 	{

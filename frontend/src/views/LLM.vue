@@ -5,9 +5,7 @@ import BaseViewContainer from '@/components/BaseComponents/BaseViewContainer.vue
 import PromptInput from '@/components/PromptInput.vue';
 import QueryContainer from '@/components/QueryContainer.vue';
 import ExamplePromptsPanel from '@/components/ExamplePromptsPanel.vue';
-import TypingIndicator from '@/components/TypingIndicator.vue';
-
-import { LLMQuery } from '@/models/LLMQuery';
+import LoadingIndicator from '@/components/LoadingIndicator.vue';
 
 const llmQueries = ref([]);
 const customPromptEntered = ref(false);
@@ -54,7 +52,7 @@ function onPromptTypeChanged(promptType) {
 				<QueryContainer :query="query"/>
 			</template>
 			<template v-if="loading">
-				<TypingIndicator />
+				<LoadingIndicator />
 			</template>
 		</div>
 

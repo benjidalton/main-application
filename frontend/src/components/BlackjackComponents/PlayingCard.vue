@@ -9,6 +9,9 @@ const props = defineProps({
 	},
 	startingX: {
 		type: Number
+	},
+	showCardValues: {
+		type: Boolean
 	}
 
 })
@@ -18,14 +21,16 @@ const startX = ref(0);
 const startY = ref(0);
 
 const posX = ref(0);
-const posY = ref(0);
+const posY = ref(380);
 const isDragging = ref(false);
 const cardStyle = computed(() => {
 	return {
-        transform: `translate(${posX.value}px, ${posY.value}px)`,
+        transform: `translate(${posX.value}px, ${posY.value}px) rotate(${props.card.rotation}deg)`, // Combine translation and rotation
         cursor: isDragging.value ? 'grabbing' : 'grab',
-		left: `${props.startingX}px`
-      };
+        position: 'absolute', // Ensure the card is absolutely positioned
+        left: `${props.startingX + posX.value}px`, // Adjust left position based on drag
+        top: `${posY.value}px`, // Set top position as needed (you can also use another ref for vertical position)
+    };
 })
 
 function startDrag(event) {
@@ -58,19 +63,28 @@ function stopDrag() {
 		:style="cardStyle"
 	>
 		<v-card class="playing-card">
-			<!-- <img src="@/assets/card-images/2_of_Clubs.png"> -->
-			<v-img v-if="image != null" :width="300" aspect-ratio="16/9" :src="''+image+''" class="card-image" />
-			<v-card-title>{{ card.value }}</v-card-title>
-			<v-card-text>
-				{{ card.suit }}
-			</v-card-text>
-			</v-card>
+			<div>
+				<div id="top-left-suit">
+					<v-icon icon="mdi-cards-spade" />
+					<span v-if="showCardValues" id="top-left-card-value"> {{ card.value }}</span>
+				</div>
+				<div id="bottom-right-suit">
+					<v-icon icon="mdi-cards-spade" />
+					<span v-if="showCardValues" id="bottom-right-card-value"> {{ card.value }}</span>
+				</div>
+			</div>
+			
+			<!-- <div class="card-content"> -->
+				
+		</v-card>
 	</div>
 
 	
 </template>
 
 <style scoped>
+
+@import url('https://fonts.cdnfonts.com/css/casino');
 .draggable-card {
   width: 200px; 
   height: 600px;
@@ -79,10 +93,78 @@ function stopDrag() {
   position: absolute;
 }
 
+
 .playing-card {
-	background-color: rgb(210, 210, 255); 
-	width: 200px; 
-	height: 300px; 
-	border: 3px solid gray
+    width: 300px;
+    height: 400px; 
+    border: 3px solid #e6fbff; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #292929; 
+    position: relative;           
+    overflow: hidden;
+	font-family: 'Casino';
+	color: #FFD700;
+	font-size: 35px;
+}
+
+.playing-card::before,
+.playing-card::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+	
+}
+
+/* Top-right triangle */
+.playing-card::before {
+    border-width: 0 50px 50px 0; 
+    border-color: transparent transparent #f7ffe3 transparent; /* Color for the triangle */
+    top: 0px;
+    right: 0;
+	transform: rotate(180deg);	
+}
+
+/* Bottom-left triangle */
+.playing-card::after {
+    border-width: 50px 0 0 50px; /* Adjust size as needed */
+    border-color: transparent transparent transparent #f7ffe3; /* Color for the triangle */
+    bottom: 0;
+    left: 0;
+}
+
+#top-left-suit {
+    color: #f7ffe3;
+    position: absolute; 
+    top: 10px;
+    left: 20px; 
+}
+
+#top-left-card-value {
+    padding-left: 10px;
+    font-size: 50px;
+}
+
+#bottom-right-suit {
+    color: #f7ffe3;
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    transform: rotate(180deg);
+}
+
+#bottom-right-card-value {
+    padding-right: 20px; /* Adjust as needed */
+    font-size: 50px; /* Adjust as needed */
+}
+.card-title {
+    font-size: 36px; /* Bigger font for the value */
+    font-weight: bold; /* Bold for emphasis */
+}
+
+.card-suit {
+    font-size: 24px; /* Slightly smaller font for suit */
 }
 </style>

@@ -1,7 +1,7 @@
 export class Hand extends Array {
 	
 	getTotalValue() {
-		let aceCount = 0; // Track the number of Aces
+		let aceCount = 0;
 		let total = this.reduce((total, card) => {
 			if (typeof card.value === 'number') {
 				return total + card.value;
@@ -19,7 +19,6 @@ export class Hand extends Array {
 			total -= 10; // Reduce total by 10 for each Ace
 			aceCount -= 1; // Treat an Ace as 1 instead of 11
 		}
-		console.log('total: ', total)
 		return total;
 	}
 
