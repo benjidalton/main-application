@@ -1,7 +1,7 @@
 ## Version considerations
 Python: 3.10 required
 
-# Baseball App Summary
+# NAIN App Summary
 This application serves as a comprehensive platform for accessing and interacting with data related to the 2024 MLB season. Utilizing a local MariaDB database, the app imports data via web scraping techniques. The backend is built with Python Flask, while the frontend is developed using Vue.js. A notable feature includes integration with OpenAI's chat capabilities, allowing users to submit prompts. The OpenAI agent generates SQL queries based on the provided database schema, executing these queries to retrieve and display results on the frontend.
 
 
