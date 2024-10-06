@@ -25,6 +25,11 @@ const routes = [
 		name: 'blackjack',
 		component: () => import('../views/Blackjack.vue')
 	},
+	{
+		path: '/solitaire',
+		name: 'solitaire',
+		component: () => import('../views/Solitaire.vue')
+	},
 
 	{
 		path: '/about',

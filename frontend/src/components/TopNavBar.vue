@@ -18,7 +18,7 @@ const navBarStyle = computed(() => {
 	let backgroundColor;
 	switch(router.currentRoute.value.fullPath) {
 		case '/blackjack':
-			console.log('11')
+		case '/solitaire':
 			backgroundColor = 'black'
 			break;
 		default:
@@ -31,6 +31,7 @@ const navBarStyle = computed(() => {
 const elevationClass = computed(() => {
     switch(router.currentRoute.value.fullPath) {
         case '/blackjack':
+		case '/solitaire':
             return 'custom-elevation'; // Apply custom elevation for this route
         default:
             return ''; // Default to no custom elevation
@@ -47,7 +48,23 @@ const elevationClass = computed(() => {
 				color="rgb(224, 224, 224)" 
 				style="margin-left: 50px;"
 			/>
-			<v-btn text="Blackjack" :to="{ name: 'blackjack' }" color="rgb(224, 224, 224)"/>
+			<v-menu>
+				<template v-slot:activator="{ props }">
+					<v-btn text="Card Games"  v-bind="props" color="rgb(224, 224, 224)"/>
+				</template>
+				<v-list>
+					<v-list-item
+						v-for="(link, index) in [{ name: 'Blackjack', href: '/blackjack' }, { name: 'Solitaire', href: '/solitaire' }]"
+						:key="index"
+						:to="link.href"
+					>
+						<v-list-item-title>
+							{{ link.name.toUpperCase() }}
+						</v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-menu>
+			
 			
 			<v-spacer></v-spacer>
 			

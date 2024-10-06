@@ -10,33 +10,44 @@ const props = defineProps({
 	startingX: {
 		type: Number
 	},
+	startingY: {
+		type: Number
+	},	
 	showCardValues: {
 		type: Boolean
+	},
+	draggable: {
+		type: Boolean,
+		default: true 
 	}
 
 })
 
-const image = ref(null)
+const emit = defineEmits(['dragstart', 'dragend'])
+
 const startX = ref(0);
 const startY = ref(0);
 
 const posX = ref(0);
-const posY = ref(380);
+const posY = ref(0);
 const isDragging = ref(false);
 const cardStyle = computed(() => {
 	return {
         transform: `translate(${posX.value}px, ${posY.value}px) rotate(${props.card.rotation}deg)`, // Combine translation and rotation
         cursor: isDragging.value ? 'grabbing' : 'grab',
-        position: 'absolute', // Ensure the card is absolutely positioned
-        left: `${props.startingX + posX.value}px`, // Adjust left position based on drag
-        top: `${posY.value}px`, // Set top position as needed (you can also use another ref for vertical position)
+        position: 'absolute', 
+        left: `${props.startingX + posX.value}px`,
+        top: `${posY.value}px`,
+		zIndex: isDragging.value ? 10 : 1,
     };
 })
 
 function startDrag(event) {
+	if (!props.draggable) return; 
 	isDragging.value = true;
 	startX.value = event.clientX - posX.value;
 	startY.value = event.clientY - posY.value;
+	emit('dragstart', props.card);
 	window.addEventListener('mousemove', drag);
 	window.addEventListener('mouseup', stopDrag);
 }
@@ -49,6 +60,7 @@ function drag(event) {
 }
 function stopDrag() {
 	isDragging.value = false;
+	emit('dragend', props.card);
 	window.removeEventListener('mousemove', drag);
 	window.removeEventListener('mouseup', stopDrag);
 }
@@ -106,6 +118,7 @@ function stopDrag() {
 	font-family: 'Casino';
 	color: #FFD700;
 	font-size: 35px;
+	z-index: 100;
 }
 
 .playing-card::before,
@@ -122,7 +135,7 @@ function stopDrag() {
 .playing-card::before {
     border-width: 0 50px 50px 0; 
     border-color: transparent transparent #f7ffe3 transparent; /* Color for the triangle */
-    top: 0px;
+    top: 0;
     right: 0;
 	transform: rotate(180deg);	
 }

@@ -4,8 +4,7 @@ import { ref, watch } from 'vue';
 const props = defineProps({
 	isVisible: Boolean,
 	amount: Number, 
-	duration: Number,
-	win: Boolean
+	duration: Number
 });
 
 const coins = ref([]);
@@ -18,7 +17,7 @@ watch(() => props.amount, (newAmount) => {
 		// Fade out the coins after the animation is done
 		setTimeout(() => {
 			props.isVisible = false;
-		}, props.duration + 500); 
+		}, props.duration + 500); // Adjust time to ensure fade-out happens after bounce
 	}
 });
 

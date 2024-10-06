@@ -23,7 +23,7 @@ function selectBet(value) {
 	<v-card id="scoreboard" >
 		<v-card-title style="text-align: left; padding-top: 20px;">
 			<span style="font-size: 40px; padding-top: 5px;">Money: </span>
-			<div id="money-counter" :class="{ 'highlight-border': playerWin }">
+			<div id="money-counter" >
 				<span style="font-size: 40px;">{{ money }}</span>
 			</div>
 		</v-card-title>
@@ -37,13 +37,13 @@ function selectBet(value) {
 			<span style="font-size: 40px;">Bet: </span>
 			<div id="bet-counter">
 				
-				<v-menu transition="scale-transition" :disabled="gameStarted" >
+				<v-menu transition="scale-transition" :disabled="gameStarted" offset-y attach="body">
 					<template v-slot:activator="{ props }">
 						<!-- <div id="bet-counter"> -->
 							<span style="font-size: 40px;" v-bind="props" :style="'cursor: pointer'">{{ bet }}</span>
 						<!-- </div> -->
 					</template>
-					<v-list id="prompts-list">
+					<v-list id="prompts-list" style="right: 18px;">
 						<v-list-item
 							v-for="(option, index) in betOptions"
 							:key="index"
@@ -67,7 +67,7 @@ function selectBet(value) {
 	position: absolute;
 	top: 2vh;
 	left: 38vw;
-	width: 22vw;
+	width: 24vw;
 	height: 20vh;  /* Increased height to fit the input */
 	border: 5px dotted red;
 	background-color: rgb(0, 0, 0);
@@ -107,7 +107,7 @@ function selectBet(value) {
 	top: 0;
 	border: 2px solid rgb(39, 37, 37);
 	border-radius: 5px;
-	width: 30%;
+	width: 50%;
 	height: 80px;
 	margin-top: 100px;
 	margin-right: 20px;
@@ -123,5 +123,17 @@ function selectBet(value) {
 	text-align: center;
 	justify-content: center;
 	z-index:20;
+}
+
+#prompts-list {
+	width: 100px;
+	justify-content: center;
+	text-align: center;
+	background-color: #f7ffe3;
+}
+
+.v-list-item-title {
+	padding: 5px;
+	font-size: 30px;
 }
 </style>

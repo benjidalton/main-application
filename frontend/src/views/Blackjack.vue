@@ -1,11 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue';
-import PlayingCard from '@/components/BlackjackComponents/PlayingCard.vue'
+import PlayingCardComponent from '@/components/BlackjackComponents/PlayingCardComponent.vue'
 import BaseViewContainer from '@/components/BaseComponents/BaseViewContainer.vue';
 import { deck, dealCard, initialDeal, createDeck } from '@/services/BlackjackService';
 import { Hand } from '@/models/Hand.js';
 import MoneyAnimation from '@/components/BlackjackComponents/MoneyAnimation.vue';
 import Scoreboard from '@/components/BlackjackComponents/Scoreboard.vue';
+import RulesContainer from '@/components/BlackjackComponents/RulesContainer.vue';
 
 const cardShift = 120;
 const initialPlayerOffset = 110;
@@ -30,7 +31,6 @@ const currentDeck = ref(deck);
 const bet = ref(100);
 const money = ref(1000); 
 const playerWin = ref(false);
-const redeal = ref(false);
 const newGameMessage = ref('');
 const snackbar = ref(false);
 const showHandValues = ref(false)
@@ -55,7 +55,6 @@ function startGame() {
 	
 	if (playerHand.value.length > 0 || dealerHand.value.length > 0) {
 		currentDeck.value = createDeck();
-		redeal.value = true;
 		playerHand.value = new Hand();
 		dealerHand.value = new Hand();
 		
@@ -63,15 +62,16 @@ function startGame() {
 
 	[playerHand.value, dealerHand.value] = initialDeal(currentDeck.value);
 
-	if (playerHand.value.getTotalValue() == 21) {
-		playerWin.value = true;
-		handleNewGame();
-	}
 	showHandValues.value = true;
 	showDealerHand.value = false;
 	showMoneyAnimation.value = false;
 	gameStarted.value = true;
-	redeal.value = false;
+
+	if (playerHand.value.getTotalValue() == 21) {
+		playerWin.value = true;
+		handleNewGame();
+	}
+
 }
 
 function hit() {
@@ -88,6 +88,12 @@ function hit() {
 
 function stand() {
 	while (dealerHand.value.getTotalValue() < 17) {
+		// break early user stands a low hand value and dealer hand > than player hand but still lower than 17
+		if (dealerHand.value.getTotalValue() > playerHand.value.getTotalValue()) {
+			playerWin.value = false;
+			handleNewGame();
+			break
+		}
 		dealerHand.value.push(dealCard(currentDeck.value));
 	}
 
@@ -132,7 +138,6 @@ function handleNewGame() {
 		showMoneyAnimation.value = false;
 	}, 2500);
 	gameStarted.value = false;
-	redeal.value = true;
 }
 
 function handleMoney() {
@@ -159,6 +164,7 @@ function updateBet(newBet) {
 			:duration="2"
 			:win="playerWin"
 		/>
+		
 		<v-btn class="custom_btn" v-if="!gameStarted" @click="startGame">Deal</v-btn>
 		<v-btn class="custom_btn" v-if="gameStarted" @click="hit">Hit</v-btn>
 		<v-btn class="custom_btn" v-if="gameStarted" @click="stand">Stand</v-btn>
@@ -166,21 +172,23 @@ function updateBet(newBet) {
 		
 		<span v-if="showHandValues" id="players-hand-score">Player's Hand Value: {{ playerHand.getTotalValue() }}</span>
 		<template v-for="(card, index) in playerHand" :key="index">
-			<PlayingCard 
+			<PlayingCardComponent 
 				:card="card" 
 				:startingX="initialPlayerOffset + index * cardShift" 
 				:showCardValues="true"
-				:style="{ transform: `rotate(${card.rotation}deg)` }"
+				:style="{ transform: `rotate(${card.rotation}deg)`, paddingTop: '350px' }"
 			/>
 		</template>
 
 		<span v-if="showDealerHand" id="dealers-hand-score">Dealer's Hand Value: {{ dealerHand.getTotalValue() }}</span>
 		<template v-for="(card, index) in dealerHand" :key="index">
-			<PlayingCard 
+			<audio ref="handSlapSound" src="@/assets/hand-slap.mp3" preload="auto"></audio>
+			<PlayingCardComponent 
 				:card="card" 
 				:startingX="initialDealerOffset - index * cardShift"  
+				:startingY="380"
 				:showCardValues="showDealerHand"
-				:style="{ transform: `rotate(${card.rotation}deg)` }"
+				:style="{ transform: `rotate(${card.rotation}deg)`, paddingTop: '350px' }"
 			/>
 		</template>
 
@@ -194,26 +202,7 @@ function updateBet(newBet) {
 			{{ newGameMessage }}
 		</v-snackbar>
 
-		<v-menu transition="scale-transition" >
-			<template v-slot:activator="{ props }">
-				<v-btn
-					id="open-rules-button"
-					v-bind="props"
-				>
-				<v-icon size="30px" style="padding-right: 20px;">mdi-cards-playing</v-icon>
-				Blackjack Rules
-			</v-btn>
-			</template>
-			<v-list id="prompts-list">
-				<v-list-item
-					v-for="(rule, index) in blackjackRules"
-					:key="index"
-					style="cursor: pointer;"
-				>
-				<v-list-item-title v-text="rule"></v-list-item-title>
-				</v-list-item>
-			</v-list>
-		</v-menu>
+		<RulesContainer :rules="blackjackRules" />
 	</BaseViewContainer>
 </template>
 
@@ -262,25 +251,6 @@ function updateBet(newBet) {
 }
 
 
-#open-rules-button {
-	position: absolute;
-	bottom: 5px;
-	right: 5px;
-	z-index: 1000;
-	transition: transform 0.3s ease;
-	height: 50px;
-	width: fit-content;
-	outline: 5px dotted #FFD700;
-	border-radius: 5px;
-	background-color: rgb(0, 0, 0);
-	font-weight: bold;
-	font-family: 'Casino';
-	color: #FFD700;
-}
-
-#prompts-list {
-	background-color: rgb(255, 255, 255);
-}
 
 @keyframes fadeOutBorder {
 	0% {

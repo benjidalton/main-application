@@ -26,9 +26,17 @@ export function createDeck() {
 	for (const suit of suits) {
 		deck.push(new PlayingCard(suit, "Ace", `Ace_of_${suit}.png`));
 	}
+	
 	return deck;
 }
+export function shuffle(deck) {
+	for (let i = deck.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
+		[deck[i], deck[j]] = [deck[j], deck[i]]; // Swap the elements
+	}
 
+	return deck
+}
 /**
  * Randomly chooses a card from the deck and then removes it from the deck.
  * @returns {PlayingCard} A random card
