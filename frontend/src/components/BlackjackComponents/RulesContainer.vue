@@ -13,7 +13,7 @@ const props = defineProps({
 				id="open-rules-button"
 				v-bind="props"
 			>
-			<v-icon size="30px" style="padding-right: 20px;">mdi-cards-playing</v-icon>
+			<v-icon size="30px" style="padding-right: 20px;">mdi-information</v-icon>
 			Blackjack Rules
 		</v-btn>
 		</template>
@@ -45,10 +45,12 @@ const props = defineProps({
 	font-weight: bold;
 	font-family: 'Casino';
 	color: #FFD700;
+	font-size: 24px;
 }
 
 #prompts-list {
-	background-color: #f7ffe3;
+	/* background-color: #f7ffe3; */
+	background-color: #f9fdee;
 }
 
 </style>

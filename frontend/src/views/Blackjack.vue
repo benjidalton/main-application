@@ -7,10 +7,11 @@ import { Hand } from '@/models/Hand.js';
 import MoneyAnimation from '@/components/BlackjackComponents/MoneyAnimation.vue';
 import Scoreboard from '@/components/BlackjackComponents/Scoreboard.vue';
 import RulesContainer from '@/components/BlackjackComponents/RulesContainer.vue';
+import ChooseCardBack from '@/components/BlackjackComponents/ChooseCardBack.vue';
 
 const cardShift = 120;
 const initialPlayerOffset = 110;
-const initialDealerOffset = 1700;
+const initialDealerOffset = 1500;
 
 const blackjackRules = [
 	"The goal is to beat the dealer by having a hand value as close to 21 as possible without going over.",
@@ -36,6 +37,8 @@ const snackbar = ref(false);
 const showHandValues = ref(false)
 const showDealerHand = ref(false);
 const showMoneyAnimation = ref(false);
+
+const chosenCardBack = ref('/src/assets/card-images/black_gold_back.png');
 
 const split = computed(() => {
 	if (playerHand.value.length === 2) { 
@@ -136,16 +139,22 @@ function handleNewGame() {
 	setTimeout(() => {
 		snackbar.value = false
 		showMoneyAnimation.value = false;
+		gameStarted.value = false;
 	}, 2500);
-	gameStarted.value = false;
+	
 }
 
 function handleMoney() {
+	console.log('playerwin: ',playerWin.value, '\ncurrent bet: ', bet.value)
 	money.value += playerWin.value ? bet.value : -bet.value;
 }
 
 function updateBet(newBet) {
 	bet.value = newBet;
+}
+
+function onCardBackChanged(newCardBackFilePath) {
+	chosenCardBack.value = newCardBackFilePath;
 }
 
 </script>
@@ -189,6 +198,7 @@ function updateBet(newBet) {
 				:startingY="380"
 				:showCardValues="showDealerHand"
 				:style="{ transform: `rotate(${card.rotation}deg)`, paddingTop: '350px' }"
+				:cardBack="chosenCardBack"
 			/>
 		</template>
 
@@ -203,6 +213,7 @@ function updateBet(newBet) {
 		</v-snackbar>
 
 		<RulesContainer :rules="blackjackRules" />
+		<ChooseCardBack @cardBackChanged="onCardBackChanged"/>
 	</BaseViewContainer>
 </template>
 
