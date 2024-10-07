@@ -2,5 +2,8 @@
   "dependencies": {
     "@mdi/font": "^7.4.47",
     "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@types/matter-js": "^0.19.7"
   }
 }

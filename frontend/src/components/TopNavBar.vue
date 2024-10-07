@@ -42,12 +42,14 @@ const elevationClass = computed(() => {
 <template>
 	<v-app-bar id="topNavBar" app  elevated :style="navBarStyle">
 		<v-row align="center" no-gutters style="padding-right: 40px; position: relative; overflow: visible;">
+			
 			<v-btn 
 				text="Baseball LLM" 
 				:to="{ name: 'baseball' }" 
 				color="rgb(224, 224, 224)" 
 				style="margin-left: 50px;"
 			/>
+
 			<v-menu>
 				<template v-slot:activator="{ props }">
 					<v-btn text="Card Games"  v-bind="props" color="rgb(224, 224, 224)"/>
@@ -65,7 +67,12 @@ const elevationClass = computed(() => {
 				</v-list>
 			</v-menu>
 			
-			
+			<v-btn 
+				text="Fitness Tracker" 
+				:to="{ name: 'fitness-tracker' }" 
+				color="rgb(224, 224, 224)" 
+			/>
+
 			<v-spacer></v-spacer>
 			
 			<v-col cols="auto" style="padding-right: 40px; position: relative; overflow: visible;">
