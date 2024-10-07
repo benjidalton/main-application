@@ -1,19 +1,39 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch, toRefs } from 'vue';
+import ChooseCardBack from '@/components/BlackjackComponents/ChooseCardBack.vue';
+
 const props = defineProps({
 	gameStarted : Boolean,
 	money: Number
 })
 
-const emit = defineEmits(['betChanged']);
+const { money } = toRefs(props);
+
+watch(money, (newVal) => {
+	console.log('money amount passed to scoreboard: ', newVal);
+});
+
+const emit = defineEmits(['betChanged', 'cardBackChanged', 'soundToggled']);
 
 const bet = ref(100);
-
 const betOptions = ref([10, 20, 50, 100, 200]);
+
+const chosenCardBack = ref('');
+const playSound = ref(false);
 
 function selectBet(value) {
 	bet.value = value;
 	emit('betChanged', bet.value);
+}
+
+function onCardBackChanged(newCardBackFilePath) {
+	chosenCardBack.value = newCardBackFilePath;
+	emit('cardBackChanged', chosenCardBack.value)
+}
+
+function toggleSound() {
+	playSound.value = !playSound.value;
+	emit('soundToggled', playSound.value)
 }
 
 </script>
@@ -23,7 +43,7 @@ function selectBet(value) {
 	<v-card id="scoreboard" >
 		<v-card-title style="text-align: left; padding-top: 20px;">
 			<span style="font-size: 40px; padding-top: 5px;">Money: </span>
-			<div id="money-counter" >
+			<div class="money-container" id="money-counter" >
 				<span style="font-size: 40px;">{{ money }}</span>
 			</div>
 		</v-card-title>
@@ -35,7 +55,7 @@ function selectBet(value) {
 				style="padding-right: 20px;  visibility: hidden;" 
 				/>
 			<span style="font-size: 40px;">Bet: </span>
-			<div id="bet-counter">
+			<div class="money-container" id="bet-counter">
 				
 				<v-menu transition="scale-transition" :disabled="gameStarted" offset-y attach="body">
 					<template v-slot:activator="{ props }">
@@ -57,6 +77,20 @@ function selectBet(value) {
 				
 			</div>
 		</v-row>
+
+		<ChooseCardBack @cardBackChanged="onCardBackChanged"/>
+		<template v-if="playSound">
+			<v-btn id="sound-button" @click="toggleSound" >
+			<v-icon icon="mdi-volume-high" />
+		</v-btn>
+		</template>
+		<template v-else="!playSound">
+			<v-btn id="sound-button" @click="toggleSound" style="outline: 2px solid gray;">
+				<v-icon  icon="mdi-volume-variant-off" style="color: gray; "/>
+			</v-btn>
+		</template>
+		
+		
 	</v-card>
 </template>
 
@@ -74,48 +108,32 @@ function selectBet(value) {
 	font-family: 'Casino';
 	color: #FFD700;
 	outline: 5px dotted #C0C0C0;
-  
+	overflow: visible;
+}
+
+.money-container {
+	position: absolute;
+	display: flex;
+	border: 2px solid rgb(39, 37, 37);
+	border-radius: 5px;
+	width: 30%;
+	height: 80px;
+	margin-right: 200px;
+	background-color: black; 
+	justify-content: center;
+	align-items: center;
 }
 
 #money-counter {
 	position: absolute;
-	display: flex;
-	top: 0;
-	border: 2px solid rgb(39, 37, 37);
-	border-radius: 5px;
-	width: 50%;
-	height: 80px;
-	margin-top: 10px;
-	margin-right: 20px;
-	right: 0;
-	background-color: rgb(243, 243, 243);
-	justify-content: center;
-	align-items: center;
-	transition: border-color 0.5s ease-in-out;
-	background-color: black
- 
-}
-.highlight-border {
-	border: 5px solid green;
-	border-color: green; /* Highlight in green */
-	animation: fadeOutBorder 3s forwards; /* Trigger fade out */
+	top: 10px;
+	left: 50%;
 }
 
-#bet-counter {
+#bet-counter {                    
 	position: absolute;
-	display: flex;
-	top: 0;
-	border: 2px solid rgb(39, 37, 37);
-	border-radius: 5px;
-	width: 50%;
-	height: 80px;
-	margin-top: 100px;
-	margin-right: 20px;
-	right: 0;
-	background-color: rgb(243, 243, 243);
-	justify-content: center;
-	align-items: center;
-	background-color: black
+	top: 55%;
+	left: 50%;
 }
 
 #bet-input {
@@ -136,4 +154,22 @@ function selectBet(value) {
 	padding: 5px;
 	font-size: 30px;
 }
+
+
+#sound-button {
+	position: absolute;
+	top: 110px;
+	right: 15px;
+	z-index: 1000;
+	height: 60px;
+	width: fit-content;
+	outline: 2px solid #FFD700;
+	border-radius: 5px;
+	background-color: rgb(0, 0, 0);
+	font-weight: bold;
+	font-family: 'Casino';
+	color: #FFD700;
+	font-size: 24px;
+}
+
 </style>

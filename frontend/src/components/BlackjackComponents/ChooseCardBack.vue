@@ -20,14 +20,13 @@ function selectCardBack(cardBack) {
 </script>
 
 <template>
-    <v-menu transition="scale-transition" >
+    <v-menu transition="scale-transition" location="end">
 		<template v-slot:activator="{ props }">
 			<v-btn
 				id="open-menu-button"
 				v-bind="props"
 			>
-			<v-icon size="30px" style="padding-right: 20px;">mdi-cards-playing</v-icon>
-			Choose Card Back
+			<v-icon size="30px" >mdi-cards-playing</v-icon>
 		</v-btn>
 		</template>
         <v-list id="prompts-list">
@@ -38,7 +37,7 @@ function selectCardBack(cardBack) {
                 style="cursor: pointer;"
             >
             <!-- <v-card style="width: 100px; height: auto; margin: 5px; background-image: url(cardBack);"/> -->
-            <v-img :src="cardBack.imageUrl" :key="index" max-height="120px"/>
+            <v-img :src="cardBack.imageUrl" :key="index" max-height="80px"/>
             <!-- <v-list-item-title>{{ cardBack.label }}</v-list-item-title> -->
             </v-list-item>
         </v-list>
@@ -51,12 +50,12 @@ function selectCardBack(cardBack) {
 
 #open-menu-button {
 	position: absolute;
-	top: 5px;
-	right: 5px;
+	top: 27px;
+	right: 15px;
 	z-index: 1000;
-	height: 50px;
+	height: 60px;
 	width: fit-content;
-	outline: 5px dotted #FFD700;
+	outline: 2px solid #FFD700;
 	border-radius: 5px;
 	background-color: rgb(0, 0, 0);
 	font-weight: bold;
@@ -67,6 +66,7 @@ function selectCardBack(cardBack) {
 
 #prompts-list {
 	background-color: #f9fdee;
+	width: 100px;
 }
 
 

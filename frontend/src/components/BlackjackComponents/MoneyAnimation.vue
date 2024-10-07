@@ -72,12 +72,14 @@ watch(() => props.amount, (newAmount) => {
 <style scoped>
 
 .coin-animation {
-	position: relative;
+	position: absolute;
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
-	padding-right: 50px;
+	padding-right: 30px;
 	padding-bottom: 10px;
+	z-index: 999;
+	padding: 15px;
 }
 
 .coin {
@@ -93,14 +95,15 @@ watch(() => props.amount, (newAmount) => {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 12px;
-	height: 12px;
+	width: 16px;
+	height: 16px;
 	font-size: 10px;
 	color: rgb(237, 196, 107);
 	background: rgb(227, 162, 23);
 	border: 2px solid rgb(237, 196, 107);
 	border-radius: 50%;
 	opacity: 0;
+	z-index: 999;
 	
 }
 

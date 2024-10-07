@@ -7,7 +7,11 @@ import { Hand } from '@/models/Hand.js';
 import MoneyAnimation from '@/components/BlackjackComponents/MoneyAnimation.vue';
 import Scoreboard from '@/components/BlackjackComponents/Scoreboard.vue';
 import RulesContainer from '@/components/BlackjackComponents/RulesContainer.vue';
-import ChooseCardBack from '@/components/BlackjackComponents/ChooseCardBack.vue';
+
+import slapSound from '@/assets/slap.mp3'
+import coinSound from '@/assets/coins.mp3'
+
+
 
 const cardShift = 120;
 const initialPlayerOffset = 110;
@@ -38,7 +42,11 @@ const showHandValues = ref(false)
 const showDealerHand = ref(false);
 const showMoneyAnimation = ref(false);
 
+const playSounds = ref(false);
+
 const chosenCardBack = ref('/src/assets/card-images/black_gold_back.png');
+
+const moneyAnimationAngles = ref([0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360])
 
 const split = computed(() => {
 	if (playerHand.value.length === 2) { 
@@ -46,12 +54,6 @@ const split = computed(() => {
 		return firstCard.value === secondCard.value;
 	}
 	return false;
-})
-
-const dealerCardsStyle = computed(() => {
-	return {
-        color: showDealerHand.value ? '#f7ffe3' : 'transparent'
-      };
 })
 
 function startGame() {
@@ -136,17 +138,21 @@ function handleNewGame() {
 	showDealerHand.value = true;
 	newGameMessage.value = message;
 	snackbar.value = true
+	gameStarted.value = false;
 	setTimeout(() => {
 		snackbar.value = false
 		showMoneyAnimation.value = false;
-		gameStarted.value = false;
+		
 	}, 2500);
 	
 }
 
 function handleMoney() {
-	console.log('playerwin: ',playerWin.value, '\ncurrent bet: ', bet.value)
-	money.value += playerWin.value ? bet.value : -bet.value;
+	console.log('playerwin: ',playerWin.value,'\nmoney before adding bet: ', money.value,  '\ncurrent bet: ', bet.value)
+	let val = money.value += playerWin.value ? bet.value : -bet.value;
+	money.value = val;
+	handleMoneySound();
+	console.log('money after bet added:', money.value)
 }
 
 function updateBet(newBet) {
@@ -157,6 +163,33 @@ function onCardBackChanged(newCardBackFilePath) {
 	chosenCardBack.value = newCardBackFilePath;
 }
 
+function onSoundToggled(sound) {
+	playSounds.value = sound;
+}
+
+function handleMoneySound() {
+	if (playSounds.value) {
+		let audio = new Audio(coinSound);
+			audio.volume = 0.25;
+			audio.currentTime = 2.5;
+			audio.addEventListener('timeupdate', () => {
+				if (audio.currentTime >= 4) {
+					audio.pause(); 
+					audio.currentTime = 2.5;
+			}
+		});
+		audio.play();
+	}
+}
+
+function handleDealerHandTouch() {
+	if (playSounds.value) {
+		let activeSound = new Audio(slapSound)
+		activeSound.volume = 0.1;
+		activeSound.play()
+	}
+}
+
 </script>
 
 <template>
@@ -165,15 +198,23 @@ function onCardBackChanged(newCardBackFilePath) {
 			:gameStarted="gameStarted" 
 			:money="money" 
 			@betChanged="updateBet"
+			@cardBackChanged="onCardBackChanged"
+			@soundToggled="onSoundToggled"
 		/>
 
-		<MoneyAnimation 
-			:isVisible="showMoneyAnimation" 
-			:amount="50" 
-			:duration="2"
-			:win="playerWin"
-		/>
+		<template v-for="(angle, index) in moneyAnimationAngles" :key="index">
+			<MoneyAnimation 
+				:isVisible="showMoneyAnimation" 
+				:amount="50" 
+				:duration="2"
+				:win="playerWin"
+
+				:style="`transform: rotate(${angle}deg); position: absolute; top: 6vh; left: 53vw;`"
+			/>
+
+		</template>
 		
+
 		<v-btn class="custom_btn" v-if="!gameStarted" @click="startGame">Deal</v-btn>
 		<v-btn class="custom_btn" v-if="gameStarted" @click="hit">Hit</v-btn>
 		<v-btn class="custom_btn" v-if="gameStarted" @click="stand">Stand</v-btn>
@@ -185,20 +226,22 @@ function onCardBackChanged(newCardBackFilePath) {
 				:card="card" 
 				:startingX="initialPlayerOffset + index * cardShift" 
 				:showCardValues="true"
-				:style="{ transform: `rotate(${card.rotation}deg)`, paddingTop: '350px' }"
+				:style="{ transform: `rotate(${card.rotation}deg)`, marginTop: '350px' }"
 			/>
 		</template>
 
 		<span v-if="showDealerHand" id="dealers-hand-score">Dealer's Hand Value: {{ dealerHand.getTotalValue() }}</span>
 		<template v-for="(card, index) in dealerHand" :key="index">
-			<audio ref="handSlapSound" src="@/assets/hand-slap.mp3" preload="auto"></audio>
+			
 			<PlayingCardComponent 
 				:card="card" 
 				:startingX="initialDealerOffset - index * cardShift"  
 				:startingY="380"
 				:showCardValues="showDealerHand"
-				:style="{ transform: `rotate(${card.rotation}deg)`, paddingTop: '350px' }"
+				:style="{ transform: `rotate(${card.rotation}deg)`, marginTop: '350px' }"
 				:cardBack="chosenCardBack"
+				@click="handleDealerHandTouch"
+				:draggable="false"
 			/>
 		</template>
 
@@ -206,14 +249,14 @@ function onCardBackChanged(newCardBackFilePath) {
 			v-model="snackbar"
 			multi-line
 			style="text-align: center; justify-content: center; font-family: 'Casino'; font-size: 50px;"
-
+			
 			color="#FFD700"
 		>
 			{{ newGameMessage }}
 		</v-snackbar>
 
 		<RulesContainer :rules="blackjackRules" />
-		<ChooseCardBack @cardBackChanged="onCardBackChanged"/>
+		
 	</BaseViewContainer>
 </template>
 
@@ -225,9 +268,9 @@ function onCardBackChanged(newCardBackFilePath) {
 	padding: 10px;
 	margin: 10px;
 	font-size: 40px;
-	display: flex; /* Enable flexbox */
-	justify-content: center; /* Center the text */
-	align-items: center; /* Center vertically */
+	display: flex; 
+	justify-content: center;
+	align-items: center;
 	height: 60px;
 	font-family: 'Casino';
 	background-color: rgb(0, 0, 0);
