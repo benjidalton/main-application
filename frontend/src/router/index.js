@@ -30,7 +30,11 @@ const routes = [
 		name: 'solitaire',
 		component: () => import('../views/Solitaire.vue')
 	},
-
+	{
+		path: '/fitness-tracker',
+		name: 'fitness-tracker',
+		component: () => import('../views/FitnessTracker.vue')
+	},
 	{
 		path: '/about',
 		name: 'about',
