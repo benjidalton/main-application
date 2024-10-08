@@ -2,8 +2,8 @@ from flask import Blueprint
 from flask import jsonify, request
 import json
 
-import services.sql.sqlUtility as sqlUtility
-import services.sql.loadData as loadData
+import backend.services.sql.sql_utility as sql_utility
+import backend.services.sql.baseball_queries as baseball_queries
 
 import logging
 _logger = logging.getLogger('app')
@@ -11,33 +11,33 @@ _logger = logging.getLogger('app')
 routes = Blueprint('routes', __name__, template_folder='templates')
 
 routeMapping = {
-            "getTeamsData": loadData.GET_TEAMS_DATA,
-			"getPlayersData": loadData.GET_PLAYERS_DATA,
-			"getPlayersOnTeam": loadData.GET_TEAM_PLAYERS,
-			"getAllTeamsPitchingStats": loadData.GET_ALL_TEAMS_PITCHING_STATS
+            "getTeamsData": baseball_queries.GET_TEAMS_DATA,
+			"getPlayersData": baseball_queries.GET_PLAYERS_DATA,
+			"getPlayersOnTeam": baseball_queries.GET_TEAM_PLAYERS,
+			"getAllTeamsPitchingStats": baseball_queries.GET_ALL_TEAMS_PITCHING_STATS
 		}
 
 @routes.route('/getTeamsData', methods=['GET'])
-def getTeamsData():
+def get_teams_data():
 	params = []
-	selectSql = loadData.GET_TEAMS_DATA
-	return sqlUtility.executeSelectQuery(selectSql, params)
+	selectSql = baseball_queries.GET_TEAMS_DATA
+	return sql_utility.executeSelectQuery(selectSql, params)
 
 @routes.route('/getPlayersData', methods=['GET'])
-def getPlayersData():
+def get_players_data():
 	params = []
-	selectSql = loadData.GET_PLAYERS_DATA
+	selectSql = baseball_queries.GET_PLAYERS_DATA
 	
-	return sqlUtility.executeSelectQuery(selectSql, params)
+	return sql_utility.executeSelectQuery(selectSql, params)
 
 @routes.route('/getPlayersOnTeam', methods=['GET'])
-def getPlayersOnTeam():
+def get_players_on_team():
 	params = request.args.get('teamId')
-	selectSql = loadData.GET_TEAM_PLAYERS
-	return sqlUtility.executeSelectQuery(selectSql, params)
+	selectSql = baseball_queries.GET_TEAM_PLAYERS
+	return sql_utility.executeSelectQuery(selectSql, params)
 
 @routes.route('/getAllTeamsPitchingStats', methods=['GET'])
-def getAllTeamsPitchingStats():
+def get_all_teams_pitching_stats():
 	params = []
-	selectSql = loadData.GET_ALL_TEAMS_PITCHING_STATS
-	return sqlUtility.executeSelectQuery(selectSql, params)
+	selectSql = baseball_queries.GET_ALL_TEAMS_PITCHING_STATS
+	return sql_utility.executeSelectQuery(selectSql, params)

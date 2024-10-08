@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 
-def prettyPrintHtml(htmlContent: BeautifulSoup, fileName: str, mode = 'w'):
+def pretty_print_html(html_content: BeautifulSoup, file_name: str, mode = 'w'):
 	"""
 		Pretty print content to an HTML file for easier investigation if necessary.
 
@@ -9,10 +9,10 @@ def prettyPrintHtml(htmlContent: BeautifulSoup, fileName: str, mode = 'w'):
 			fileName (str): * The name of the file (without extension) where the content will be saved.
 			mode (str): * The file mode for opening the file. Default is 'w' (write).
     """
-	with open('./htmlFiles/' + fileName + '.html', mode, encoding='utf-8') as file:
-		file.write(str(htmlContent))
+	with open('./htmlFiles/' + file_name + '.html', mode, encoding='utf-8') as file:
+		file.write(str(html_content))
 		
-def handleEscapeCharaceters(strings): 
+def handle_escape_characeters(strings): 
 	if isinstance(strings, str): 
 		return strings.replace("'", "''")
 	return [substring.replace("'", "''") for substring in strings]

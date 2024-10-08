@@ -10,11 +10,11 @@ from models.LLMAgent import llmAgent
 import logging
 _logger = logging.getLogger('app')
 
-llmRoutes = Blueprint('llmRoutes', __name__, template_folder='templates')
+llm_routes = Blueprint('llm_routes', __name__, template_folder='templates')
 
 
-@llmRoutes.route('/fetchLLMResponse', methods=['GET'])
-def fetchLLMResponse():
+@llm_routes.route('/fetchLLMResponse', methods=['GET'])
+def fetch_llm_response():
 	prompt = request.args.get('prompt')
 	promptType = request.args.get('promptType')
 
