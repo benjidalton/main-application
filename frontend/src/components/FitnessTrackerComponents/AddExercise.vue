@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { getExercisesByMuscleGroup, muscleGroups, insertNewExercise } from '@/services/FitnessTrackerService';
-import { Exercise } from '@/models/Exercise';
+import { Exercise } from '@/models/FitnessTrackerModels/Exercise';
 import BaseMenu from '../BaseComponents/BaseMenu.vue';
 
 const emit = defineEmits(['newExercise'])
@@ -164,7 +164,7 @@ function closeDialog() {
 
 		</v-row>
 		<v-row justify="end">
-			<v-btn @click="addExercise" color="rgb(121, 119, 156)" style="margin: 10px;">Add Exercise</v-btn>
+			<v-btn id="submit-new-exercise" @click="addExercise" style="margin: 10px;">Add Exercise</v-btn>
 		</v-row>
 
 		<v-dialog v-model="dialog" width="500px">
@@ -192,12 +192,13 @@ function closeDialog() {
 
 
 <style scoped>
+
 .container {
 	width: 1200px;
 	background-color: rgb(243, 243, 243);
 	border-radius: 10px;
 	margin-bottom: 50px;
-	box-shadow: 0px 5px 5px rgb(62, 57, 94);
+	box-shadow: 0px 5px 5px var(--custom-card-bg);
 }
 
 .custom-number-input {
@@ -214,6 +215,12 @@ function closeDialog() {
 #weight-input {
 	position: relative;
 	width: 200px;
+}
+
+
+#submit-new-exercise {
+	background-color: var(--custom-card-bg);
+	color: rgb(75, 75, 75);
 }
 
 </style>

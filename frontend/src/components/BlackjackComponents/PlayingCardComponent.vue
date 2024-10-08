@@ -1,5 +1,5 @@
 <script setup>
-import { PlayingCard } from '@/models/PlayingCard';
+import { PlayingCard } from '@/models/CardGameModels/PlayingCard';
 import { ref, computed } from 'vue';
 
 const props = defineProps({

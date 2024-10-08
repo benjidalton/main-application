@@ -19,6 +19,18 @@ APP_ACCESS_FITNESS_DB = os.getenv("APP_ACCESS_FITNESS_DB")
 
 APP_ACCESS_DB_PORT = int(os.getenv("APP_ACCESS_DB_PORT"))
 
+db_user = os.getenv("APP_ACCESS_DB_USERNAME")
+db_pass = os.getenv("APP_ACCESS_DB_PASSWORD")
+db_host = os.getenv("APP_ACCESS_DB_HOSTNAME")
+db_name = os.getenv("APP_ACCESS_DB_DATABASE")
+db_port = os.getenv("APP_ACCESS_DB_PORT")
+
+# Construct the database URL
+DATABASE_URI = f"mysql+pymysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+
+# Create an engine
+engine = create_engine(DATABASE_URI)
+
 PARAM_QUERY_FAILED = "parameterized query failed {}"
 CONNECTION_CLOSED = "MySQL connection is closed"
 

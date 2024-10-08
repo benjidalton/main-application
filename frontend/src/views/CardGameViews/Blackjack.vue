@@ -3,7 +3,7 @@ import { ref, computed } from 'vue';
 import PlayingCardComponent from '@/components/BlackjackComponents/PlayingCardComponent.vue'
 import BaseViewContainer from '@/components/BaseComponents/BaseViewContainer.vue';
 import { deck, dealCard, initialDeal, createDeck } from '@/services/BlackjackService';
-import { Hand } from '@/models/Hand.js';
+import { Hand } from '@/models/CardGameModels/Hand.js';
 import MoneyAnimation from '@/components/BlackjackComponents/MoneyAnimation.vue';
 import Scoreboard from '@/components/BlackjackComponents/Scoreboard.vue';
 import RulesContainer from '@/components/BlackjackComponents/RulesContainer.vue';
