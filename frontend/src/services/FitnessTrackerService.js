@@ -16,10 +16,11 @@ export async function getExercisesByMuscleGroup() {
 			},
 		})
 		.then((response) => {
-			response.data.data.forEach(item => {
-				const id = item[0];
-				const muscleGroupName = item[1]; // Muscle group name
-				const exercises = item[2].split(', '); // Split exercises into a list
+			console.log('response', response)
+			response.data.items.forEach(item => {
+				const id = item.id;
+				const muscleGroupName = item.muscleGroup; // Muscle group name
+				const exercises = item.exercises.split(', '); // Split exercises into a list
 				muscleGroups.push(new MuscleGroup(id, muscleGroupName, exercises));
 			})
 		})

@@ -70,7 +70,7 @@ def selectWorkoutByDate():
 	date = request.args.get('date')
 	query = fitnessData.SELECT_WORKOUT_BY_DATE
 	params = [date]
-	return sqlUtility.executeSelectQuery(APP_ACCESS_FITNESS_DB, query, params)
+	return sqlUtility.executeQuery(APP_ACCESS_FITNESS_DB, query, params)
 
 
 @fitnessRoutes.route('/selectWorkoutByDateRange', methods=['GET'])
@@ -82,5 +82,5 @@ def selectWorkoutByDateRange():
 	print('min date', minDate)
 	print('query ', query)
 	params = [minDate, maxDate]
-	return sqlUtility.executeSelectQuery(APP_ACCESS_FITNESS_DB, query, params)
+	return sqlUtility.executeQuery(APP_ACCESS_FITNESS_DB, query, params)
 

@@ -1,8 +1,8 @@
 
 GET_EXERCISES_BY_MUSCLE_GROUP = """SELECT 
                                     mg.id as id,
-                                    mg.name AS muscle_group_name,
-                                GROUP_CONCAT(e.name ORDER BY e.id SEPARATOR ', ') AS exercises
+                                    mg.name AS muscleGroup,
+                               	 	GROUP_CONCAT(e.name ORDER BY e.id SEPARATOR ', ') AS exercises
                                 FROM 
                                     muscle_group mg
                                 LEFT JOIN 

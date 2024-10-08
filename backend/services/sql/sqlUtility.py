@@ -189,8 +189,10 @@ def executeQuery(database, query, params):
 		cursor.execute(query, params)
 		# If the query is a SELECT query, fetch the results
 		if query.strip().upper().startswith("SELECT"):
-			results = cursor.fetchall()  # Fetch all results
-			return {'success': True, 'data': results}
+			rows = cursor.fetchall()
+			items = [dict((cursor.description[i][0], value) for i, value in enumerate(row)) for row in rows]
+			return {'status': 'success', 'items': items}
+		
 		connection.commit()
 		affectedRows = cursor.rowcount
 
