@@ -33,7 +33,17 @@ const routes = [
 	{
 		path: '/fitness-tracker',
 		name: 'fitness-tracker',
-		component: () => import('../views/FitnessTracker.vue')
+		component: () => import('../views/WorkoutDiaryEntry.vue'),
+	},
+	{
+		path: '/fitness-tracker/new-workout-diary',
+		name: 'new-workout-diary',
+		component: () => import('../views/WorkoutDiaryEntry.vue')
+	},
+	{
+		path: '/fitness-tracker/view-diary',
+		name: 'view-diary',
+		component: () => import('../views/ViewWorkoutDiary.vue')
 	},
 	{
 		path: '/about',

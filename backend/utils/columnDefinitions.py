@@ -264,7 +264,7 @@ standardBattingColumns = {
 	}
 }
 
-teamScheduleColumsn = {
+teamScheduleColumns = {
 	"team_game": {
 		"columnName": "gameNumber",
 		"dataType": "INT(10)"
@@ -338,41 +338,6 @@ teamScheduleColumsn = {
 		"dataType": "INT(5)"
 	},
 }
-# transformed_columns = {}
 
-# for key, value in standardBattingColumns.items():
-#     dataStatRef = value.pop('dataStatRef')
-#     transformed_columns[dataStatRef] = value
-
-# import json
-# with open("transformed_columns.txt", "w") as file:
-#     json.dump(transformed_columns, file, indent=4)
 
 allColumns = standardBattingColumns | standardPitchingColumns
-
-# columnDefinitions = []	
-# for statName, details in standardPitchingColumns.items():
-#     columnName = details['columnName']
-#     dataType = details['dataType']
-#     columnDefinitions.append(f"{columnName} {dataType}")
-
-# # Iterate through batting columns
-# for statName, details in standardBattingColumns.items():
-#     columnName = details['columnName']
-#     dataType = details['dataType']
-#     columnDefinitions.append(f"{columnName} {dataType}")
-
-# # Join the column definitions into a single string for the CREATE TABLE statement
-# columnsString = ",\n".join(columnDefinitions)
-
-# # Create the SQL CREATE TABLE query
-# createQuery = f"""
-# CREATE TABLE stats (
-#     playerId INT PRIMARY KEY,
-#     {columnsString}
-# );
-# """
-# # Print the final SQL query
-# print(createQuery)
-
-# sqlUtility.executeQuery(createQuery, [])

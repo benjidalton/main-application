@@ -11,6 +11,16 @@ const generalIcons = ['mdi-github', 'mdi-microsoft-visual-studio-code']
 const generalLabels = ['Github', 'VS Code']
 const router = useRouter();
 
+const fitnessRoutes = ref([
+	{ name: 'New Workout', href: '/fitness-tracker/new-workout-diary' }, 
+	{ name: 'View Log', href: '/fitness-tracker/view-diary' }
+])
+
+const gameRoutes = ref([
+	{ name: 'Blackjack', href: '/blackjack' }, 
+	{ name: 'Solitaire', href: '/solitaire' }
+])
+
 onMounted(()=> {
 	console.log('router', router.currentRoute.value.fullPath)
 })
@@ -28,15 +38,7 @@ const navBarStyle = computed(() => {
 
 })
 
-const elevationClass = computed(() => {
-    switch(router.currentRoute.value.fullPath) {
-        case '/blackjack':
-		case '/solitaire':
-            return 'custom-elevation'; // Apply custom elevation for this route
-        default:
-            return ''; // Default to no custom elevation
-    }
-});
+
 </script>
 
 <template>
@@ -56,7 +58,28 @@ const elevationClass = computed(() => {
 				</template>
 				<v-list>
 					<v-list-item
-						v-for="(link, index) in [{ name: 'Blackjack', href: '/blackjack' }, { name: 'Solitaire', href: '/solitaire' }]"
+						v-for="(link, index) in gameRoutes"
+						:key="index"
+						:to="link.href"
+					>
+						<v-list-item-title>
+							{{ link.name.toUpperCase() }}
+						</v-list-item-title>
+					</v-list-item>
+				</v-list>
+			</v-menu>
+
+			<v-menu>
+				<template v-slot:activator="{ props }">
+					<v-btn 
+						text="Fitness Tracker" 
+						color="rgb(224, 224, 224)" 
+						v-bind="props"	
+					/>
+				</template>
+				<v-list>
+					<v-list-item
+						v-for="(link, index) in fitnessRoutes"
 						:key="index"
 						:to="link.href"
 					>
@@ -67,11 +90,6 @@ const elevationClass = computed(() => {
 				</v-list>
 			</v-menu>
 			
-			<v-btn 
-				text="Fitness Tracker" 
-				:to="{ name: 'fitness-tracker' }" 
-				color="rgb(224, 224, 224)" 
-			/>
 
 			<v-spacer></v-spacer>
 			
