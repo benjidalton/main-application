@@ -27,6 +27,13 @@ const windowContents = [
 
 <template>
 	<BaseViewContainer>
+		<v-alert
+			closable
+			text="WORK IN PROGRESS"
+			variant="tonal"
+			color="red"
+			style="font-size: 40px; font-weight: bold;"
+		></v-alert>
 		<v-card class="card">
 			<v-toolbar>
 				<v-toolbar-title style="text-align: left; padding-left: 40px;">
