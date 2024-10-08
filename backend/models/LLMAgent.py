@@ -6,7 +6,7 @@ import sqlparse
 from dotenv import load_dotenv
 load_dotenv()
 # custom imports
-import services.sql.sqlUtility as sqlUtility
+import backend.services.sql.sql_utility as sql_utility
 
 class LLMAgent:
 	def __init__(self, apiKey: str):
@@ -76,7 +76,7 @@ class LLMAgent:
 
 	def getResponseFromDb(self, formattedSqlQuery) -> tuple:
 		"""Executes the SQL query and retrieves the response from the database."""
-		dbResponse = sqlUtility.executeSelectQuery(formattedSqlQuery, [])
+		dbResponse = sql_utility.executeSelectQuery(formattedSqlQuery, [])
 		print('db response: ', dbResponse)
 		# Get the baseball reference url and name for each item returned
 		# Used to create href links on the front end
@@ -122,7 +122,7 @@ class LLMAgent:
 			return
 
 		# Load database schema
-		databaseSchema = sqlUtility.getDatabaseSchema()
+		databaseSchema = sql_utility.getDatabaseSchema()
 		schemaPrompt = self.createSchemaPrompt(databaseSchema)
 
 		moreInfoString = 'MORE INFORMATION NEEDED'

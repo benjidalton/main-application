@@ -1,6 +1,6 @@
 import axios from "axios";
-import { MuscleGroup } from "@/models/MuscleGroup";
-import { Exercise } from "@/models/Exercise";
+import { MuscleGroup } from "@/models/FitnessTrackerModels/MuscleGroup";
+import { Exercise } from "@/models/FitnessTrackerModels/Exercise";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
 console.log('baseurl ', baseUrl)

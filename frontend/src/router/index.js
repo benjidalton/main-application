@@ -23,27 +23,27 @@ const routes = [
 	{
 		path: '/blackjack',
 		name: 'blackjack',
-		component: () => import('../views/Blackjack.vue')
+		component: () => import('../views/CardGameViews/Blackjack.vue')
 	},
 	{
 		path: '/solitaire',
 		name: 'solitaire',
-		component: () => import('../views/Solitaire.vue')
+		component: () => import('../views/CardGameViews/Solitaire.vue')
 	},
 	{
 		path: '/fitness-tracker',
 		name: 'fitness-tracker',
-		component: () => import('../views/WorkoutDiaryEntry.vue'),
+		component: () => import('../views/FitnessTrackerViews/WorkoutDiaryEntry.vue'),
 	},
 	{
 		path: '/fitness-tracker/new-workout-diary',
 		name: 'new-workout-diary',
-		component: () => import('../views/WorkoutDiaryEntry.vue')
+		component: () => import('../views/FitnessTrackerViews/WorkoutDiaryEntry.vue')
 	},
 	{
 		path: '/fitness-tracker/view-diary',
 		name: 'view-diary',
-		component: () => import('../views/ViewWorkoutDiary.vue')
+		component: () => import('../views/FitnessTrackerViews/ViewWorkoutDiary.vue')
 	},
 	{
 		path: '/about',

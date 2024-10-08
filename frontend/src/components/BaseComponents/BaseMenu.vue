@@ -103,8 +103,8 @@ const dateFormat = computed(() => {
 <style scoped>
 .custom-card {
 	cursor: pointer;
-	background-color: rgb(121, 119, 156);
-	color: white;
+	background-color: var(--custom-card-bg);
+	color: rgb(75, 75, 75);
 	padding: 5px;
 }
 .custom-card:hover {

@@ -5,7 +5,7 @@ from flask import jsonify
 # may need to add in :
 # import sys
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from utils.customLogging import logErrors
+from backend.utils.custom_logging import logErrors
 from dotenv import load_dotenv
 load_dotenv()
 

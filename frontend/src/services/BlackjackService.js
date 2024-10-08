@@ -1,5 +1,5 @@
-import { PlayingCard } from "../models/PlayingCard.js";
-import { Hand } from "@/models/Hand.js";
+import { PlayingCard } from "../models/CardGameModels/PlayingCard.js";
+import { Hand } from "@/models/CardGameModels/Hand.js";
 /**
  * Creates a deck of 52 cards, with number cards, face cards (Jack, Queen, King), and aces.
  * @returns {PlayingCard[]} A shuffled deck of cards

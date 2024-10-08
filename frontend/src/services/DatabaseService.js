@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Team } from "@/models/Team";
-import { Player } from "@/models/Player";
+import { Team } from "@/models/BaseballModels/Team";
+import { Player } from "@/models/BaseballModels/Player";
 
 const baseUrl = import.meta.env.VITE_BASE_URL;
 

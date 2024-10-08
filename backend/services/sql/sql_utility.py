@@ -7,7 +7,7 @@ from models.Team import Team
 # may need to add in :
 # import sys
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from utils.customLogging import logErrors
+from backend.utils.custom_logging import logErrors
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -19,6 +19,18 @@ APP_ACCESS_FITNESS_DB = os.getenv("APP_ACCESS_FITNESS_DB")
 
 APP_ACCESS_DB_PORT = int(os.getenv("APP_ACCESS_DB_PORT"))
 
+db_user = os.getenv("APP_ACCESS_DB_USERNAME")
+db_pass = os.getenv("APP_ACCESS_DB_PASSWORD")
+db_host = os.getenv("APP_ACCESS_DB_HOSTNAME")
+db_name = os.getenv("APP_ACCESS_DB_DATABASE")
+db_port = os.getenv("APP_ACCESS_DB_PORT")
+
+# Construct the database URL
+DATABASE_URI = f"mysql+pymysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
+
+# Create an engine
+engine = create_engine(DATABASE_URI)
+
 PARAM_QUERY_FAILED = "parameterized query failed {}"
 CONNECTION_CLOSED = "MySQL connection is closed"
 
@@ -26,7 +38,7 @@ import logging
 logger = logging.getLogger('app')
 
 
-def createConnection(database): 
+def create_connection(database): 
 	return mysql.connector.connect(
 			host = APP_ACCESS_DB_HOST,
 			user = APP_ACCESS_DB_USERNAME,
@@ -34,7 +46,7 @@ def createConnection(database):
 			database = database
 		)
 
-def getDatabaseSchema(): 
+def get_database_schema(): 
 	"""
 		Retrieve the database schema, including table names and their corresponding columns.
 
@@ -45,30 +57,30 @@ def getDatabaseSchema():
 		Returns:
 			dict: A dictionary where keys are table names and values are lists of column names.
     """
-	connection = createConnection()
+	connection = create_connection()
 	cursor = connection.cursor()
 	dbSchemaQuery = f"""SELECT table_name FROM information_schema.tables WHERE table_schema = '{APP_ACCESS_BASEBALL_DB}';"""
 	cursor.execute(dbSchemaQuery)
 	tables = cursor.fetchall()
-	strippedTables = [tableName[0] for tableName in tables]
+	strippedTables = [table_name[0] for table_name in tables]
 	ignoredTables = ['playerstats_old', 'changelog']
 	schema = {}
-	for tableName in strippedTables:
-		if tableName in ignoredTables:
+	for table_name in strippedTables:
+		if table_name in ignoredTables:
 			continue
 
-		tableSchemaQuery = f"SELECT column_name FROM information_schema.columns WHERE table_name = '{tableName}' AND table_schema = '{APP_ACCESS_BASEBALL_DB}';"
+		tableSchemaQuery = f"SELECT column_name FROM information_schema.columns WHERE table_name = '{table_name}' AND table_schema = '{APP_ACCESS_BASEBALL_DB}';"
 		cursor.execute(tableSchemaQuery)
 		columnNames = cursor.fetchall()
 		strippedColumns = [columnName[0] for columnName in columnNames]
-		schema[tableName] = [column for column in strippedColumns]
+		schema[table_name] = [column for column in strippedColumns]
 
 	connection.close()
 	print('final table schema:', schema)
 	return schema
 
 # Helper methods for working with data
-def createTableColumnsString(dbColumns: list, newTable: bool) -> str:
+def create_table_columns_string(db_columns: list, newTable: bool) -> str:
 	"""
 		Generate a string representation of database column definitions.
 
@@ -77,19 +89,19 @@ def createTableColumnsString(dbColumns: list, newTable: bool) -> str:
 		whether a new table is being created or an existing table is being modified.
 
 		Args:
-			dbColumns (list): * A list of dictionaries, each containing 'columnName' and 'dataType'.
+			db_columns (list): * A list of dictionaries, each containing 'columnName' and 'dataType'.
 			newTable (bool): * A flag indicating whether the columns are for a new table.
 
 		Returns:
 			str: A comma-separated string of column definitions for SQL statements.
     """
 	if newTable == True: 
-		return ", ".join([' '.join([column['columnName'], column['dataType']]) for column in dbColumns if column['dataType']])
+		return ", ".join([' '.join([column['columnName'], column['dataType']]) for column in db_columns if column['dataType']])
 	else: 
 		
-		return ", ".join([column['columnName'] for column in dbColumns if 'dataType' in column])
+		return ", ".join([column['columnName'] for column in db_columns if 'dataType' in column])
 
-def createValuesString(dbData: list):
+def create_values_string(db_data: list):
 	"""
 		Generate a formatted string of values for SQL insert statements.
 
@@ -98,91 +110,91 @@ def createValuesString(dbData: list):
 		"NULL", while all other values are enclosed in single quotes.
 
 		Args:
-			dbData (list): * A list of values to be formatted for SQL.
+			db_data (list): * A list of values to be formatted for SQL.
 
 		Returns:
 			str: A comma-separated string of formatted values ready for an SQL query.
     """
     
-	formattedValues = ["NULL" if value == "" or value is None else f"'{value}'" for value in dbData]
+	formattedValues = ["NULL" if value == "" or value is None else f"'{value}'" for value in db_data]
 	return ", ".join(formattedValues)
 
-def createInsertQuery(table: str, id: int, idSpecifier: str, columnDefinitionsSring: str, valueDefinitionsString: str) -> str:
-	return f"""INSERT INTO {table} ({idSpecifier}, {columnDefinitionsSring})
-				VALUES ({id}, {valueDefinitionsString})"""
+def create_insert_query(table: str, id: int, id_specifier: str, column_defs_string: str, value_defs_string: str) -> str:
+	return f"""INSERT INTO {table} ({id_specifier}, {column_defs_string})
+				VALUES ({id}, {value_defs_string})"""
 
-def createUpdateQuery(table: str, id: int, idSpecifier: str, columnDefinitionsSring: str, valueDefinitionsString: str):
+def create_update_query(table: str, id: int, id_specifier: str, column_defs_string: str, value_defs_string: str):
 	updateQuery = f"""
-			REPLACE INTO {table} ({idSpecifier}, {columnDefinitionsSring})
-			VALUES ({id}, {valueDefinitionsString});
+			REPLACE INTO {table} ({id_specifier}, {column_defs_string})
+			VALUES ({id}, {value_defs_string});
 		"""
 	
-	executeQuery(APP_ACCESS_BASEBALL_DB, updateQuery, [])
+	execute_query(APP_ACCESS_BASEBALL_DB, updateQuery, [])
 
-def createTable(tableName: str, columnDefinitionsSring: str, primaryKeyId: str):
-	dropTableQuery = f"DROP TABLE IF EXISTS {tableName};"
-	executeQuery(APP_ACCESS_BASEBALL_DB, dropTableQuery, [])
+def create_table(table_name: str, column_defs_string: str, primaryKeyId: str):
+	dropTableQuery = f"DROP TABLE IF EXISTS {table_name};"
+	execute_query(APP_ACCESS_BASEBALL_DB, dropTableQuery, [])
 
-	createTableQuery = f"""
-		CREATE TABLE {tableName} (
-			{primaryKeyId} INT PRIMARY KEY, {columnDefinitionsSring}
+	create_tableQuery = f"""
+		CREATE TABLE {table_name} (
+			{primaryKeyId} INT PRIMARY KEY, {column_defs_string}
 		);
 	"""
 
-	executeQuery(APP_ACCESS_BASEBALL_DB, createTableQuery, [])
+	execute_query(APP_ACCESS_BASEBALL_DB, create_tableQuery, [])
 
-def exportToDatabase(tableName: str, id: int, idSpecifier: str, dbColumns: list, dbData: list, createNewDatabaseTable: bool, loggingName: str):
+def export_to_db(table_name: str, id: int, id_specifier: str, db_columns: list, db_data: list, create_new_db_table: bool, logging_name: str):
 	# remove the keys of each object and get just the values
-	cleanedColumns = [list(column.values())[0] for column in dbColumns]
+	cleaned_columns = [list(column.values())[0] for column in db_columns]
 
-	columnDefinitionsSring = createTableColumnsString(cleanedColumns, createNewDatabaseTable)
-	valueDefinitionsString = createValuesString(dbData)
+	column_defs_string = create_table_columns_string(cleaned_columns, create_new_db_table)
+	value_defs_string = create_values_string(db_data)
 
-	if createNewDatabaseTable == True:	
-		createTable(tableName, columnDefinitionsSring, idSpecifier)
+	if create_new_db_table == True:	
+		create_table(table_name, column_defs_string, id_specifier)
 
-	insertQuery = createInsertQuery(tableName, id, idSpecifier, columnDefinitionsSring, valueDefinitionsString) 
+	insertQuery = create_insert_query(table_name, id, id_specifier, column_defs_string, value_defs_string) 
 
 	try:
-		executeQuery(APP_ACCESS_BASEBALL_DB, insertQuery, [])
+		execute_query(APP_ACCESS_BASEBALL_DB, insertQuery, [])
 	except Exception as e:
-		failReason = f"SQL query: \n{insertQuery}\n failed for {loggingName} {str(e)}"
+		failReason = f"SQL query: \n{insertQuery}\n failed for {logging_name} {str(e)}"
 		logErrors(failReason)
 
 
 # General sql select queries
-def selectAllPlayersNotInStats() -> list[Player]:
-	# selectQuery = """SELECT * FROM players WHERE id NOT IN (SELECT playerId FROM playerstats_updated);"""
+def select_all_players_not_in_stats() -> list[Player]:
+	# select_query = """SELECT * FROM players WHERE id NOT IN (SELECT playerId FROM playerstats_updated);"""
 
-	selectQuery = """SELECT * 
+	select_query = """SELECT * 
 					FROM players 
 					WHERE id > (SELECT MAX(playerId) FROM playerstats_updated);"""
 
-	data = executeSelectQuery(APP_ACCESS_BASEBALL_DB, selectQuery, [])
+	data = execute_select_query(APP_ACCESS_BASEBALL_DB, select_query, [])
 	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
 
-def selectAllPlayers() -> list[Player]:
-	selectQuery = """ select * from players """
+def select_all_players() -> list[Player]:
+	select_query = """ select * from players """
 	
-	data = executeSelectQuery(APP_ACCESS_BASEBALL_DB, selectQuery, [])
+	data = execute_select_query(APP_ACCESS_BASEBALL_DB, select_query, [])
 	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
 
-def selectAllTeams() -> list[Team]:
-	selectQuery = """ select * from teams """
+def select_all_teams() -> list[Team]:
+	select_query = """ select * from teams """
 	
-	data = executeSelectQuery(APP_ACCESS_BASEBALL_DB, selectQuery, [])
+	data = execute_select_query(APP_ACCESS_BASEBALL_DB, select_query, [])
 	return [Team(team['id'], team['name'], team['baseballReferenceUrl']) for team in data['items']]
 
-def updatePlayerAsPitcher(playerId: int):
+def update_player_as_pitcher(playerId: int):
 	updateQuery = f"""UPDATE players SET pitcher = 1 WHERE id = {playerId} """
-	executeQuery(APP_ACCESS_BASEBALL_DB, updateQuery, [])
+	execute_query(APP_ACCESS_BASEBALL_DB, updateQuery, [])
 
 
-def executeQuery(database, query, params):
+def execute_query(database, query, params):
 	if not isinstance(params, list):
 		params = [params]
 
-	connection = createConnection(database)
+	connection = create_connection(database)
 	cursor = connection.cursor()
 
 	try:
@@ -201,7 +213,7 @@ def executeQuery(database, query, params):
 	except mysql.connector.Error as err:
 		print(f"Error: {err}")
 		connection.rollback()  # Rollback in case of error
-		# logChange(operationType, tableName, query, 'failure', str(err))
+		# logChange(operationType, table_name, query, 'failure', str(err))
 		return jsonify({'success': False, 'error': str(err)}), 500
 
 	finally:
@@ -210,46 +222,14 @@ def executeQuery(database, query, params):
 			cursor.close()
 		if connection and connection.is_connected():
 			connection.close()
-
-
-# def executeAddSQL(insert_tuple, INSERT_SQL):
-# 	try:  
-# 		with mysql.connector.connect(
-# 			host = APP_ACCESS_DB_HOST,
-# 			user = APP_ACCESS_DB_USERNAME,
-# 			password = APP_ACCESS_DB_PASSWORD,
-# 			database = APP_ACCESS_DB_DATABASE,
-# 			port = APP_ACCESS_DB_PORT
-# 		) as connection:
-# 			with connection.cursor(prepared=True) as cursor:
-# 				print('SQL_UTILITY ', INSERT_SQL, insert_tuple)
-# 				cursor.execute(INSERT_SQL, insert_tuple)
-# 				connection.commit()
-# 				cursor.close() 
-			
-# 			return jsonify({'success': True}), 200
 	
-# 	except mysql.connector.Error as error:
-# 		print(PARAM_QUERY_FAILED.format(error))
-# 		logger.debug("ERROR executeAddSQL() %s", INSERT_SQL)
-# 		logger.debug("Tuple %s", insert_tuple)
-# 		logger.debug("Exception ", exc_info=True)
-# 		return jsonify({'success': False, 'message': error.msg}), 500
-	
-# 	finally:
-# 		if connection.is_connected():
-# 			connection.cursor().close()
-# 			connection.close()
-# 			print(CONNECTION_CLOSED)
-# 			print()
-	
-def executeSelectQuery(database, query, params):
+def execute_select_query(database, query, params):
 	items = []
 
 	# if not isinstance(params, list):
 	# 	params = [params]
 	try:
-		connection = createConnection(database)
+		connection = create_connection(database)
 		cursor = connection.cursor(buffered=True)
 
 		cursor.execute(query, params)
