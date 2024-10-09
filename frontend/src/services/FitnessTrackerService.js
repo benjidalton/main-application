@@ -3,7 +3,6 @@ import { MuscleGroup } from "@/models/FitnessTrackerModels/MuscleGroup";
 import { Exercise } from "@/models/FitnessTrackerModels/Exercise";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 
-console.log('baseurl ', baseUrl)
 
 export async function getExercisesByMuscleGroup() {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_GET_EXERCISES_BY_MUSCLE_GROUP;
@@ -16,11 +15,10 @@ export async function getExercisesByMuscleGroup() {
 			},
 		})
 		.then((response) => {
-			console.log('response', response)
-			response.data.items.forEach(item => {
+			response.data.forEach(item => {
 				const id = item.id;
-				const muscleGroupName = item.muscleGroup; // Muscle group name
-				const exercises = item.exercises.split(', '); // Split exercises into a list
+				const muscleGroupName = item.muscleGroupName;
+				const exercises = item.exercises ? item.exercises.split(',') : [];
 				muscleGroups.push(new MuscleGroup(id, muscleGroupName, exercises));
 			})
 		})
@@ -33,7 +31,7 @@ export async function getExercisesByMuscleGroup() {
 export async function insertNewExercise(name, muscleGroupId) {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_INSERT_NEW_EXERCISE;
 	await axios
-		.get(appConnectorUrl, {
+		.post(appConnectorUrl, {
 			params: {
 				name: name,
 				muscleGroupId: muscleGroupId,
@@ -79,8 +77,7 @@ export async function selectWorkoutByDate(date) {
 			},
 		})
 		.then((response) => {
-			console.log(response)
-			response.data.items.forEach(item => {
+			response.data.forEach(item => {
 				let date = new Date(item.workoutDate).toISOString().split('T')[0];
 				let repsArray = item.reps.split(',').map(Number); 
 				let exercise = new Exercise(
@@ -107,6 +104,7 @@ export async function selectWorkoutByDate(date) {
 export async function selectWorkoutByDateRange(minDate, maxDate) {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_SELECT_WORKOUT_BY_DATE_RANGE;
 	let exercises = [];
+	console.log('min date in service', minDate, 'max dax in service', maxDate)
 	await axios
 		.get(appConnectorUrl, {
 			params: {
@@ -118,7 +116,7 @@ export async function selectWorkoutByDateRange(minDate, maxDate) {
 		})
 		.then((response) => {
 			console.log(response)
-			response.data.items.forEach(item => {
+			response.data.forEach(item => {
 				let date = new Date(item.workoutDate).toISOString().split('T')[0];
 				let repsArray = item.reps.split(',').map(Number); 
 				let exercise = new Exercise(
@@ -133,7 +131,6 @@ export async function selectWorkoutByDateRange(minDate, maxDate) {
 					item.weight
 				);
 				exercises.push(exercise);
-				console.log('exercises', exercises)
 			})
 		})
 		.catch((error) => {
@@ -142,4 +139,4 @@ export async function selectWorkoutByDateRange(minDate, maxDate) {
 	return exercises;
 }
 
-export const muscleGroups = await getExercisesByMuscleGroup();
+export const allMuscleGroups = await getExercisesByMuscleGroup();

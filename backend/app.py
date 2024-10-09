@@ -1,17 +1,12 @@
-from backend.blueprints import llm_routes
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 import os
-from blueprints import routes, fitnessRoutes
+from blueprints import routes, fitness_routes, llm_routes
 load_dotenv()
 
-# DB_USER = os.getenv("APP_ACCESS_DB_USERNAME")
-# DB_PASS = os.getenv("APP_ACCESS_DB_PASSWORD")
-# DB_HOST = os.getenv("APP_ACCESS_DB_HOSTNAME")
-# DB_NAME = os.getenv("APP_ACCESS_DB_DATABASE")
-# DB_PORT = os.getenv("APP_ACCESS_DB_PORT")
+# 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 app = Flask(__name__)
@@ -29,7 +24,7 @@ jwt = JWTManager(app)
 
 app.register_blueprint(routes.routes, name='routes')
 app.register_blueprint(llm_routes.llm_routes, name='llm_routes')
-app.register_blueprint(fitnessRoutes.fitnessRoutes, name="fitnessRoutes")
+app.register_blueprint(fitness_routes.fitness_routes, name="fitnessRoutes")
 
 
 @app.route('/notify', methods=['POST'])

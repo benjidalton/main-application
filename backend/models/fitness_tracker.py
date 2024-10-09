@@ -1,10 +1,10 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 #----- custom imports ------+
-from services.sql import sql_alchemy_utility
+from services.sql.sql_alchemy_utility import Base 
 
-class MuscleGroup(sql_alchemy_utility.Base):
-	__tablename__ = 'muscle_group_new'
+class MuscleGroup(Base):
+	__tablename__ = 'muscle_group'
 	
 	id = Column(Integer, primary_key=True)
 	name = Column(String(50))
@@ -13,8 +13,8 @@ class MuscleGroup(sql_alchemy_utility.Base):
 		self.name = name
 
 
-class Exercise(sql_alchemy_utility.Base):
-	__tablename__ = 'exercise_new'
+class Exercise(Base):
+	__tablename__ = 'exercise'
 	
 	id = Column(Integer, primary_key=True)
 	name = Column(String(50))
@@ -27,15 +27,15 @@ class Exercise(sql_alchemy_utility.Base):
 		self.muscle_group_id = muscle_group_id
 
 
-class WorkoutEntry(sql_alchemy_utility.Base):
-	__tablename__ = 'workout_entries_new'
+class WorkoutEntry(Base):
+	__tablename__ = 'workout_entries'
 	
 	id = Column(Integer, primary_key=True)
-	workout_date = Column(String) 
+	workout_date = Column(String(50)) 
 	muscle_group_id = Column(Integer, ForeignKey('muscle_group.id'))
 	exercise_id = Column(Integer, ForeignKey('exercise.id'))
 	sets = Column(Integer)
-	reps = Column(String)
+	reps = Column(String(50))
 	total_reps = Column(Integer)
 	weight = Column(Integer)
 

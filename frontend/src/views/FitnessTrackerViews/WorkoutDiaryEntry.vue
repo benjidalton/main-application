@@ -33,8 +33,6 @@ function handleWorkoutSubmit() {
 			</v-btn>
 		</template>
 		
-		
-		
 	</v-container>
 
 </template>

@@ -3,12 +3,13 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import os
 import sys
-from models.ExerciseTable import Base, Employee, Exercise  # Make sure to import Exercise too
-
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+Base = declarative_base()
+# from models.fitness_tracker import MuscleGroup, Exercise, WorkoutEntry
 from dotenv import load_dotenv
 load_dotenv()
 
-Base = declarative_base()
+APP_ACCESS_FITNESS_DB = os.getenv("APP_ACCESS_FITNESS_DB")
 
 def create_db_session(db_name):
     db_user = os.getenv("APP_ACCESS_DB_USERNAME")
@@ -26,3 +27,5 @@ def create_db_session(db_name):
     Session = sessionmaker(bind=engine)
 
     return engine, Session
+
+# Assuming you have already set up your environment and loaded your .env file

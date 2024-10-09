@@ -6,7 +6,7 @@ import sqlparse
 from dotenv import load_dotenv
 load_dotenv()
 # custom imports
-import backend.services.sql.sql_utility as sql_utility
+import services.sql.sql_utility as sql_utility
 
 class LLMAgent:
 	def __init__(self, apiKey: str):

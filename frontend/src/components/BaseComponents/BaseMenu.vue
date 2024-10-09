@@ -14,17 +14,26 @@ const props = defineProps({
 	},
 	minDate: String,
 	maxDate: String,
-	icon: String
-
+	icon: String,
+	multiple: Boolean
 })
 
 const chosenItem = ref('');
+const allChosen = ref(true);
+const chosenDate = ref(null); 
 
-const chosenDate = ref(new Date()); 
-const emit = defineEmits(['itemChosen', 'openDialog', 'dateUpdated'])
+const emit = defineEmits(['itemChosen', 'openDialog', 'dateUpdated', 'allItemsChosen'])
+defineExpose({ resetLabel, chosenItem })
+
+function resetLabel() {
+	chosenItem.value = '';
+	allChosen.value = false;
+}
 
 function onItemChosen(item) {
 	chosenItem.value = item;
+	allChosen.value = false; // reset allChosen so the new chosen item will be displayed in card
+	console.log('item chosen: ', chosenItem.value)
 	emit('itemChosen', item);
 }
 
@@ -37,25 +46,59 @@ function capitalizeWords(string) {
 		.split(' ') // Split the string into words
 		.map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
 		.join(' '); // Join the words back into a single string
-	}
-
-
+}
 
 const dateFormat = computed(() => {
 	if (chosenDate.value) {
-		let newDate = chosenDate.value.toISOString().split('T')[0];
-		emit('dateUpdated', newDate);
+		let newDate;
+		if (Array.isArray(chosenDate.value)) {
+			// chosenDate.value is an array
+			newDate = handleDateArray(chosenDate.value);
+		} else {
+			// chosenDate.value is not an array (handle single date case)
+			newDate = handleSingleDate(chosenDate.value);
+		}
 		return newDate;
 	} 
 })
+
+function chooseAll() {
+	allChosen.value = true;
+	emit('allItemsChosen')
+}
+
+function handleDateArray(dates) {
+	// Emit the formatted dates immediately because they are in the correct format for database queries
+	let formattedDates = dates.map(date => date.toISOString().split('T')[0]);
+	emit('dateUpdated', formattedDates);
+
+	// Prettier label
+	const firstDate = new Date(formattedDates[0]);
+	const lastDate = new Date(formattedDates[formattedDates.length - 1]);
+
+	// Format dates as (MM/DD)
+	const options = {  month: 'numeric', day: 'numeric' };
+	const formattedFirstDate = firstDate.toLocaleDateString(undefined, options);
+	const formattedLastDate = lastDate.toLocaleDateString(undefined, options);
+	// Display in the format: "First Date - Last Date"
+	
+	return `${formattedFirstDate} - ${formattedLastDate}`;
+}
+
+function handleSingleDate(date) {
+    // Process the single date
+    let formattedDate = date.toISOString().split('T')[0];
+    emit('dateUpdated', [formattedDate]); // You might still want to emit it as an array
+	return formattedDate
+}
 
 </script>
 
 
 <template>
-	
-	<v-menu 
-	>
+
+		<v-menu :return-value.sync="chosenDate" :close-on-content-click="datePicker && multiple? false : true">
+
 		<template v-slot:activator="{ props }">
 			<v-card class="custom-card" v-bind="props">
 				<v-card-title>
@@ -63,18 +106,27 @@ const dateFormat = computed(() => {
 						<v-icon :icon="icon" size="small" style="position: relative; right: 10%;"/>
 					</template>
 					<span class=""> <!-- Add some margin for spacing -->
-						{{ datePicker ? (chosenDate ? dateFormat : baseLabel) : (chosenItem ? capitalizeWords(chosenItem) : baseLabel) }}
+						{{ datePicker ? (chosenDate ? dateFormat : baseLabel) : (allChosen ? baseLabel : chosenItem ? capitalizeWords(chosenItem) : baseLabel) }}
 					</span>
 				</v-card-title>
 
 			</v-card>
 		</template>
+
 		<v-list>
 			<v-list-item 
 				v-if="addExercise"
 				@click="openDialog">
 				Add Exercise
-			<v-icon icon="mdi-plus"/>
+				<v-icon icon="mdi-plus"/>
+				
+			</v-list-item>
+
+			<v-list-item 
+				v-if="multiple && !datePicker"
+				@click="chooseAll">
+					All
+				<v-icon icon="mdi-plus"/>
 				
 			</v-list-item>
 			<v-list-item 
@@ -95,6 +147,7 @@ const dateFormat = computed(() => {
 				style="font-size: 10px;"
 				:min="minDate ? minDate : null"
 				:max="maxDate ? maxDate : null"
+				:multiple="multiple ? 'range' : null"
 			/>
 		</template>
 	</v-menu>

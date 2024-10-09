@@ -60,7 +60,7 @@ function handleSearch(newSearch) {
 			</tr>
 		</template>	
 		<template v-slot:item.date="{ item }">
-			{{ item.date }}
+			{{ item.date[0] }}
 		</template>
 		<template v-slot:item.muscleGroup="{ item }">
 			{{ capitalizeWords(item.muscleGroup) }}

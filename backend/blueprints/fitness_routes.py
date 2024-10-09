@@ -9,28 +9,30 @@ load_dotenv()
 
 #----- custom imports ------+
 # from models.ExerciseTable import Exercise
-from models.fitness_tracker_models import MuscleGroup, Exercise, WorkoutEntry
+from models.fitness_tracker import MuscleGroup, Exercise, WorkoutEntry
 from services.sql import sql_alchemy_utility
 
 APP_ACCESS_FITNESS_DB = os.getenv("APP_ACCESS_FITNESS_DB")
 engine, Session = sql_alchemy_utility.create_db_session(APP_ACCESS_FITNESS_DB)
 
-fitnessRoutes = Blueprint('fitnessRoutes', __name__, template_folder='templates')
+fitness_routes = Blueprint('fitness_routes', __name__, template_folder='templates')
 
 #----- GET ROUTES ------+
-@fitnessRoutes.route('/getExercisesByMuscleGroup', methods=['GET'])
+@fitness_routes.route('/getExercisesByMuscleGroup', methods=['GET'])
 def get_exercises_by_muscle_group():
 	session = Session()
 	try: 
 		results = session.query(
-			MuscleGroup.id.label('id'),
-			MuscleGroup.name.label('muscleGroupName'),
-			func.group_concat(Exercise.name, order_by=Exercise.id).label('exercises')
-		).outerjoin(
-			Exercise, Exercise.muscle_group_id == MuscleGroup.id
-		).group_by(
-			MuscleGroup.id
-		).all()
+            MuscleGroup.id.label('id'),
+            MuscleGroup.name.label('muscleGroupName'),
+            func.group_concat(Exercise.name).label('exercises')
+        ).join(
+            Exercise, Exercise.muscle_group_id == MuscleGroup.id
+        ).group_by(
+            MuscleGroup.id
+        ).order_by(
+            MuscleGroup.id  # or any other ordering you prefer
+        ).all()
 
 		return [{'id': r.id, 'muscleGroupName': r.muscleGroupName, 'exercises': r.exercises} for r in results]
 		
@@ -40,8 +42,9 @@ def get_exercises_by_muscle_group():
 	finally:
 		session.close() 
 
-@fitnessRoutes.route('/getWorkoutByDate', methods=['GET'])
-def get_workout_by_date(workout_date):
+@fitness_routes.route('/getWorkoutByDate', methods=['GET'])
+def get_workout_by_date():
+	workout_date = request.args.get('date')
 	session = Session()  # Create a new session
 	try:
 		results = session.query(
@@ -73,12 +76,13 @@ def get_workout_by_date(workout_date):
 	finally:
 		session.close() 
 
-@fitnessRoutes.route('/getWorkoutByDateRange', methods=['GET'])
+@fitness_routes.route('/getWorkoutByDateRange', methods=['GET'])
 def get_workout_by_date_range():
 	minDate = request.args.get('minDate')
 	maxDate = request.args.get('maxDate')
 
 	session = Session()
+	print('min date', minDate, "max date", maxDate)
 	try:
 		results = session.query(
 			WorkoutEntry.id.label('id'),
@@ -97,7 +101,7 @@ def get_workout_by_date_range():
 		).filter(
 			WorkoutEntry.workout_date.between(minDate, maxDate)
 		).all()
-
+		print('r', results)
 		return [{'id': r.id, 'name': r.name, 'workoutDate': r.workoutDate,
 				 'muscleGroupId': r.muscleGroupId, 'muscleGroup': r.muscleGroup,
 				 'sets': r.sets, 'reps': r.reps, 'totalReps': r.totalReps,
@@ -110,47 +114,54 @@ def get_workout_by_date_range():
 		session.close()  
 
 #----- POST ROUTES -----+
-@fitnessRoutes.route('/createNewExercise', methods=['POST'])
+@fitness_routes.route('/createNewExercise', methods=['POST'])
 def create_new_exercise():
 	session = Session()
 	name = request.json['params']['name']
-	muscleGroupId = request.json['params']['muscleGroupId']
-
+	muscle_group_id = request.json['params']['muscleGroupId']
+	
 	try: 
-		new_exercise = Exercise(name=name, muscle_group_id=muscleGroupId)
+		new_exercise = Exercise(name=name, muscle_group_id=muscle_group_id)
 		session.add(new_exercise) 
 		session.commit()           
-		print("Exercise inserted successfully!")
-	
+		return jsonify({"message": "Exercise inserted successfully!"}), 201
+
 	except Exception as e:
 		session.rollback() 
-		print(f"Error inserting exercise: {e}")
+		# Return an error response
+		return jsonify({"error": str(e)}), 400
+
 	finally:
 		session.close()
 
-@fitnessRoutes.route('/createNewWorkout', methods=['POST'])
+@fitness_routes.route('/createNewWorkout', methods=['POST'])
 def create_new_workout():
 	#----- exercise_data is instance of Exercise.js -----+
 	workout_data = request.json['params']['workout'] 
 	session = Session()  # Create a new session
 	try:
 		for exercise in workout_data:
-			print('exercise in workout data: ', exercise)
+			exercise_record = session.query(Exercise).filter_by(name=exercise['name']).first()
+			
+			# If the exercise exists, use its ID
+			exercise_id = exercise_record.id if exercise_record else 'na'
 			new_workout_entry = WorkoutEntry(
 				workout_date=exercise['date'],
 				muscle_group_id=exercise['muscleGroupId'],
-				exercise_id=exercise['id'],
+				exercise_id=exercise_id,
 				sets=exercise['sets'],
 				reps=','.join(map(str, exercise['reps'])), # Convert reps list to string
 				total_reps=exercise['totalReps'],  
 				weight=exercise['weight']
 			)
-			session.add(new_workout_entry)  # Add the new exercise to the session
-			session.commit()            # Commit the transaction
-		print("Exercise inserted successfully!")
+
+			session.add(new_workout_entry)  
+			session.commit()           
+		return jsonify({"message": "Exercise inserted successfully!"}), 201
+	
 	except Exception as e:
 		session.rollback()          # Rollback in case of error
-		print(f"Error inserting exercise: {e}")
+		return jsonify({"error": str(e)}), 400
 	finally:
 		session.close()
 

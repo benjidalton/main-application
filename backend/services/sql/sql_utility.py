@@ -7,7 +7,7 @@ from models.Team import Team
 # may need to add in :
 # import sys
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from backend.utils.custom_logging import logErrors
+from utils.custom_logging import log_errors
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -29,7 +29,7 @@ db_port = os.getenv("APP_ACCESS_DB_PORT")
 DATABASE_URI = f"mysql+pymysql://{db_user}:{db_pass}@{db_host}:{db_port}/{db_name}"
 
 # Create an engine
-engine = create_engine(DATABASE_URI)
+# engine = create_engine(DATABASE_URI)
 
 PARAM_QUERY_FAILED = "parameterized query failed {}"
 CONNECTION_CLOSED = "MySQL connection is closed"
