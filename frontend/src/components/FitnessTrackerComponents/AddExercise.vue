@@ -1,13 +1,13 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
-import { getExercisesByMuscleGroup, muscleGroups, insertNewExercise } from '@/services/FitnessTrackerService';
+import { getExercisesByMuscleGroup, allMuscleGroups, insertNewExercise } from '@/services/FitnessTrackerService';
 import { Exercise } from '@/models/FitnessTrackerModels/Exercise';
 import BaseMenu from '../BaseComponents/BaseMenu.vue';
 
 const emit = defineEmits(['newExercise'])
 const dialog = ref(false);
 const muscleGroupLabels = computed(() => {
-	return muscleGroups.map(muscleGroup =>  muscleGroup.name );
+	return allMuscleGroups.map(muscleGroup =>  muscleGroup.name );
 })
 
 const currentMuscleGroup = ref('');
@@ -16,13 +16,13 @@ const newExercise = ref(new Exercise());
 
 const exercises = computed(() => {
     if (currentMuscleGroup.value) {
-        const index = muscleGroups.findIndex(muscleGroup => 
+        const index = allMuscleGroups.findIndex(muscleGroup => 
 			
             muscleGroup.name.toLowerCase() === currentMuscleGroup.value.toLowerCase()
         );
         if (index !== -1) {
             // Return the exercises for the matching muscle group
-            return muscleGroups[index].exercises;
+            return allMuscleGroups[index].exercises;
         }
     }
     return [];
@@ -34,23 +34,23 @@ watch(() => newExercise.value.sets, (newValue) => {
 
 function addExercise() {
 	console.log(' chosen muscle group:', newExercise.value.muscleGroup.toLowerCase())
-	const index = muscleGroups.findIndex(muscleGroup => 
+	const index = allMuscleGroups.findIndex(muscleGroup => 
         muscleGroup.name.toUpperCase() === newExercise.value.muscleGroup.toUpperCase()
     );
 	console.log('exercises', exercises)
-	console.log('muscle groups: ', muscleGroups)
+	console.log('muscle groups: ', allMuscleGroups)
 	console.log('matching index: ', index)
 
  	if (index !== -1) {
-        let currentExercises = muscleGroups[index].exercises;
+        let currentExercises = allMuscleGroups[index].exercises;
         let exerciseName = newExercise.value.name.toLowerCase();
         let newExerciseAdded = currentExercises.includes(exerciseName);
-		newExercise.value.muscleGroupId = muscleGroups[index].id;
+		newExercise.value.muscleGroupId = allMuscleGroups[index].id;
 		console.log('new exercise', newExercise.value)
         if (!newExerciseAdded) {
             // Insert new exercise
 			if (exerciseName != '') {
-				insertNewExercise(exerciseName, muscleGroups[index].id);
+				insertNewExercise(exerciseName, allMuscleGroups[index].id);
             	currentExercises.push(exerciseName);
 			}
         }
@@ -190,6 +190,8 @@ function closeDialog() {
 				</v-card-actions>
 			</v-card>
 		</v-dialog>
+
+		
 
 	</v-container>
 	

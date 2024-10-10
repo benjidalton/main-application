@@ -20,7 +20,7 @@ function emitSearch() {
 	<v-toolbar
 		flat
 		class="d-flex align-center"
-		color="#f7ffe3"
+		style="background-color: var(--custom-card-bg); border-top-left-radius: 10px; border-top-right-radius: 10px;"
 	>
 		<v-row align="center">
 			<v-col style="padding: 50px;">

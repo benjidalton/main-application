@@ -2,16 +2,23 @@
 import { ref, computed, watch } from 'vue';
 import BaseMenu from '@/components/BaseComponents/BaseMenu.vue';
 import WorkoutTable from '@/components/FitnessTrackerComponents/WorkoutTable.vue';
-import { selectWorkoutByDate, selectWorkoutByDateRange } from '@/services/FitnessTrackerService';
-import { getExercisesByMuscleGroup, allMuscleGroups, insertNewExercise } from '@/services/FitnessTrackerService';
+import { 
+	getExercisesByMuscleGroup, 
+	allMuscleGroups, 
+	insertNewExercise, 
+	selectWorkoutByDate, 
+	selectWorkoutByDateRange,
+	getWorkouts
+} from '@/services/FitnessTrackerService';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 
 const loading = ref(false);
-const diary = ref([]);
+const workoutDiary = ref([]);
 const exerciseMenuRef = ref(null);
 const muscleGroupRef = ref(null);
-const search = ref({'date': [], 'muscleGroups': [], 'exercises': []})
+const search = ref({'dates': null, 'muscleGroups': null, 'exercises': null})
 const currentMuscleGroup = ref('');
+const searchComplete = ref(false);
 const muscleGroupLabels = computed(() => {
 	return allMuscleGroups.map(muscleGroup =>  muscleGroup.name );
 })
@@ -44,6 +51,12 @@ const allExercises = computed(() => {
     return exercises;
 });
 
+const isDiaryEmpty = computed(() => {
+	if (searchComplete.value) {
+		return workoutDiary.value.length === 0;
+	}
+});
+
 function handleMuscleGroupChosen(muscleGroup) {
 	currentMuscleGroup.value = muscleGroup; // need this so the exercise list stays correctly populated
 	search.value.muscleGroups = muscleGroup;
@@ -59,9 +72,8 @@ function handleAllExercisesChosen() {
 	);
 	if (index !== -1) {
 		// Return the exercises for the matching muscle group
-		search.value.muscleGroups = allMuscleGroups[index].exercises;
+		search.value.exercises = allMuscleGroups[index].exercises;
 	}
-	console.log('search.value.exercises', search.value.exercises)
 }
 
 function handleAllMuscleGroupsChosen() {
@@ -71,62 +83,39 @@ function handleAllMuscleGroupsChosen() {
 
 function handleDateChange(date) {
 	search.value.date = date; 
-	
 }
 
 async function commitSearch() {
+	searchComplete.value = false;
 	loading.value = true;
 	exerciseMenuRef.value.resetLabel();
 	muscleGroupRef.value.resetLabel();
 	let muscleGroups = search.value.muscleGroups; // Assume this is an array of muscle groups
 	let exercises = search.value.exercises; // Assume this is an array of exercises
-	let dates = search.value.date; // Assume this is either a date array or a single date
-	console.log('muscle groups', muscleGroups)
-	console.log('exercises', exercises)
+	let searchDates = search.value.dates; // Assume this is either a date array or a single date
+
 	
-	let selectedMuscleGroups = Array.isArray(muscleGroups) && muscleGroups.length > 0 
+	let searchMuscleGroups = Array.isArray(muscleGroups) && muscleGroups.length > 0 
 		? muscleGroups 
-		: [muscleGroups]; // Ensure it is an array
+		: muscleGroups == null ? null : muscleGroups; // Ensure it is an array
 
-	let selectedExercises = Array.isArray(exercises) && exercises.length > 0 
+	let searchExercises = Array.isArray(exercises) && exercises.length > 0 
 		? exercises 
-		: [exercises]; // Ensure it is an array
+		: exercises == null ? null : exercises; // Ensure it is an array
 
-	console.log('selected muscle groups: ', selectedMuscleGroups)
-	console.log('selected selectedExercisess: ', selectedExercises)
+	console.log('selected muscle groups at search: ', searchMuscleGroups)
+	console.log('selected exercises at search: ', searchExercises)
+	console.log('dates in search ', searchDates)
 
-	let minDate, maxDate;
-	if (Array.isArray(dates)) {
-		// Handle date range
-		minDate = dates[0];
-		maxDate = dates[dates.length - 1];
-	} else {
-		// Handle single date
-		minDate = maxDate = dates; 
-	}
+	currentMuscleGroup.value = '';
+	
+		// No date entered so search for all muscles
+	workoutDiary.value = await getWorkouts(searchMuscleGroups, searchExercises, searchDates);
 
-	// // Fetch workouts based on the filters
-	// try {
-	//     if (selectedMuscleGroups.length > 0 && selectedExercises.length > 0) {
-	//         // Both muscle groups and exercises selected
-	//         diary.value = await selectWorkoutByMuscleAndExercise(selectedMuscleGroups, selectedExercises, minDate, maxDate);
-	//     } else if (selectedMuscleGroups.length > 0) {
-	//         // Only muscle groups selected
-	//         diary.value = await selectWorkoutByMuscleGroup(selectedMuscleGroups, minDate, maxDate);
-	//     } else if (selectedExercises.length > 0) {
-	//         // Only exercises selected
-	//         diary.value = await selectWorkoutByExercise(selectedExercises, minDate, maxDate);
-	//     } else {
-	//         // No filters, fetch all workouts
-	//         diary.value = await selectAllWorkouts(minDate, maxDate);
-	//     }
-	// } catch (error) {
-	//     console.error("Error fetching workouts:", error);
-	// }
-
-	// reset search params
-	search.value = {'date': [], 'muscleGroups': allMuscleGroups, 'exercises': allExercises}
+	searchComplete.value = true;
+	search.value = {'dates': null, 'muscleGroups': allMuscleGroups, 'exercises': allExercises}
 	loading.value = false;
+	return
 }
 
 </script>
@@ -171,7 +160,7 @@ async function commitSearch() {
 				</v-col>
 
 				<v-col cols="2">
-					<v-btn @click="commitSearch">
+					<v-btn @click="commitSearch" >
 						Search
 					</v-btn>
 
@@ -180,8 +169,19 @@ async function commitSearch() {
 			</v-row>
 		</v-container>
 		<LoadingIndicator v-if="loading" />
-		<WorkoutTable v-if="diary.length > 0" :items="diary"/>
+		<WorkoutTable v-if="workoutDiary.length > 0" :items="workoutDiary"/>
+		
+		<v-empty-state
+	 		v-if="isDiaryEmpty"
+			icon="mdi-magnify"
+			text="Try adjusting your search terms or filters. Sometimes less specific terms or broader queries can help you find what you're looking for."
+			title="We couldn't find a match."
+		></v-empty-state>
+	
+	
 	</v-container>
+
+
 </template>
 
 

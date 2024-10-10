@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted  } from 'vue';
+import { ref, computed, onMounted, watch  } from 'vue';
 import { useRouter } from 'vue-router';
 const frontEndIcons = ['mdi-vuejs', 'mdi-vuetify', 'mdi-nodejs' ]
 const frontEndLabels = ['Vue JS', 'Vuetify', 'Node JS',]
@@ -10,7 +10,7 @@ const backEndLabels = ['Python', 'MariaDB']
 const generalIcons = ['mdi-github', 'mdi-microsoft-visual-studio-code']
 const generalLabels = ['Github', 'VS Code']
 const router = useRouter();
-
+const chosenColor = ref('')
 const fitnessRoutes = ref([
 	{ name: 'New Workout', href: '/fitness-tracker/new-workout-diary' }, 
 	{ name: 'View Log', href: '/fitness-tracker/view-diary' }
@@ -38,6 +38,9 @@ const navBarStyle = computed(() => {
 
 })
 
+watch(chosenColor , (color) => {
+	document.documentElement.style.setProperty('--custom-card-bg', color);
+})
 
 </script>
 
@@ -46,15 +49,15 @@ const navBarStyle = computed(() => {
 		<v-row align="center" no-gutters style="padding-right: 40px; position: relative; overflow: visible;">
 			
 			<v-btn 
+				class="navbar-btn"
 				text="Baseball LLM" 
 				:to="{ name: 'baseball' }" 
-				color="rgb(224, 224, 224)" 
 				style="margin-left: 50px;"
 			/>
 
 			<v-menu>
 				<template v-slot:activator="{ props }">
-					<v-btn text="Card Games"  v-bind="props" color="rgb(224, 224, 224)"/>
+					<v-btn class="navbar-btn" text="Card Games"  v-bind="props"/>
 				</template>
 				<v-list>
 					<v-list-item
@@ -72,8 +75,8 @@ const navBarStyle = computed(() => {
 			<v-menu>
 				<template v-slot:activator="{ props }">
 					<v-btn 
+						class="navbar-btn"
 						text="Fitness Tracker" 
-						color="rgb(224, 224, 224)" 
 						v-bind="props"	
 					/>
 				</template>
@@ -92,12 +95,34 @@ const navBarStyle = computed(() => {
 			
 
 			<v-spacer></v-spacer>
-			
+			<v-col cols="auto">
+				<v-menu offset-y>
+					<template v-slot:activator="{ props }">
+						<v-btn
+							class="navbar-btn"
+							variant="tonal"
+							v-bind="props"
+						>
+						Choose Color
+						</v-btn>
+					</template>
+						<v-color-picker
+							value="#7417BE"
+							v-model="chosenColor"
+							hide-inputs 
+							show-swatches
+							class="mx-auto"
+							@input="updateGlobalColor(color)"
+						></v-color-picker>
+					</v-menu>
+			</v-col>
+
+
 			<v-col cols="auto" style="padding-right: 40px; position: relative; overflow: visible;">
-				<v-btn text="About The Dev" :to="{ name: 'about' }" color="rgb(224, 224, 224)"></v-btn>
+				<v-btn  class="navbar-btn" text="About The Dev" :to="{ name: 'about' }"></v-btn>
 				<v-menu transition="scale-transition">
 					<template v-slot:activator="{ props }">
-						<v-btn v-bind="props" text="" color="rgb(224, 224, 224)">
+						<v-btn class="navbar-btn" v-bind="props" text="">
 							Tech Stack
 							<v-icon size="20px" style="padding-left: 5px;">
 								mdi-information-slab-circle-outline  
@@ -181,6 +206,9 @@ const navBarStyle = computed(() => {
 	background-color: rgb(62, 81, 121);
 	overflow: visible; 
 	z-index: 999;
+}
+.navbar-btn {
+	color: var(--primary-font-color);
 }
 
 </style>

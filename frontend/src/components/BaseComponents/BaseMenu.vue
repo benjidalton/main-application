@@ -51,7 +51,7 @@ function capitalizeWords(string) {
 const dateFormat = computed(() => {
 	if (chosenDate.value) {
 		let newDate;
-		if (Array.isArray(chosenDate.value)) {
+		if (chosenDate.value.length > 1) {
 			// chosenDate.value is an array
 			newDate = handleDateArray(chosenDate.value);
 		} else {
@@ -67,29 +67,34 @@ function chooseAll() {
 	emit('allItemsChosen')
 }
 
+
 function handleDateArray(dates) {
-	// Emit the formatted dates immediately because they are in the correct format for database queries
+	// Emit the formatted dates immediately for database queries
 	let formattedDates = dates.map(date => date.toISOString().split('T')[0]);
 	emit('dateUpdated', formattedDates);
 
 	// Prettier label
-	const firstDate = new Date(formattedDates[0]);
+	// idk why using first index of formattedDates is one day earlier than the user pressed??? 
+	// have to take first index instead
+	// the correct dates are in 'formattedDates' so they can be emitted to backend without issue so idk why this breaks
+	const firstDate = new Date(formattedDates[1]);
 	const lastDate = new Date(formattedDates[formattedDates.length - 1]);
 
 	// Format dates as (MM/DD)
-	const options = {  month: 'numeric', day: 'numeric' };
+	const options = { month: 'numeric', day: 'numeric' };
 	const formattedFirstDate = firstDate.toLocaleDateString(undefined, options);
+	console.log('formatted first date', formattedFirstDate)
 	const formattedLastDate = lastDate.toLocaleDateString(undefined, options);
-	// Display in the format: "First Date - Last Date"
 	
+	// Display in the format: "First Date - Last Date"
 	return `${formattedFirstDate} - ${formattedLastDate}`;
 }
 
 function handleSingleDate(date) {
     // Process the single date
-    let formattedDate = date.toISOString().split('T')[0];
-    emit('dateUpdated', [formattedDate]); // You might still want to emit it as an array
-	return formattedDate
+    const formattedDate = new Date(date).toISOString().split('T')[0]; // Ensure it's treated as a date object
+    emit('dateUpdated', [formattedDate]);
+	return formattedDate 
 }
 
 </script>

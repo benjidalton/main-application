@@ -91,6 +91,7 @@ export async function selectWorkoutByDate(date) {
 					item.totalReps, 
 					item.weight
 				);
+				console.log('exercise: ', exercise)
 				exercises.push(exercise);
 
 			})
@@ -104,7 +105,6 @@ export async function selectWorkoutByDate(date) {
 export async function selectWorkoutByDateRange(minDate, maxDate) {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_SELECT_WORKOUT_BY_DATE_RANGE;
 	let exercises = [];
-	console.log('min date in service', minDate, 'max dax in service', maxDate)
 	await axios
 		.get(appConnectorUrl, {
 			params: {
@@ -140,3 +140,42 @@ export async function selectWorkoutByDateRange(minDate, maxDate) {
 }
 
 export const allMuscleGroups = await getExercisesByMuscleGroup();
+
+export async function getWorkouts(searchMuscleGroups, searchExercises, searchDates) {
+	let appConnectorUrl = baseUrl + import.meta.env.VITE_GET_WORKOUTS;
+	let exercises = [];
+	await axios
+		.get(appConnectorUrl, {
+			params: {
+				muscleGroups: Array.isArray(searchMuscleGroups) ? searchMuscleGroups.join(',') : searchMuscleGroups,
+				exercises: Array.isArray(searchExercises) ? searchExercises.join(',') : searchExercises,
+				dates: Array.isArray(searchDates) ? searchDates.join(',') : searchDates,
+				maxTimeToWaitSeconds: 30,
+				maxResultsToReturn: 500,
+			},
+		})
+		.then((response) => {
+			response.data.forEach(item => {
+				let date = new Date(item.workoutDate).toISOString().split('T')[0];
+				let repsArray = item.reps.split(',').map(Number); 
+				let exercise = new Exercise(
+					item.id, 
+					item.name, 
+					date, 
+					item.muscleGroupId, 
+					item.muscleGroup, 
+					item.sets, 
+					repsArray, 
+					item.totalReps, 
+					item.weight
+				);
+				exercises.push(exercise);
+
+			})
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+	return exercises;
+
+}

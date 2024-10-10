@@ -23,16 +23,16 @@ def get_exercises_by_muscle_group():
 	session = Session()
 	try: 
 		results = session.query(
-            MuscleGroup.id.label('id'),
-            MuscleGroup.name.label('muscleGroupName'),
-            func.group_concat(Exercise.name).label('exercises')
-        ).join(
-            Exercise, Exercise.muscle_group_id == MuscleGroup.id
-        ).group_by(
-            MuscleGroup.id
-        ).order_by(
-            MuscleGroup.id  # or any other ordering you prefer
-        ).all()
+			MuscleGroup.id.label('id'),
+			MuscleGroup.name.label('muscleGroupName'),
+			func.group_concat(Exercise.name).label('exercises')
+		).join(
+			Exercise, Exercise.muscle_group_id == MuscleGroup.id
+		).group_by(
+			MuscleGroup.id
+		).order_by(
+			MuscleGroup.id  # or any other ordering you prefer
+		).all()
 
 		return [{'id': r.id, 'muscleGroupName': r.muscleGroupName, 'exercises': r.exercises} for r in results]
 		
@@ -112,6 +112,66 @@ def get_workout_by_date_range():
 		return [], 500  # Return an appropriate status code
 	finally:
 		session.close()  
+
+@fitness_routes.route('/getWorkouts', methods=['GET'])
+def get_workouts():
+	muscle_groups = request.args.get('muscleGroups')
+	exercises = request.args.get('exercises')
+	dates = request.args.get('dates')
+
+	session = Session()
+	try:
+		query = session.query(
+			WorkoutEntry.id.label('id'),
+			Exercise.name.label('name'),
+			WorkoutEntry.workout_date.label('workoutDate'),
+			WorkoutEntry.muscle_group_id.label('muscleGroupId'),
+			MuscleGroup.name.label('muscleGroup'),
+			WorkoutEntry.sets,
+			WorkoutEntry.reps,
+			WorkoutEntry.total_reps.label('totalReps'),
+			WorkoutEntry.weight
+		).join(
+			MuscleGroup, WorkoutEntry.muscle_group_id == MuscleGroup.id
+		).join(
+			Exercise, WorkoutEntry.exercise_id == Exercise.id
+		)
+		
+		# handle if any muscle groups were defined in search params
+		if muscle_groups is not None:
+			muscle_group_list = [group.strip().lower() for group in muscle_groups.split(',')]
+			query = query.filter(
+				func.lower(MuscleGroup.name).in_(muscle_group_list)
+			)
+
+		# handle if any exercises were defined in search params
+		if exercises is not None:
+			exercises_list = [exercise.strip().lower() for exercise in exercises.split(',')]
+			query = query.filter(
+				func.lower(Exercise.name).in_(exercises_list)
+			)
+		
+		# handle if any dates were defined in search params
+		if dates is not None:
+			dates_list = [dates.strip().lower() for dates in dates.split(',')]
+			query = query.filter(
+				WorkoutEntry.workout_date.in_(dates_list)
+			)
+
+		results = query.all()
+
+		return [{'id': r.id, 'name': r.name, 'workoutDate': r.workoutDate,
+				 'muscleGroupId': r.muscleGroupId, 'muscleGroup': r.muscleGroup,
+				 'sets': r.sets, 'reps': r.reps, 'totalReps': r.totalReps,
+				 'weight': r.weight} for r in results]
+
+	except Exception as e:
+		print(f"Error retrieving workouts: {e}")
+		return [], 500  # Return an appropriate status code
+	finally:
+		session.close()  
+
+
 
 #----- POST ROUTES -----+
 @fitness_routes.route('/createNewExercise', methods=['POST'])

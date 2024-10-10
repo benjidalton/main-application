@@ -111,6 +111,7 @@ const windowContents = [
 
 .window-item {
 	height: 600px;
+	background-color: var(--app-secondary);
 }
 
 </style>
