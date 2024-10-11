@@ -3,7 +3,7 @@ import subprocess
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from models.LLMAgent import llmAgent
+from models.LLMAgent import llm_agent
 
 def getStagedChanges():
 	result = subprocess.run(['git', 'diff', '--cached', '--name-status'], capture_output=True, text=True, encoding='utf-8')
@@ -43,7 +43,7 @@ def main():
 				"""
 	print('prompt: ', prompt)
 
-	commit = llmAgent.queryAgent(prompt)
+	commit = llm_agent.query_agent(prompt)
 	commitMessage = commit.content
 	print('Commit Message:\n', commitMessage)
 
