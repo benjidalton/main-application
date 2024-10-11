@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue';
 import { getExercisesByMuscleGroup, allMuscleGroups, insertNewExercise } from '@/services/FitnessTrackerService';
 import { Exercise } from '@/models/FitnessTrackerModels/Exercise';
 import BaseMenu from '../BaseComponents/BaseMenu.vue';
+import BaseNumberInput from '../BaseComponents/BaseNumberInput.vue';
 
 const emit = defineEmits(['newExercise'])
 const dialog = ref(false);
@@ -132,6 +133,7 @@ function closeDialog() {
 						placeholder="Sets"
 						bg-color="inherit"
 						style="padding: 0px 10px 0px 10px; "
+						variant="solo"
 					/>
 				</v-card>
 				
@@ -148,6 +150,7 @@ function closeDialog() {
 						bg-color="inherit"
 						placeholder="Reps"
 						style="padding: 0px 10px 0px 10px; "
+						variant="solo"
 					/>
 				</v-card>
 				
@@ -162,6 +165,7 @@ function closeDialog() {
 						type="number"
 						bg-color="inherit"
 						style="padding: 0px 10px 0px 10px; "
+						variant="solo"
 					/>
 				</v-card>
 
@@ -202,7 +206,8 @@ function closeDialog() {
 
 .container {
 	width: 1200px;
-	background-color: rgb(243, 243, 243);
+	
+    background-color: var(--custom-card-bg-opacity);
 	border-radius: 10px;
 	margin-bottom: 50px;
 	box-shadow: 0px 5px 5px var(--custom-card-bg);
@@ -212,6 +217,7 @@ function closeDialog() {
 	height: 110px;
 	width: 130px;
 	margin-right: 20px;
+	/* background-color: beige; */
 	
 }
 
@@ -226,8 +232,8 @@ function closeDialog() {
 
 
 #submit-new-exercise {
-	background-color: var(--custom-card-bg);
-	color: rgb(75, 75, 75);
+	background-color: rgb(var(--custom-card-bg));
+	color: rgb(255, 255, 255);
 }
 
 </style>

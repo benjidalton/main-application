@@ -161,8 +161,8 @@ function handleSingleDate(date) {
 <style scoped>
 .custom-card {
 	cursor: pointer;
-	background-color: var(--custom-card-bg);
-	color: rgb(75, 75, 75);
+	background-color: rgb(var(--custom-card-bg));
+	color: rgb(255, 255, 255);
 	padding: 5px;
 }
 .custom-card:hover {

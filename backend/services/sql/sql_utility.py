@@ -2,8 +2,8 @@ import os
 import simplejson as json
 import mysql.connector
 from flask import jsonify
-from models.Player import Player
-from models.Team import Team
+from models.baseball_stats import Player, Team
+# from models.Team import Team
 # may need to add in :
 # import sys
 # sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -57,7 +57,7 @@ def get_database_schema():
 		Returns:
 			dict: A dictionary where keys are table names and values are lists of column names.
     """
-	connection = create_connection()
+	connection = create_connection(APP_ACCESS_BASEBALL_DB)
 	cursor = connection.cursor()
 	dbSchemaQuery = f"""SELECT table_name FROM information_schema.tables WHERE table_schema = '{APP_ACCESS_BASEBALL_DB}';"""
 	cursor.execute(dbSchemaQuery)
@@ -159,7 +159,7 @@ def export_to_db(table_name: str, id: int, id_specifier: str, db_columns: list, 
 		execute_query(APP_ACCESS_BASEBALL_DB, insertQuery, [])
 	except Exception as e:
 		failReason = f"SQL query: \n{insertQuery}\n failed for {logging_name} {str(e)}"
-		logErrors(failReason)
+		log_errors(failReason)
 
 
 # General sql select queries
@@ -177,13 +177,14 @@ def select_all_players() -> list[Player]:
 	select_query = """ select * from players """
 	
 	data = execute_select_query(APP_ACCESS_BASEBALL_DB, select_query, [])
-	return [Player(player['id'], player['name'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
+	print('data', data)
+	return [Player(player['name'], player['teamId'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
 
 def select_all_teams() -> list[Team]:
 	select_query = """ select * from teams """
 	
 	data = execute_select_query(APP_ACCESS_BASEBALL_DB, select_query, [])
-	return [Team(team['id'], team['name'], team['baseballReferenceUrl']) for team in data['items']]
+	return [Team(team['name'], team['league'], team['division'], team['baseballReferenceUrl'], team['logoName']) for team in data['items']]
 
 def update_player_as_pitcher(playerId: int):
 	updateQuery = f"""UPDATE players SET pitcher = 1 WHERE id = {playerId} """

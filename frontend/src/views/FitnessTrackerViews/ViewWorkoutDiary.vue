@@ -160,7 +160,9 @@ async function commitSearch() {
 				</v-col>
 
 				<v-col cols="2">
-					<v-btn @click="commitSearch" >
+					<v-btn 
+						id="search-btn"
+						@click="commitSearch" >
 						Search
 					</v-btn>
 
@@ -190,14 +192,15 @@ async function commitSearch() {
 #diary-container {
 	width: 80vw;
 	margin-top: 100px; 
+	
 }
 
 .container {
 	width: 1600px;
-	background-color: rgb(243, 243, 243);
 	border-radius: 10px;
 	margin-bottom: 50px;
 	box-shadow: 0px 5px 5px rgb(62, 57, 94);
+	background-color: var(--custom-card-bg-opacity);
 }
 
 .custom-number-input {
@@ -205,6 +208,11 @@ async function commitSearch() {
 	width: 130px;
 	margin-right: 20px;
 	
+}
+
+#search-btn {
+	background-color: rgb(var(--custom-card-bg));
+	color: rgb(255, 255, 255);
 }
 
 </style>
