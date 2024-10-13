@@ -1,87 +1,101 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
-import { getExercisesByMuscleGroup, allMuscleGroups, insertNewExercise } from '@/services/FitnessTrackerService';
+import { ref, computed, watch, inject } from 'vue';
+import { insertNewWorkout } from '@/services/FitnessTrackerService';
 import { Exercise } from '@/models/FitnessTrackerModels/Exercise';
 import BaseMenu from '../BaseComponents/BaseMenu.vue';
 import BaseNumberInput from '../BaseComponents/BaseNumberInput.vue';
+import { capitalizeWords } from '@/services/UtilService';
 
-const emit = defineEmits(['newExercise'])
+const emit = defineEmits(['successMessage'])
 const dialog = ref(false);
+const successMessage = ref('')
+const allMuscleGroups = inject('allMuscleGroups')
+
 const muscleGroupLabels = computed(() => {
-	return allMuscleGroups.map(muscleGroup =>  muscleGroup.name );
+	return allMuscleGroups.value.map(muscleGroup =>  muscleGroup.name );
 })
 
-const currentMuscleGroup = ref('');
-
-const newExercise = ref(new Exercise());
+const currentMuscleGroup = ref(null);
+const currentMuscleGroupId = ref(null);
+const tempExerciseName = ref(null);
+const newExerciseName = ref(null)
+const exerciseDate = ref(new Date().toISOString().split('T')[0])
 
 const exercises = computed(() => {
-    if (currentMuscleGroup.value) {
-        const index = allMuscleGroups.findIndex(muscleGroup => 
+	if (currentMuscleGroup.value) {
+		const index = allMuscleGroups.value.findIndex(muscleGroup => 
 			
-            muscleGroup.name.toLowerCase() === currentMuscleGroup.value.toLowerCase()
-        );
-        if (index !== -1) {
-            // Return the exercises for the matching muscle group
-            return allMuscleGroups[index].exercises;
-        }
-    }
-    return [];
+			muscleGroup.name.toLowerCase() === currentMuscleGroup.value.toLowerCase()
+		);
+		if (index !== -1) {
+			// Return the exercises for the matching muscle group
+			// Return the name of each Exercise obj in exercises array
+			currentMuscleGroupId.value = allMuscleGroups.value[index].id;
+			return allMuscleGroups.value[index].exercises;
+		}
+	}
+	return [];
 })
 
-watch(() => newExercise.value.sets, (newValue) => {
-	newExercise.value.reps = Array.from({ length: newValue }, () => 0); // Initialize reps array
-});
+watch(newExerciseName, (newExercise) => {
+	// push new exercise instance to exercises
+	exercises.value.push(
+		new Exercise(
+			null, 
+			newExercise,
+			new Date().toISOString().split('T')[0],
+			currentMuscleGroupId.value,
+			currentMuscleGroup.value
+		)
+	)
+})
 
-function addExercise() {
-	console.log(' chosen muscle group:', newExercise.value.muscleGroup.toLowerCase())
-	const index = allMuscleGroups.findIndex(muscleGroup => 
-        muscleGroup.name.toUpperCase() === newExercise.value.muscleGroup.toUpperCase()
-    );
-	console.log('exercises', exercises)
-	console.log('muscle groups: ', allMuscleGroups)
-	console.log('matching index: ', index)
 
- 	if (index !== -1) {
-        let currentExercises = allMuscleGroups[index].exercises;
-        let exerciseName = newExercise.value.name.toLowerCase();
-        let newExerciseAdded = currentExercises.includes(exerciseName);
-		newExercise.value.muscleGroupId = allMuscleGroups[index].id;
-		console.log('new exercise', newExercise.value)
-        if (!newExerciseAdded) {
-            // Insert new exercise
-			if (exerciseName != '') {
-				insertNewExercise(exerciseName, allMuscleGroups[index].id);
-            	currentExercises.push(exerciseName);
-			}
-        }
-
-        emit('newExercise', newExercise.value);
-    }
-
-    newExercise.value = new Exercise();
-	newExercise.value.muscleGroup = currentMuscleGroup.value; // set default muscle group. same muscle group likely to be used repeatedly
+function updateReps(exercise) {
+	// Update the reps array based on the new number of sets
+	exercise.reps = Array.from({ length: exercise.sets }, () => 0);
 }
 
-function handleExerciseChosen(exercise) {
-	newExercise.value.name = exercise;
-	
+async function addWorkoutEntry() {
+
+	exercises.value.forEach(exercise => {
+		exercise.calculateTotalReps()
+		if (exercise.weight == null) {
+			exercise.weight = exercise.defaultWeight;
+		}
+		if (exercise.date == null) {
+			// default to current date if not specified
+			exercise.date = exerciseDate.value;
+		}
+	})
+
+	try {
+		await insertNewWorkout(exercises.value);
+		emit('successMessage');
+	} catch (error) {
+		console.error('Error saving workout:', error);
+	}
+	console.log('exercise at save:', exercises.value)
+	currentMuscleGroup.value = null;
+	return
 }
+
 
 function handleMuscleGroupChosen(muscleGroup) {
-	newExercise.value.muscleGroup = muscleGroup;
 	currentMuscleGroup.value = muscleGroup;
 }
 
 function handleDateChange(date) {
-	newExercise.value.date = date; 
+	exerciseDate.value = date;
 }
 
 function openDialog() {
+	console.log('open dialog')
 	dialog.value = true;
 }
 
-function closeDialog() {
+function saveExercise() {
+	newExerciseName.value = tempExerciseName.value;
 	dialog.value = false;
 }
 
@@ -110,47 +124,129 @@ function closeDialog() {
 				/>
 			</v-col>
 			<v-col cols="4">
-				<BaseMenu 
-					@itemChosen="handleExerciseChosen" 
-					baseLabel="Choose Exercise" 
-					:menuItems="exercises" 
-					:addExercise="true"
-					@openDialog="openDialog"
-					icon="mdi-format-list-numbered-rtl"
-				/>
+				<v-btn 
+					v-if="currentMuscleGroup" 
+					@click="openDialog"
+				> 
+					Add New Exercise
+				</v-btn>
 			</v-col>
 		</v-row>
-		
-		<v-row align="center">
+
+		<v-expansion-panels style="margin-top: 40px; margin-bottom: 60px;" multiple>
+			<v-expansion-panel
+				v-for="(exercise, index) in exercises"
+				:title=capitalizeWords(exercise.name)
+			>
+				<v-expansion-panel-text class="panel-content">
+					<v-row align="center">
+						<v-col cols="2">
+							<v-card class="custom-number-input" id="sets-input">
+								<v-card-title>
+									Sets
+								</v-card-title>
+								<v-text-field 
+									v-model="exercise.sets"
+									type="number"
+									placeholder="Sets"
+									bg-color="inherit"
+									style="padding: 0px 10px 0px 10px; "
+									variant="solo"
+									:disabled="exercise.muscleGroup || exercise.name ? false: true"
+									@change="updateReps(exercise, index)"
+								/>
+							</v-card>
+
+						</v-col>
+
+						<template v-for="(set, index) in exercise.reps" :key="index">
+							<v-card class="custom-number-input">
+								<v-card-title>
+									Set {{ index + 1 }}
+								</v-card-title>
+								<v-text-field 
+									v-model="exercise.reps[index]"
+									type="number"
+									bg-color="inherit"
+									placeholder="Reps"
+									style="padding: 0px 10px 0px 10px; "
+									variant="solo"
+									:disabled="exercise.muscleGroup || exercise.name ? false: true"
+								/>
+							</v-card>
+
+						</template>
+						<v-col>
+							<v-card class="custom-number-input" id="weight-input">
+								<v-card-title>
+									Weight
+								</v-card-title>
+								<!-- <v-text-field 
+								v-model="exercise.weight"
+								type="number"
+								bg-color="inherit"
+								style="padding: 0px 10px 0px 10px; "
+								variant="solo"
+								:disabled="exercise.muscleGroup || exercise.name ? false: true"
+								:placeholder="exercise.defaultWeight"
+								/> -->
+								<v-text-field 
+									type="number"
+									bg-color="inherit"
+									style="padding: 0px 10px 0px 10px; "
+									variant="solo"
+									:disabled="exercise.muscleGroup || exercise.name ? false: true"
+									:placeholder="exercise.defaultWeight"
+								/>
+							</v-card>
+
+						</v-col>
+					</v-row>
+				</v-expansion-panel-text>
+			</v-expansion-panel>
+		</v-expansion-panels>
+<!-- 
+		<v-row align="center" v-for="(exercise, index) in exercises" style="margin-bottom: 50px; border-bottom: 1px solid gray;">
+			<v-col cols=3>
+				<v-card >
+					<v-card-title>
+						{{ capitalizeWords(exercise.name) }}
+					</v-card-title>
+				</v-card>
+
+			</v-col>
 			<v-col cols="2">
 				<v-card class="custom-number-input" id="sets-input">
 					<v-card-title>
 						Sets
 					</v-card-title>
 					<v-text-field 
-						v-model="newExercise.sets"
+						v-model="exercise.sets"
 						type="number"
 						placeholder="Sets"
 						bg-color="inherit"
 						style="padding: 0px 10px 0px 10px; "
 						variant="solo"
+						:disabled="exercise.muscleGroup || exercise.name ? false: true"
+						 @change="updateReps(exercise, index)"
 					/>
 				</v-card>
 				
 			</v-col>
 			
-			<template v-for="(set, index) in newExercise.reps" :key="index">
+			<template v-for="(set, index) in exercise.reps" :key="index">
 				<v-card class="custom-number-input">
 					<v-card-title>
 						Set {{ index + 1 }}
 					</v-card-title>
 					<v-text-field 
-						v-model="newExercise.reps[index]"
+						v-model="exercise.reps[index]"
 						type="number"
 						bg-color="inherit"
 						placeholder="Reps"
 						style="padding: 0px 10px 0px 10px; "
 						variant="solo"
+						:disabled="exercise.muscleGroup || exercise.name ? false: true"
 					/>
 				</v-card>
 				
@@ -158,22 +254,39 @@ function closeDialog() {
 			<v-col>
 				<v-card class="custom-number-input" id="weight-input">
 					<v-card-title>
-						Weight (lb)
-					</v-card-title>
-					<v-text-field 
-						v-model="newExercise.weight"
+						Weight
+					</v-card-title> -->
+					<!-- <v-text-field 
+						v-model="exercise.weight"
 						type="number"
 						bg-color="inherit"
 						style="padding: 0px 10px 0px 10px; "
 						variant="solo"
+						:disabled="exercise.muscleGroup || exercise.name ? false: true"
+						:placeholder="exercise.defaultWeight"
+					/> -->
+					<!-- <v-text-field 
+						type="number"
+						bg-color="inherit"
+						style="padding: 0px 10px 0px 10px; "
+						variant="solo"
+						:disabled="exercise.muscleGroup || exercise.name ? false: true"
+						:placeholder="exercise.defaultWeight"
 					/>
 				</v-card>
 
 			</v-col>
 
-		</v-row>
+		</v-row> -->
 		<v-row justify="end">
-			<v-btn id="submit-new-exercise" @click="addExercise" style="margin: 10px;">Add Exercise</v-btn>
+			<v-btn 
+				
+				id="submit-new-exercise" 
+				@click="addWorkoutEntry" style="margin: 10px;"
+				:disabled="false"
+				>
+				Save Workout
+			</v-btn>
 		</v-row>
 
 		<v-dialog v-model="dialog" width="500px">
@@ -183,14 +296,14 @@ function closeDialog() {
 				</v-card-title>
 				<v-card-text>
 					<v-text-field 
-						v-model="newExercise.name"
+						v-model="tempExerciseName"
 						label="Exercise Name"
 						placeholder="Enter exercise name"
 					/>
 				</v-card-text>
 				<v-card-actions>
 					<v-btn @click="dialog = false" style="font-size: 26px;" color="red">Cancel</v-btn>
-					<v-btn color="primary" @click="closeDialog" style="font-size: 26px;">Save</v-btn>
+					<v-btn color="primary" @click="saveExercise" style="font-size: 26px;">Save</v-btn>
 				</v-card-actions>
 			</v-card>
 		</v-dialog>
@@ -207,7 +320,7 @@ function closeDialog() {
 .container {
 	width: 1200px;
 	
-    background-color: var(--custom-card-bg-opacity);
+	background-color: var(--custom-card-bg-opacity);
 	border-radius: 10px;
 	margin-bottom: 50px;
 	box-shadow: 0px 5px 5px var(--custom-card-bg);
@@ -215,25 +328,28 @@ function closeDialog() {
 
 .custom-number-input {
 	height: 110px;
-	width: 130px;
+	width: 150px;
 	margin-right: 20px;
 	/* background-color: beige; */
-	
 }
 
 #sets-input {
-	left: 20%;
+	left: 0%;
 }
 
 #weight-input {
 	position: relative;
-	width: 200px;
+	width: 150px;
 }
 
 
 #submit-new-exercise {
-	background-color: rgb(var(--custom-card-bg));
+	background-color: var(--custom-card-bg);
 	color: rgb(255, 255, 255);
+}
+
+.panel-content {
+	background-color: rgba(205, 223, 223, 0.32);
 }
 
 </style>

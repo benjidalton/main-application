@@ -79,7 +79,7 @@ function copyQueryToClipboard(copyText) {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	background-color: rgb(179, 182, 189);
+	background-color: var(--custom-card-bg-opacity);
 }
 
 .formatted-sql {

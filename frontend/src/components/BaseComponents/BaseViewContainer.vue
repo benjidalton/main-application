@@ -15,7 +15,7 @@
 	display: flex;
 	flex-direction: column;
 	padding: 0;
-	margin-top: 62px;
+	margin-top: 70px;
 	box-sizing: border-box;
 	justify-content: center;
 	align-content: center;

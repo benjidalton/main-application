@@ -25,7 +25,9 @@ def get_exercises_by_muscle_group():
 		results = session.query(
 			MuscleGroup.id.label('id'),
 			MuscleGroup.name.label('muscleGroupName'),
-			func.group_concat(Exercise.name).label('exercises')
+			func.group_concat(Exercise.id).label('exerciseIds'),
+			func.group_concat(Exercise.name).label('exerciseNames'),
+			func.group_concat(Exercise.default_weight).label('defaultWeights')
 		).join(
 			Exercise, Exercise.muscle_group_id == MuscleGroup.id
 		).group_by(
@@ -34,7 +36,7 @@ def get_exercises_by_muscle_group():
 			MuscleGroup.id  # or any other ordering you prefer
 		).all()
 
-		return [{'id': r.id, 'muscleGroupName': r.muscleGroupName, 'exercises': r.exercises} for r in results]
+		return [{'id': r.id, 'muscleGroupName': r.muscleGroupName, 'exerciseIds': r.exerciseIds, 'exerciseNames': r.exerciseNames, 'defaultWeights': r.defaultWeights} for r in results]
 		
 	except Exception as e:
 		print(f"Error retrieving workouts: {e}")
@@ -135,6 +137,10 @@ def get_workouts():
 			MuscleGroup, WorkoutEntry.muscle_group_id == MuscleGroup.id
 		).join(
 			Exercise, WorkoutEntry.exercise_id == Exercise.id
+		).group_by(
+			WorkoutEntry.workout_date,
+			Exercise.name,
+			MuscleGroup.name  # Include other non-aggregated fields in the group_by
 		)
 		
 		# handle if any muscle groups were defined in search params
@@ -196,15 +202,37 @@ def create_new_exercise():
 
 @fitness_routes.route('/createNewWorkout', methods=['POST'])
 def create_new_workout():
-	#----- exercise_data is instance of Exercise.js -----+
+	#----- workout_data is instance of Exercise.js -----+
 	workout_data = request.json['params']['workout'] 
-	session = Session()  # Create a new session
+	session = Session()  
+
 	try:
 		for exercise in workout_data:
 			exercise_record = session.query(Exercise).filter_by(name=exercise['name']).first()
-			
+
+			if not exercise_record:
+				# if the exercise doesnt exist, add it to db
+				# commit session and requiry to get the new id of the created exercise
+				new_exercise = Exercise(name=exercise['name'], muscle_group_id=exercise['muscleGroupId'])
+				session.add(new_exercise) 
+				session.commit()  
+				exercise_record = session.query(Exercise).filter_by(name=exercise['name']).first()
+				
+
+
+			weight = exercise['weight']
+			total_reps = exercise['totalReps']
+			if (total_reps == 0):
+				# skip exercises where no reps performed 
+				continue
+
+			# Set default weight of exercise in db to weight entered
+			# Used to auto fill the weight for that exercise next time it's chosen
+			exercise_record.default_weight = weight
+
 			# If the exercise exists, use its ID
 			exercise_id = exercise_record.id if exercise_record else 'na'
+
 			new_workout_entry = WorkoutEntry(
 				workout_date=exercise['date'],
 				muscle_group_id=exercise['muscleGroupId'],
@@ -212,12 +240,13 @@ def create_new_workout():
 				sets=exercise['sets'],
 				reps=','.join(map(str, exercise['reps'])), # Convert reps list to string
 				total_reps=exercise['totalReps'],  
-				weight=exercise['weight']
+				weight=exercise['weight'],
+				weight_reps_aggregate=(int(weight) * int(total_reps))
 			)
+			session.add(new_workout_entry)
 
-			session.add(new_workout_entry)  
 			session.commit()           
-		return jsonify({"message": "Exercise inserted successfully!"}), 201
+		return jsonify({"message": "Exercise(s) inserted successfully!"}), 201
 	
 	except Exception as e:
 		session.rollback()          # Rollback in case of error

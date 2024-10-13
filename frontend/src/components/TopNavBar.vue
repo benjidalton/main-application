@@ -32,7 +32,7 @@ const navBarStyle = computed(() => {
 			backgroundColor = 'black'
 			break;
 		default:
-			backgroundColor = 'rgb(62, 81, 121)'
+			backgroundColor = 'var(--top-bar-bg)'
 	}
 	return { backgroundColor};
 
@@ -181,7 +181,7 @@ watch(chosenColor , (color) => {
 					</v-container>
 				</v-menu>
 
-				<v-btn href="https://github.com/kcbdalton" target="_blank" icon color="rgb(224, 224, 224)">
+				<v-btn href="https://github.com/kcbdalton" target="_blank" icon color="var(--top-nav-bar-btn-font)">
 					<v-icon size="40px">
 						mdi-github 
 					</v-icon>
@@ -203,12 +203,14 @@ watch(chosenColor , (color) => {
 }
 
 #topNavBar {
-	background-color: rgb(62, 81, 121);
+	background-color: var(--top-bar-bg);
 	overflow: visible; 
 	z-index: 999;
 }
 .navbar-btn {
-	color: var(--primary-font-color);
+	margin: 5px;
+	background-color: var(--top-bar-btn);
+	color: var(--top-nav-bar-btn-font);
 }
 
 </style>

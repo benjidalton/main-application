@@ -1,5 +1,5 @@
 export class Exercise {
-	constructor(id, name, date, muscleGroupId, muscleGroup, sets, reps, totalReps, weight) {
+	constructor(id, name, date, muscleGroupId, muscleGroup, sets, reps, totalReps, weight, defaultWeight) {
 		this.id = id;
 		this.name = name;
 		this.date = date;
@@ -7,8 +7,9 @@ export class Exercise {
 		this.muscleGroup = muscleGroup;
 		this.sets = sets ? sets : 4;
 		this.reps = reps ? reps : ["", "", "", ""];
-		this.totalReps = totalReps;
-		this.weight = weight;
+		this.totalReps = totalReps ? totalReps : 0;
+		this.weight = weight ? weight : 0;
+		this.defaultWeight = defaultWeight ? defaultWeight : 0;
 		 // Initialize totalReps
     }
 

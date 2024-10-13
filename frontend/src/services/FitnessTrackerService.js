@@ -15,11 +15,32 @@ export async function getExercisesByMuscleGroup() {
 			},
 		})
 		.then((response) => {
-			response.data.forEach(item => {
-				const id = item.id;
-				const muscleGroupName = item.muscleGroupName;
-				const exercises = item.exercises ? item.exercises.split(',') : [];
-				muscleGroups.push(new MuscleGroup(id, muscleGroupName, exercises));
+			response.data.forEach(muscleGroup => {
+				// response is an array of muscle groups from db
+				const id = muscleGroup.id;
+				const muscleGroupName = muscleGroup.muscleGroupName;
+				const listExercises = muscleGroup.exerciseIds ? muscleGroup.exerciseIds.split(',') : [];
+				
+				// create a new instance of Exercise.js for each exercise for each muscle group
+				let muscleGroupExercises = []
+				listExercises.forEach((exerciseId, index) => {
+					let exerciseName = muscleGroup.exerciseNames.split(',')[index];
+					let defaultWeight = muscleGroup.defaultWeights.split(',')[index];
+					muscleGroupExercises.push(new Exercise(
+						exerciseId,
+						exerciseName,
+						null,
+						id,
+						muscleGroupName,
+						4,
+						["", "", "", ""],
+						null,
+						null,
+						defaultWeight
+					));
+
+				})
+				muscleGroups.push(new MuscleGroup(id, muscleGroupName, muscleGroupExercises));
 			})
 		})
 		.catch((error) => {
@@ -28,24 +49,24 @@ export async function getExercisesByMuscleGroup() {
 	return muscleGroups
 }
 
-export async function insertNewExercise(name, muscleGroupId) {
-	let appConnectorUrl = baseUrl + import.meta.env.VITE_INSERT_NEW_EXERCISE;
-	await axios
-		.post(appConnectorUrl, {
-			params: {
-				name: name,
-				muscleGroupId: muscleGroupId,
-				maxTimeToWaitSeconds: 30,
-				maxResultsToReturn: 500,
-			},
-		})
-		.then((response) => {
-			console.log('post response: ', response)
-		})
-		.catch((error) => {
-			console.log(error);
-		});
-}
+// export async function insertNewExercise(name, muscleGroupId) {
+// 	let appConnectorUrl = baseUrl + import.meta.env.VITE_INSERT_NEW_EXERCISE;
+// 	await axios
+// 		.post(appConnectorUrl, {
+// 			params: {
+// 				name: name,
+// 				muscleGroupId: muscleGroupId,
+// 				maxTimeToWaitSeconds: 30,
+// 				maxResultsToReturn: 500,
+// 			},
+// 		})
+// 		.then((response) => {
+// 			console.log('post response: ', response)
+// 		})
+// 		.catch((error) => {
+// 			console.log(error);
+// 		});
+// }
  
 export async function insertNewWorkout(workout) {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_INSERT_NEW_WORKOUT;
@@ -91,9 +112,7 @@ export async function selectWorkoutByDate(date) {
 					item.totalReps, 
 					item.weight
 				);
-				console.log('exercise: ', exercise)
 				exercises.push(exercise);
-
 			})
 		})
 		.catch((error) => {
@@ -138,8 +157,6 @@ export async function selectWorkoutByDateRange(minDate, maxDate) {
 		});
 	return exercises;
 }
-
-export const allMuscleGroups = await getExercisesByMuscleGroup();
 
 export async function getWorkouts(searchMuscleGroups, searchExercises, searchDates) {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_GET_WORKOUTS;

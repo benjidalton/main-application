@@ -2,10 +2,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 :root {
-	--custom-card-bg: 114, 182, 135;
+	--app-primary: 41, 68, 158;
 	--app-secondary: rgb(226, 15, 26);
 	--primary-font-color: rgb(224, 224, 224);
-	--custom-card-bg-opacity: rgba(var(--custom-card-bg), 0.2);
+	--custom-card-bg: rgb(var(--app-primary));
+	--custom-card-bg-opacity: rgba(var(--app-primary), 0.2);
+	
+	--top-bar-primary: 41, 68, 158;
+	--top-bar-bg: rgba(var(--top-bar-primary), 1);
+	--top-bar-btn: rgba(var(--top-bar-primary), 1);
+	--top-nav-bar-btn-font: rgb(255, 255, 255);
 }
 
 @media (prefers-color-scheme: dark) {

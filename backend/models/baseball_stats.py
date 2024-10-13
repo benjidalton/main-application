@@ -41,7 +41,6 @@ class PitchingPlayerStats(Base):
 	__tablename__ = 'pitching_player_stats'
 	
 	id = Column(Integer, primary_key=True)
-	stat_id = Column(Integer, ForeignKey('pitching_stats.id'))
 	player_id = Column(Integer, ForeignKey('players_new.id'))
 	wins = Column(Integer)
 	losses = Column(Integer)

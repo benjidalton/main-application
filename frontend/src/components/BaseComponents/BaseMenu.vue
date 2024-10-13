@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, computed } from 'vue';
-
+import { capitalizeWords } from '@/services/UtilService';
 const props = defineProps({
 	baseLabel: String,
 	menuItems: Array,
@@ -39,13 +39,6 @@ function onItemChosen(item) {
 
 function openDialog() {
 	emit('openDialog');
-}
-
-function capitalizeWords(string) {
-	return string
-		.split(' ') // Split the string into words
-		.map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word
-		.join(' '); // Join the words back into a single string
 }
 
 const dateFormat = computed(() => {
@@ -161,9 +154,10 @@ function handleSingleDate(date) {
 <style scoped>
 .custom-card {
 	cursor: pointer;
-	background-color: rgb(var(--custom-card-bg));
+	background-color: var(--custom-card-bg);
 	color: rgb(255, 255, 255);
 	padding: 5px;
+	z-index: 1;
 }
 .custom-card:hover {
 	transform: scale(110%);

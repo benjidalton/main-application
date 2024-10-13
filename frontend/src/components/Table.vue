@@ -15,18 +15,8 @@ onBeforeMount(() => {
 
 });
 
-const isBusy = ref(false);
 const search = ref('');
-const tableData = ref([]);
-const feedbackErrorMessage = ref('');
-const headers = ref([
-	{ key: 'refName', title: 'Team Name', align: 'center', sortable: false },
-	{ key: 'actions', title: 'Actions', align: 'center', sortable: false }
-]);
 
-function toggleDialog() {
-	dialog.value = !dialog.value;
-}
 
 
 </script>
@@ -46,42 +36,9 @@ function toggleDialog() {
 				<template v-slot:loading>
 					<v-skeleton-loader ></v-skeleton-loader>
 				</template>
-				<!-- <template v-slot:item="{ item }">
-					<tr>
-						<td>
-							<v-text-field
-								@click="console.log(item)"
-								
-								:value="item.name"
-								type="text"
-								hide-details
-							/>
-							<v-text-field
-								v-if="feedbackErrorMessage"
-								:value="feedbackErrorMessage"
-								disabled
-								error-messages
-								class="mt-2"
-							/>
-						</td>
-						<td>
-							<v-img :src="item.logoPath">
 
-							</v-img>
-						</td>
-						<td style="width: 10%;">
-							<v-chip
-								class="custom-chip"
-								small
-								color="red"
-								outlined
-							>
-							<v-icon icon="mdi-delete"/>
-						</v-chip>
-						</td>
-					</tr>
+				
 
-				</template> -->
 				<template v-slot:footer>
 					<v-row>
 						<v-col class="d-flex justify-end">

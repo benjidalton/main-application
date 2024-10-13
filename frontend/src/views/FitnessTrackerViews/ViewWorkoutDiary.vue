@@ -1,37 +1,38 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, inject } from 'vue';
 import BaseMenu from '@/components/BaseComponents/BaseMenu.vue';
-import WorkoutTable from '@/components/FitnessTrackerComponents/WorkoutTable.vue';
-import { 
-	getExercisesByMuscleGroup, 
-	allMuscleGroups, 
-	insertNewExercise, 
-	selectWorkoutByDate, 
-	selectWorkoutByDateRange,
-	getWorkouts
-} from '@/services/FitnessTrackerService';
+import { getWorkouts } from '@/services/FitnessTrackerService';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
+import { capitalizeWords } from '@/services/UtilService';
+import WorkoutTable from '@/components/FitnessTrackerComponents/WorkoutTable.vue';
+
+const allMuscleGroups = inject('allMuscleGroups');
+const searchResults = inject('searchResults');
 
 const loading = ref(false);
 const workoutDiary = ref([]);
 const exerciseMenuRef = ref(null);
 const muscleGroupRef = ref(null);
-const search = ref({'dates': null, 'muscleGroups': null, 'exercises': null})
+const search = ref({'dates': null, 'muscleGroups': null, 'exercises': null});
+const rawSearchResults = ref(null);
+const formattedSearchResults = ref(null);
 const currentMuscleGroup = ref('');
 const searchComplete = ref(false);
+
+
 const muscleGroupLabels = computed(() => {
-	return allMuscleGroups.map(muscleGroup =>  muscleGroup.name );
+	return allMuscleGroups.value.map(muscleGroup =>  muscleGroup.name );
 })
 
 const muscleGroupExercises = computed(() => {
 	if (currentMuscleGroup.value) {
-		const index = allMuscleGroups.findIndex(muscleGroup => 
+		const index = allMuscleGroups.value.findIndex(muscleGroup => 
 			
 			muscleGroup.name.toLowerCase() === currentMuscleGroup.value.toLowerCase()
 		);
 		if (index !== -1) {
 			// Return the exercises for the matching muscle group
-			return allMuscleGroups[index].exercises;
+			return allMuscleGroups.value[index].exercises;
 		}
 	} else {
 		return allExercises.value
@@ -40,20 +41,20 @@ const muscleGroupExercises = computed(() => {
 })
 
 const allExercises = computed(() => {
-    // Create an array to hold exercises for all muscle groups
-    const exercises = [];
-    // Loop through all muscle groups and gather their exercises
-    allMuscleGroups.forEach(muscleGroup => {
-        if (muscleGroup.exercises) {
-            exercises.push(...muscleGroup.exercises);
-        }
-    });
-    return exercises;
+	// Create an array to hold exercises for all muscle groups
+	const exercises = [];
+	// Loop through all muscle groups and gather their exercises
+	allMuscleGroups.value.forEach(muscleGroup => {
+		if (muscleGroup.exercises) {
+			exercises.push(...muscleGroup.exercises);
+		}
+	});
+	return exercises;
 });
 
 const isDiaryEmpty = computed(() => {
 	if (searchComplete.value) {
-		return workoutDiary.value.length === 0;
+		return formattedSearchResults.value.length === 0;
 	}
 });
 
@@ -63,16 +64,17 @@ function handleMuscleGroupChosen(muscleGroup) {
 }
 
 function handleExerciseChosen(exercise) {
+	console.log('exercise in handle exercise chosen:', exercise)
 	search.value.exercises = [exercise];
 }
 
 function handleAllExercisesChosen() {
-	const index = allMuscleGroups.findIndex(muscleGroup => 
+	const index = allMuscleGroups.value.findIndex(muscleGroup => 
 		muscleGroup.name.toLowerCase() === currentMuscleGroup.value.toLowerCase()
 	);
 	if (index !== -1) {
 		// Return the exercises for the matching muscle group
-		search.value.exercises = allMuscleGroups[index].exercises;
+		search.value.exercises = allMuscleGroups.value[index].exercises;
 	}
 }
 
@@ -82,7 +84,7 @@ function handleAllMuscleGroupsChosen() {
 }
 
 function handleDateChange(date) {
-	search.value.date = date; 
+	search.value.dates = date; 
 }
 
 async function commitSearch() {
@@ -109,11 +111,33 @@ async function commitSearch() {
 
 	currentMuscleGroup.value = '';
 	
-		// No date entered so search for all muscles
-	workoutDiary.value = await getWorkouts(searchMuscleGroups, searchExercises, searchDates);
+	rawSearchResults.value = await getWorkouts(searchMuscleGroups, searchExercises, searchDates);
+
+	
+	// Group exercises by date
+	let groupedExercisesByDate = [];
+	rawSearchResults.value.forEach(exercise => {
+		const date = exercise.date;
+
+		// Find if this date already exists in the groupedExercisesByDate array
+		const dateGroup = groupedExercisesByDate.find(group => group.date === date);
+
+		if (dateGroup) {
+			// If the date group exists, push the exercise into its exercises array
+			dateGroup.exercises.push(exercise);
+		} else {
+			// If the date group does not exist, create a new one
+			groupedExercisesByDate.push({
+				date: date,
+				exercises: [exercise]
+			});
+		}
+	});
+
+	formattedSearchResults.value = groupedExercisesByDate;
 
 	searchComplete.value = true;
-	search.value = {'dates': null, 'muscleGroups': allMuscleGroups, 'exercises': allExercises}
+	search.value = {'dates': null, 'muscleGroups': null, 'exercises': null}
 	loading.value = false;
 	return
 }
@@ -171,8 +195,46 @@ async function commitSearch() {
 			</v-row>
 		</v-container>
 		<LoadingIndicator v-if="loading" />
-		<WorkoutTable v-if="workoutDiary.length > 0" :items="workoutDiary"/>
-		
+
+		<v-expansion-panels style="margin-top: 40px; margin-bottom: 60px;" multiple>
+			<v-expansion-panel
+				v-for="(workout, index) in formattedSearchResults"
+				:title=workout.date
+			>
+				<v-expansion-panel-text class="panel-content">
+					<!-- <v-row align="center" v-for="(exercise, index2) in workout.exercises" style="justify-content: space-around; ">
+						<v-card width="100%" height="200px">
+							<v-card-title>
+								{{ capitalizeWords(exercise.name) }}: {{ exercise.weight }}
+								
+							</v-card-title>
+							<v-row justify="space-around">
+								<template  v-for="(repCount, index) in exercise.reps">
+									<v-card class="custom-number-input">
+										<v-card-title style="font">
+											Set {{ index + 1 }}
+										</v-card-title>
+										{{ exercise.reps[index] }}
+									</v-card>
+								</template>
+								<v-card class="custom-number-input">
+									<v-card-title>
+										Total Reps
+									</v-card-title>
+									{{ exercise.totalReps }}
+								</v-card>
+							</v-row>
+
+						</v-card>
+						
+						
+					</v-row> -->
+					<WorkoutTable v-if="formattedSearchResults" :items="workout.exercises"/>
+				</v-expansion-panel-text>
+			</v-expansion-panel>
+		</v-expansion-panels>
+
+
 		<v-empty-state
 	 		v-if="isDiaryEmpty"
 			icon="mdi-magnify"
@@ -204,15 +266,15 @@ async function commitSearch() {
 }
 
 .custom-number-input {
-	height: 110px;
+	height: 70px;
 	width: 130px;
 	margin-right: 20px;
 	
 }
 
 #search-btn {
-	background-color: rgb(var(--custom-card-bg));
-	color: rgb(255, 255, 255);
+	background-color: var(--top-bar-btn);
+	color: var(--top-nav-bar-btn-font);
 }
 
 </style>

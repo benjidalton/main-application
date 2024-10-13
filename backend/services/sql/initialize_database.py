@@ -7,19 +7,18 @@ load_dotenv()
 #----- custom imports ------+
 from services.sql.sql_alchemy_utility import create_db_session, Base
 from services.sql.sql_utility import execute_select_query 
-from models.baseball_stats import Player, Team, PlayerStats, PitchingStats
+from models.baseball_stats import Player, Team, PitchingPlayerStats, PitchingStats
 
 from models.fitness_tracker import MuscleGroup, Exercise, WorkoutEntry
 
 APP_ACCESS_FITNESS_DB = os.getenv("APP_ACCESS_FITNESS_DB")
 APP_ACCESS_BASEBALL_DB = os.getenv("APP_ACCESS_BASEBALL_DB")
 
-engine, Session = create_db_session(APP_ACCESS_BASEBALL_DB)
+fitness_db_engine, fitness_db_session = create_db_session(APP_ACCESS_FITNESS_DB)
+baseball_db_engine, baseball_db_session = create_db_session(APP_ACCESS_BASEBALL_DB)
 
 
-
-
-def add_to_session(items, table_name):
+def add_to_session(Session, items, table_name):
 	session = Session()
 	session.add_all(items)
 
@@ -36,20 +35,32 @@ def add_to_session(items, table_name):
 # Baseball database
 
 def create_baseball_tables():
-	with engine.connect() as connection:
+	with baseball_db_engine.connect() as connection:
 		# Drop the table if it exists
 		connection.execute(text("SET FOREIGN_KEY_CHECKS = 0")) # ignore foreign key checks when deleting tables
 
 		connection.execute(text("DROP TABLE IF EXISTS players_new"))
 		connection.execute(text("DROP TABLE IF EXISTS teams_new"))
 		connection.execute(text("DROP TABLE IF EXISTS pitching_stats"))
-
+		connection.execute(text("DROP TABLE IF EXISTS pitching_player_stats"))
 		connection.execute(text("SET FOREIGN_KEY_CHECKS = 1"))
+		
 		print("Tables dropped if they existed.")
 
-		# Create the tables
-		Base.metadata.create_all(engine)
+		# Create the only the tables you want for this database
+		# The Base object has all the tables in every database so you need to specific which tables when initalizing the db
+		Base.metadata.create_all(baseball_db_engine, tables=[
+		    Player.__table__,
+		    Team.__table__,
+		    PitchingStats.__table__,
+		    PitchingPlayerStats.__table__
+		])
+
 		print("Tables created successfully!")
+
+	import_teams_to_new_db()
+	import_players_to_new_db()
+	import_pitching_stats_to_new_db()
 
 def initialize_pitching_stats_table():
 
@@ -85,7 +96,7 @@ def initialize_pitching_stats_table():
 		PitchingStats('strikeout_walk_ratio')
 	]
 
-	add_to_session(pitching_stats, 'pitching_stats')
+	add_to_session(baseball_db_session, pitching_stats, 'pitching_stats')
 
 def import_players_to_new_db():
 	select_query = """ select * from players """
@@ -93,15 +104,15 @@ def import_players_to_new_db():
 	data = execute_select_query(APP_ACCESS_BASEBALL_DB, select_query, [])
 	players = [Player(player['name'], player['teamId'], player['baseballReferenceUrl'], player['pitcher']) for player in data['items']]
 
-	add_to_session(players, 'players_new')
+	add_to_session(baseball_db_session, players, 'players_new')
 
 def import_teams_to_new_db():
 	select_query = """ select * from teams """
 	
 	data = execute_select_query(APP_ACCESS_BASEBALL_DB, select_query, [])
-	teams = [Team(team['name'], team['league'], team['division'], team['baseball_referenceUrl'], team['logo_ame']) for team in data['items']]
+	teams = [Team(team['name'], team['league'], team['division'], team['baseballReferenceUrl'], team['logoName']) for team in data['items']]
 	
-	add_to_session(teams, 'teams_new')
+	add_to_session(baseball_db_session, teams, 'teams_new')
 
 def import_pitching_stats_to_new_db():
 	select_query = """
@@ -138,12 +149,14 @@ def import_pitching_stats_to_new_db():
 			strikeoutsWalkRatio
 
 		from playerstats
+		JOIN players ON playerstats.playerId = players.id
+		WHERE players.pitcher = 1;
 	"""
 
 	data = execute_select_query(APP_ACCESS_BASEBALL_DB, select_query, [])
 	stats = []
 	for stat in data['items']:
-		stats.append(PlayerStats(
+		stats.append(PitchingPlayerStats(
 			player_id=stat['playerId'],
 			wins=stat['wins'],
 			losses=stat['losses'],
@@ -176,13 +189,13 @@ def import_pitching_stats_to_new_db():
 			strikeout_walk_ratio=stat['strikeoutsWalkRatio']
 		))
 
-		add_to_session(stats, PlayerStats)
+		add_to_session(baseball_db_session, stats, 'PitchingPlayerStats')
 
 
 # Fitness database
 
 def create_fitness_tables():
-	with engine.connect() as connection:
+	with fitness_db_engine.connect() as connection:
 		# Drop the table if it exists
 		connection.execute(text("SET FOREIGN_KEY_CHECKS = 0")) # ignore foreign key checks when deleting tables
 
@@ -193,10 +206,17 @@ def create_fitness_tables():
 		connection.execute(text("SET FOREIGN_KEY_CHECKS = 1"))
 		print("Tables dropped if they existed.")
 
-		# Create the tables
-		Base.metadata.create_all(engine)
+		# Create the only the tables you want for this database
+		# The Base object has all the tables in every database so you need to specific which tables when initalizing the db
+		Base.metadata.create_all(fitness_db_engine, tables=[
+		    MuscleGroup.__table__,
+		    Exercise.__table__,
+		    WorkoutEntry.__table__
+		])
 		print("Tables created successfully!")
-
+	
+	insert_muscle_groups()
+	insert_exercises()
 
 def insert_exercises():
 
@@ -235,7 +255,7 @@ def insert_exercises():
 	]
 
 	# Add the exercises to the session
-	add_to_session(exercises, 'exercises')
+	add_to_session(fitness_db_session, exercises, 'exercises')
 
 def insert_muscle_groups():
 	# Define muscle groups to insert
@@ -248,23 +268,12 @@ def insert_muscle_groups():
 		MuscleGroup(name='Legs'),
 	]
 
-	add_to_session(muscle_groups, 'muscle_groups')
-
-
+	add_to_session(fitness_db_session, muscle_groups, 'muscle_groups')
 
 
 def main():
-
-	return	
+	create_fitness_tables()
 	# create_baseball_tables()
-	# initialize_pitching_stats_table()
-	# import_teams_to_new_db()
-	# import_players_to_new_db()
-	# import_pitching_stats_to_new_db()
-	
-
-
-
 
 
 if __name__ == "__main__":

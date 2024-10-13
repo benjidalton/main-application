@@ -1,37 +1,23 @@
 <script setup>
 import { ref } from 'vue';
-import WorkoutTable from '@/components/FitnessTrackerComponents/WorkoutTable.vue';
 import AddExercise from '@/components/FitnessTrackerComponents/AddExercise.vue';
-import { insertNewWorkout } from '@/services/FitnessTrackerService';
 
-const exercises = ref([]);
+const successMessage = ref('Workout saved successfully!');
+const snackbarVisible = ref(false);
 
-function handleNewExercise(exercise) {
-	exercises.value.push(exercise);
-}
-
-function handleWorkoutSubmit() {
-	console.log('workout submitted', exercises.value)
-	exercises.value.forEach(exercise => {
-		exercise.calculateTotalReps()
-	})
-	insertNewWorkout(exercises.value)
-
-	exercises.value = [];
+function handleSuccessMessage() {
+	snackbarVisible.value = true;
 }
 
 </script>
 
 <template>
   	<v-container id="exercise-entry-container">
-		<AddExercise @newExercise="handleNewExercise"/>
+		<AddExercise  @successMessage="handleSuccessMessage"/>
 
-		<template v-if="exercises.length > 0">
-			<WorkoutTable :items="exercises"/>
-			<v-btn @click="handleWorkoutSubmit">
-				Save Workout
-			</v-btn>
-		</template>
+		<v-snackbar v-model="snackbarVisible" color="success" timeout="3000">
+			{{ successMessage }}
+		</v-snackbar>
 		
 	</v-container>
 
