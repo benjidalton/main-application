@@ -5,6 +5,7 @@ import { getWorkouts } from '@/services/FitnessTrackerService';
 import LoadingIndicator from '@/components/LoadingIndicator.vue';
 import { capitalizeWords } from '@/services/UtilService';
 import WorkoutTable from '@/components/FitnessTrackerComponents/WorkoutTable.vue';
+import CustomChart from '@/components/CustomChart.vue';
 
 const allMuscleGroups = inject('allMuscleGroups');
 const searchResults = inject('searchResults');
@@ -230,6 +231,7 @@ async function commitSearch() {
 						
 					</v-row> -->
 					<WorkoutTable v-if="formattedSearchResults" :items="workout.exercises"/>
+					<CustomChart :data="workout.exercises"/>
 				</v-expansion-panel-text>
 			</v-expansion-panel>
 		</v-expansion-panels>

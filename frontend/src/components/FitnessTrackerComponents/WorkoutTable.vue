@@ -79,6 +79,9 @@ function hideChart() {
 				</template>
 			</tr>
 		</template>	
+		<template v-slot:item.exercise="{ item }">
+			{{ capitalizeWords(item.exercise) }}
+		</template>
 		<template v-slot:item.actions="{ item }">
 			<v-card id="graph-icon" @mouseover="(event) => createGraph(item, event)" @mouseleave="hideChart" >
 					<v-icon icon="mdi-chart-areaspline-variant" />

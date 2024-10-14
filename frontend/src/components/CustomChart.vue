@@ -23,8 +23,9 @@ watch(() => props.data, (newData) => {
 
 
 function createChart(newSearch) {
-	chartOptions.value = createChartOptions();
 	chartData.value = createChartData(newSearch)
+	chartOptions.value = createChartOptions(chartData.value.yMax);
+	
 }
 
 
