@@ -70,6 +70,7 @@ export async function getExercisesByMuscleGroup() {
  
 export async function insertNewWorkout(workout) {
 	let appConnectorUrl = baseUrl + import.meta.env.VITE_INSERT_NEW_WORKOUT;
+	console.log('workout when inserting new workout', workout)
 	await axios
 		.post(appConnectorUrl, {
 			params: {

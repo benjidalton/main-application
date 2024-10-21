@@ -13,6 +13,7 @@ const props = defineProps({
 
 const chartData = ref(null);
 const chartOptions = ref(null);
+const displayValues = ref(false);
 
 watch(() => props.data, (newData) => {
 	if (newData) {
@@ -21,19 +22,27 @@ watch(() => props.data, (newData) => {
     
 }, { immediate: true });
 
+watch(displayValues, () => {
+	createChart()
+})
 
-function createChart(newSearch) {
-	chartData.value = createChartData(newSearch)
-	chartOptions.value = createChartOptions(chartData.value.yMax);
+async function createChart(newSearch) {
+	if (newSearch && chartData.value == null) {
+		chartData.value = createChartData(newSearch)
+	}
 	
+	chartOptions.value = createChartOptions(chartData.value.yMax, chartData.value.length, displayValues.value); // pass length of data to generate second x axis
 }
-
 
 </script>
 
 
 <template>
-	<Line v-if="chartData" :data="chartData" :options="chartOptions"/>
+	<v-container>
+		<v-checkbox v-model="displayValues" label="Show Values" />
+		<Line v-if="chartData" :data="chartData" :options="chartOptions"/>
+	</v-container>
+	
 
 </template>
 

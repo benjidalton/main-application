@@ -137,6 +137,8 @@ async function commitSearch() {
 
 	formattedSearchResults.value = groupedExercisesByDate;
 
+	console.log('formatted data: ', formattedSearchResults.value)
+
 	searchComplete.value = true;
 	search.value = {'dates': null, 'muscleGroups': null, 'exercises': null}
 	loading.value = false;

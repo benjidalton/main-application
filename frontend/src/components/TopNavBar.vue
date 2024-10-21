@@ -22,7 +22,7 @@ const gameRoutes = ref([
 ])
 
 onMounted(()=> {
-	console.log('router', router.currentRoute.value.fullPath)
+	console.log('current path: ', router.currentRoute.value.fullPath)
 })
 const navBarStyle = computed(() => {
 	let backgroundColor;

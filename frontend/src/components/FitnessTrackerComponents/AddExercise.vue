@@ -181,7 +181,7 @@ function saveExercise() {
 								<v-card-title>
 									Weight
 								</v-card-title>
-								<!-- <v-text-field 
+								<v-text-field 
 								v-model="exercise.weight"
 								type="number"
 								bg-color="inherit"
@@ -189,15 +189,15 @@ function saveExercise() {
 								variant="solo"
 								:disabled="exercise.muscleGroup || exercise.name ? false: true"
 								:placeholder="exercise.defaultWeight"
-								/> -->
-								<v-text-field 
+								/>
+								<!-- <v-text-field 
 									type="number"
 									bg-color="inherit"
 									style="padding: 0px 10px 0px 10px; "
 									variant="solo"
 									:disabled="exercise.muscleGroup || exercise.name ? false: true"
 									:placeholder="exercise.defaultWeight"
-								/>
+								/> -->
 							</v-card>
 
 						</v-col>

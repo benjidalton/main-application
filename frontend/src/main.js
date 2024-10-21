@@ -17,7 +17,6 @@ const searchResults = ref('');
 
 async function fetchMuscleGroups() {
 	allMuscleGroups.value = await getExercisesByMuscleGroup();
-	console.log('all muscle groups in main js: ', allMuscleGroups.value)
 }
 
 await fetchMuscleGroups();

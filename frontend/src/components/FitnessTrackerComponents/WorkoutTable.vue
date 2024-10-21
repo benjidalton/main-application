@@ -16,8 +16,7 @@ watch((props.items), newValues => {
 
 const search = ref('');
 const chartData = ref([]);
-const mousePosition = ref({x: 0, y: 0});
-const displayChart = ref(false);
+
 const headers = ref([
 	{ text: 'Muscle Group', value: 'muscleGroup' },
 	{ text: 'Exercise', value: 'name' },
@@ -32,31 +31,10 @@ const headers = ref([
 		]
 	},
 	{ text: 'Weight (lb)', value: 'weight' },
-	{ text: 'Actions', value: 'actions', sortable: false }
 ])
-
-const chartStyle = computed(() => ({
-	display: displayChart.value,
-	position: 'absolute',
-	left: `${mousePosition.value.x}px`,
-	top: `${mousePosition.value.y}px`,
-	zIndex: 1000,
-}));
-
 
 function handleSearch(newSearch) {
 	search.value = newSearch;
-}
-
-function createGraph(newData, event) {
-	mousePosition.value.x = event.clientX + 10;
-	mousePosition.value.y = event.clientY - 100;
-	chartData.value = newData;
-	displayChart.value = 'block';
-
-}
-function hideChart() {
-	chartData.value = null;
 }
 
 </script>
@@ -69,6 +47,7 @@ function hideChart() {
 		class="elevation-1"
 		:search="search"
 		@click="console.log('items', items)"
+		item-value="value"
 	>
 		<template v-slot:headers="{ columns }" >
 			<tr id="header-row" >
@@ -79,15 +58,9 @@ function hideChart() {
 				</template>
 			</tr>
 		</template>	
-		<template v-slot:item.exercise="{ item }">
-			{{ capitalizeWords(item.exercise) }}
+		<template v-slot:item.name="{ item }">
+			{{ capitalizeWords(item.name) }}
 		</template>
-		<template v-slot:item.actions="{ item }">
-			<v-card id="graph-icon" @mouseover="(event) => createGraph(item, event)" @mouseleave="hideChart" >
-					<v-icon icon="mdi-chart-areaspline-variant" />
-			</v-card>
-			
-		</template> 
 		<template v-slot:footer>
 			<v-row>
 				<v-col class="d-flex justify-end">
@@ -97,7 +70,7 @@ function hideChart() {
 		</template>
 	</v-data-table>
 
-	<div v-if="chartData" class="chart-popup" :style="chartStyle">
+	<div v-if="chartData" class="chart-popup" >
 	    <!-- Your chart implementation goes here -->
 	    <CustomChart :data="chartData" />
 	  </div>
